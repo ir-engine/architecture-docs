@@ -1,0 +1,173 @@
+# Archbee Configuration for iR Engine Architecture Documentation
+# This file configures how the documentation is imported and displayed in Archbee
+
+# Basic project information
+name: "iR Engine Architecture Documentation"
+description: "Comprehensive architecture documentation for the Infinite Reality Engine (iR Engine) covering core components, systems, and specialized modules."
+
+# Documentation source configuration
+source:
+  # Root directory containing the documentation
+  path: "docs"
+  
+  # File patterns to include
+  include:
+    - "**/*.md"
+  
+  # File patterns to exclude
+  exclude:
+    - "node_modules/**"
+    - ".git/**"
+    - "output/**"
+    - "*.pyc"
+    - "__pycache__/**"
+
+# Documentation structure and navigation
+structure:
+  # Main landing page
+  index: "docs/index.md"
+  
+  # Navigation structure following the numbered directory hierarchy
+  navigation:
+    - title: "Getting Started"
+      items:
+        - title: "Overview"
+          path: "docs/index.md"
+        - title: "About iR Engine"
+          path: "docs/about.md"
+        - title: "Learning Paths"
+          path: "docs/learning-paths.md"
+    
+    - title: "Core Components"
+      items:
+        - title: "Core Engine"
+          path: "docs/01-core-engine/index.md"
+        - title: "Entity Component System"
+          path: "docs/02-entity-component-system/index.md"
+        - title: "Networking"
+          path: "docs/03-networking/index.md"
+        - title: "Client Core"
+          path: "docs/04-client-core/index.md"
+        - title: "Server Core"
+          path: "docs/05-server-core/index.md"
+    
+    - title: "Specialized Components"
+      items:
+        - title: "Physics and Spatial Systems"
+          path: "docs/06-physics-and-spatial-systems/index.md"
+        - title: "Input and Interaction"
+          path: "docs/07-input-and-interaction/index.md"
+        - title: "UI Framework"
+          path: "docs/08-ui-framework/index.md"
+        - title: "Visual Scripting"
+          path: "docs/09-visual-scripting/index.md"
+        - title: "World Editor"
+          path: "docs/10-world-editor/index.md"
+        - title: "Multiplayer Infrastructure"
+          path: "docs/11-multiplayer-infrastructure/index.md"
+        - title: "Matchmaking System"
+          path: "docs/12-matchmaking-system/index.md"
+        - title: "Background Processing"
+          path: "docs/13-background-processing/index.md"
+
+# Archbee-specific settings
+settings:
+  # Enable automatic sync from GitHub
+  auto_sync: true
+  
+  # Sync frequency (when changes are detected)
+  sync_frequency: "on_push"
+  
+  # Branch to sync from
+  branch: "main"
+  
+  # Enable search indexing
+  search_indexing: true
+  
+  # Enable table of contents generation
+  generate_toc: true
+  
+  # Enable code syntax highlighting
+  syntax_highlighting: true
+  
+  # Theme settings
+  theme:
+    # Use dark theme as preferred (matching our documentation design)
+    default_mode: "dark"
+    # Allow users to toggle between light and dark
+    allow_mode_toggle: true
+
+# Metadata for better organization in Archbee
+metadata:
+  # Tags for categorization
+  tags:
+    - "architecture"
+    - "ir-engine"
+    - "documentation"
+    - "game-engine"
+    - "multiplayer"
+    - "webrtc"
+    - "entity-component-system"
+    - "typescript"
+  
+  # Category in Archbee workspace
+  category: "Technical Documentation"
+  
+  # Version information
+  version: "1.0.0"
+  
+  # Last updated (will be automatically updated by Archbee)
+  last_updated: "auto"
+
+# Custom styling to match our documentation design
+styling:
+  # Custom CSS for better integration
+  custom_css: |
+    /* Match the card styling from our documentation */
+    .archbee-content .card {
+      background: linear-gradient(135deg, #2a2a2a, #1f1f1f);
+      border: 1px solid #404040;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 16px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Ensure proper dark mode styling */
+    .archbee-content {
+      color: #ffffff;
+      background: #1a1a1a;
+    }
+    
+    /* Style for component icons */
+    .component-icon {
+      font-size: 2em;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+# Integration settings
+integration:
+  # GitHub repository information
+  repository:
+    owner: "ir-engine"
+    name: "architecture-docs"
+    branch: "main"
+  
+  # Webhook settings for automatic updates
+  webhooks:
+    enabled: true
+    events:
+      - "push"
+      - "pull_request"
+  
+  # Access permissions
+  access:
+    # Public documentation (adjust as needed)
+    visibility: "public"
+    
+    # Allow comments and feedback
+    allow_comments: true
+    
+    # Enable collaborative editing
+    collaborative_editing: false

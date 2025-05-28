@@ -1,18 +1,18 @@
-# iR Engine documentation generator
+# iR Engine architecture documentation
 
-This repository contains comprehensive documentation for the Infinite Reality Engine (iR Engine) codebase, along with the tools used to generate it. The documentation is designed to help developers understand the architecture and core concepts of the iR Engine.
+This repository contains the official architecture documentation for the Infinite Reality Engine (iR Engine), along with the tools used to generate and maintain it. The documentation provides comprehensive coverage of the engine's architecture, core concepts, and component relationships.
 
 ## Documentation overview
 
-The iR Engine documentation is located in the [docs](./docs/) directory and includes:
+The iR Engine architecture documentation is located in the [docs](./docs/) directory and includes:
 
-- Core engine components
-- Entity component system
+- Core engine components and foundational systems
+- Entity component system architecture
 - Networking and multiplayer infrastructure
 - Client and server implementations
-- Specialized components like physics, input, UI, and more
+- Specialized components including physics, input, UI, visual scripting, and more
 
-[Explore the iR Engine documentation →](./docs/index.md)
+[📖 Explore the iR Engine architecture documentation →](./docs/index.md)
 
 ## Documentation structure
 
@@ -52,11 +52,12 @@ This documentation was created using PocketFlow, a documentation generator tool 
 
 ## Getting started with the documentation generator
 
-If you want to generate documentation for additional components or features:
+If you want to generate documentation for additional iR Engine components or update existing documentation:
 
 1. Clone this repository
    ```bash
-   git clone https://github.com/your-company/iR-Engine-Documentation
+   git clone https://github.com/ir-engine/architecture-docs.git
+   cd architecture-docs
    ```
 
 2. Install dependencies:
@@ -77,19 +78,19 @@ If you want to generate documentation for additional components or features:
 
    The `.env` file is included in `.gitignore` so your API key won't be uploaded to GitHub.
 
-4. Generate documentation for a component:
+4. Generate documentation for an iR Engine component:
    ```bash
-   # Analyze a local directory
-   python main.py --dir /path/to/component --include "*.ts" "*.tsx" "*.js" "*.jsx" "*.go" --exclude "node_modules/*" "tests/*" "dist/*" --name "iR Engine - Component Name" --output output --max-abstractions 8
+   # Example: Analyze a specific iR Engine package
+   python main.py --dir /path/to/ir-engine/packages/engine --include "*.ts" "*.tsx" "*.js" "*.jsx" --exclude "node_modules/*" "tests/*" "dist/*" --name "iR Engine - Engine Core" --output output --max-abstractions 8
    ```
 
 5. Move the generated documentation to the docs directory:
    ```bash
-   # Copy the generated documentation to the docs directory
+   # Copy the generated documentation to the appropriate numbered directory
    cp -r output/* docs/
    ```
 
-6. Update the following files to include links to the new documentation:
+6. Update the navigation files to include links to the new documentation:
    - `docs/index.md` - Add a visual card for the new component
    - `docs/about.md` - Add the component to the architecture overview
    - `docs/learning-paths.md` - Add the component to relevant learning paths
@@ -113,27 +114,38 @@ For more detailed information about using the documentation generator, including
 
 ## Running with Docker
 
-To run this project in a Docker container:
+To run the documentation generator in a Docker container:
 
 1. Build the Docker image
    ```bash
-   docker build -t ir-engine-docs-generator .
+   docker build -t ir-engine-architecture-docs .
    ```
 
-2. Run the container
+2. Run the container to generate documentation for iR Engine components
    ```bash
    # Load environment variables from .env file
    docker run -it --rm \
      --env-file .env \
-     -v "/path/to/your/component":/app/code_to_analyze \
+     -v "/path/to/ir-engine/packages/component":/app/code_to_analyze \
      -v "$(pwd)/output":/app/output \
-     ir-engine-docs-generator --dir /app/code_to_analyze
+     ir-engine-architecture-docs --dir /app/code_to_analyze
    ```
 
 ## Acknowledgments
 
-This documentation generator is based on [PocketFlow Tutorial Codebase Knowledge](https://github.com/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge), a tool that uses AI to analyze codebases and generate comprehensive documentation.
+This documentation and generation tooling is based on [PocketFlow Tutorial Codebase Knowledge](https://github.com/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge), an AI-powered tool for analyzing codebases and generating comprehensive documentation.
+
+## Contributing
+
+To contribute to the iR Engine architecture documentation:
+
+1. Fork this repository
+2. Create a feature branch for your documentation updates
+3. Generate or update documentation using the included tools
+4. Submit a pull request with your changes
+
+For questions about the iR Engine architecture or to request documentation for specific components, please open an issue.
 
 ## License
 
-This documentation inherits the license of the iR Engine project (CPAL).
+This documentation inherits the license of the iR Engine project (CPAL). The documentation generation tools maintain their original licensing from the PocketFlow project.

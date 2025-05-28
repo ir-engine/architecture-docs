@@ -1,182 +1,139 @@
-<h1 align="center">Turns Codebase into Easy Tutorial with AI</h1>
+# iR Engine documentation generator
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
- <a href="https://discord.gg/hUHHE9Sa6T">
-    <img src="https://img.shields.io/discord/1346833819172601907?logo=discord&style=flat">
-</a>
-> *Ever stared at a new codebase written by others feeling completely lost? This tutorial shows you how to build an AI agent that analyzes GitHub repositories and creates beginner-friendly tutorials explaining exactly how the code works.*
+This repository contains comprehensive documentation for the Infinite Reality Engine (iR Engine) codebase, along with the tools used to generate it. The documentation is designed to help developers understand the architecture and core concepts of the iR Engine.
 
-<p align="center">
-  <img
-    src="./assets/banner.png" width="800"
-  />
-</p>
+## Documentation overview
 
-This is a tutorial project of [Pocket Flow](https://github.com/The-Pocket/PocketFlow), a 100-line LLM framework. It crawls GitHub repositories and builds a knowledge base from the code. It analyzes entire codebases to identify core abstractions and how they interact, and transforms complex code into beginner-friendly tutorials with clear visualizations.
+The iR Engine documentation is located in the [docs](./docs/) directory and includes:
 
-- Check out the [YouTube Development Tutorial](https://youtu.be/AFY67zOpbSo) for more!
+- Core engine components
+- Entity component system
+- Networking and multiplayer infrastructure
+- Client and server implementations
+- Specialized components like physics, input, UI, and more
 
-- Check out the [Substack Post Tutorial](https://zacharyhuang.substack.com/p/ai-codebase-knowledge-builder-full) for more!
+[Explore the iR Engine documentation →](./docs/index.md)
 
-&nbsp;&nbsp;**🔸 🎉 Reached Hacker News Front Page** (April 2025) with >900 up‑votes:  [Discussion »](https://news.ycombinator.com/item?id=43739456)
+## Documentation structure
 
-&nbsp;&nbsp;**🔸 🎊 Online Service Now Live!** (May&nbsp;2025) Try our new online version at [https://code2tutorial.com/](https://code2tutorial.com/) – just paste a GitHub link, no installation needed!
+The documentation is organized into two main categories:
 
-## ⭐ Example Results for Popular GitHub Repositories!
+1. **Core components** - Fundamental architecture and systems of the iR Engine
+2. **Specialized components** - Deeper technical insights into specific subsystems
 
-<p align="center">
-    <img
-      src="./assets/example.png" width="600"
-    />
-</p>
+Each section contains:
+- An overview of the component
+- A diagram showing relationships between key abstractions
+- Detailed chapters explaining each core concept
+- Code examples and explanations
 
-🤯 All these tutorials are generated **entirely by AI** by crawling the GitHub repo!
+## How to use the documentation
 
-- [AutoGen Core](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/AutoGen%20Core) - Build AI teams that talk, think, and solve problems together like coworkers!
+### Option 1: View markdown files directly
 
-- [Browser Use](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/Browser%20Use) - Let AI surf the web for you, clicking buttons and filling forms like a digital assistant!
+You can browse the documentation directly by opening the Markdown files in any Markdown viewer:
 
-- [Celery](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/Celery) - Supercharge your app with background tasks that run while you sleep!
+1. Start with `docs/index.md` for a visual overview and navigation
+2. Explore `docs/about.md` for information about iR Engine features
+3. Check `docs/learning-paths.md` for guided learning experiences
+4. Navigate to specific components by following the links
 
-- [Click](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/Click) - Turn Python functions into slick command-line tools with just a decorator!
+### Option 2: Host on a web server
 
-- [Codex](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/Codex) - Turn plain English into working code with this AI terminal wizard!
+For team access, you can host these files on any web server or Static Site Generator (SSG).
 
-- [Crawl4AI](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/Crawl4AI) - Train your AI to extract exactly what matters from any website!
+## Documentation generator tool
 
-- [CrewAI](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/CrewAI) - Assemble a dream team of AI specialists to tackle impossible problems!
+This documentation was created using PocketFlow, a documentation generator tool that:
 
-- [DSPy](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/DSPy) - Build LLM apps like Lego blocks that optimize themselves!
+1. Analyzes codebases to identify key abstractions
+2. Determines relationships between components
+3. Creates beginner-friendly tutorials explaining how the code works
 
-- [FastAPI](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/FastAPI) - Create APIs at lightning speed with automatic docs that clients will love!
+## Getting started with the documentation generator
 
-- [Flask](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/Flask) - Craft web apps with minimal code that scales from prototype to production!
-
-- [Google A2A](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/Google%20A2A) - The universal language that lets AI agents collaborate across borders!
-
-- [LangGraph](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/LangGraph) - Design AI agents as flowcharts where each step remembers what happened before!
-
-- [LevelDB](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/LevelDB) - Store data at warp speed with Google's engine that powers blockchains!
-
-- [MCP Python SDK](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/MCP%20Python%20SDK) - Build powerful apps that communicate through an elegant protocol without sweating the details!
-
-- [NumPy Core](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/NumPy%20Core) - Master the engine behind data science that makes Python as fast as C!
-
-- [OpenManus](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/OpenManus) - Build AI agents with digital brains that think, learn, and use tools just like humans do!
-
-- [PocketFlow](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/PocketFlow) - 100-line LLM framework. Let Agents build Agents!
-
-- [Pydantic Core](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/Pydantic%20Core) - Validate data at rocket speed with just Python type hints!
-
-- [Requests](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/Requests) - Talk to the internet in Python with code so simple it feels like cheating!
-
-- [SmolaAgents](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/SmolaAgents) - Build tiny AI agents that punch way above their weight class!
-
-- Showcase Your AI-Generated Tutorials in [Discussions](https://github.com/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge/discussions)!
-
-## 🚀 Getting Started
+If you want to generate documentation for additional components or features:
 
 1. Clone this repository
    ```bash
-   git clone https://github.com/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge
+   git clone https://github.com/your-company/iR-Engine-Documentation
    ```
 
-3. Install dependencies:
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Set up LLM in [`utils/call_llm.py`](./utils/call_llm.py) by providing credentials. By default, you can use the [AI Studio key](https://aistudio.google.com/app/apikey) with this client for Gemini Pro 2.5:
-
-   ```python
-   client = genai.Client(
-     api_key=os.getenv("GEMINI_API_KEY", "your-api_key"),
-   )
-   ```
-
-   You can use your own models. We highly recommend the latest models with thinking capabilities (Claude 3.7 with thinking, O1). You can verify that it is correctly set up by running:
+3. Set up your API key in the `.env` file:
    ```bash
-   python utils/call_llm.py
+   # Copy the sample environment file
+   cp .env.sample .env
+
+   # Edit the .env file and add your API key
+   # Replace "<GEMINI_API_KEY>" with your actual Gemini API key
    ```
 
-5. Generate a complete codebase tutorial by running the main script:
-    ```bash
-    # Analyze a GitHub repository
-    python main.py --repo https://github.com/username/repo --include "*.py" "*.js" --exclude "tests/*" --max-size 50000
+   You can get a Gemini API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
 
-    # Or, analyze a local directory
-    python main.py --dir /path/to/your/codebase --include "*.py" --exclude "*test*"
+   The `.env` file is included in `.gitignore` so your API key won't be uploaded to GitHub.
 
-    # Or, generate a tutorial in Chinese
-    python main.py --repo https://github.com/username/repo --language "Chinese"
-    ```
+4. Generate documentation for a component:
+   ```bash
+   # Analyze a local directory
+   python main.py --dir /path/to/component --include "*.ts" "*.tsx" "*.js" "*.jsx" "*.go" --exclude "node_modules/*" "tests/*" "dist/*" --name "iR Engine - Component Name" --output output --max-abstractions 8
+   ```
 
-    - `--repo` or `--dir` - Specify either a GitHub repo URL or a local directory path (required, mutually exclusive)
-    - `-n, --name` - Project name (optional, derived from URL/directory if omitted)
-    - `-t, --token` - GitHub token (or set GITHUB_TOKEN environment variable)
-    - `-o, --output` - Output directory (default: ./output)
-    - `-i, --include` - Files to include (e.g., "`*.py`" "`*.js`")
-    - `-e, --exclude` - Files to exclude (e.g., "`tests/*`" "`docs/*`")
-    - `-s, --max-size` - Maximum file size in bytes (default: 100KB)
-    - `--language` - Language for the generated tutorial (default: "english")
-    - `--max-abstractions` - Maximum number of abstractions to identify (default: 10)
-    - `--no-cache` - Disable LLM response caching (default: caching enabled)
+5. Move the generated documentation to the docs directory:
+   ```bash
+   # Copy the generated documentation to the docs directory
+   cp -r output/* docs/
+   ```
 
-The application will crawl the repository, analyze the codebase structure, generate tutorial content in the specified language, and save the output in the specified directory (default: ./output).
+6. Update the following files to include links to the new documentation:
+   - `docs/index.md` - Add a visual card for the new component
+   - `docs/about.md` - Add the component to the architecture overview
+   - `docs/learning-paths.md` - Add the component to relevant learning paths
 
+## Command line options
 
-<details>
- 
-<summary> 🐳 <b>Running with Docker</b> </summary>
+The documentation generator supports the following command line options:
 
-To run this project in a Docker container, you'll need to pass your API keys as environment variables. 
+- `--repo` or `--dir` - Specify either a GitHub repo URL or a local directory path (required, mutually exclusive)
+- `-n, --name` - Project name (optional, derived from URL/directory if omitted)
+- `-t, --token` - GitHub token (or set GITHUB_TOKEN environment variable)
+- `-o, --output` - Output directory (default: ./output)
+- `-i, --include` - Files to include (e.g., "`*.py`" "`*.js`")
+- `-e, --exclude` - Files to exclude (e.g., "`tests/*`" "`docs/*`")
+- `-s, --max-size` - Maximum file size in bytes (default: 100KB)
+- `--language` - Language for the generated documentation (default: "english")
+- `--max-abstractions` - Maximum number of abstractions to identify (default: 10)
+- `--no-cache` - Disable LLM response caching (default: caching enabled)
+
+For more detailed information about using the documentation generator, including advanced configuration examples, customization options, and troubleshooting tips, please see the [documentation generator guide](./documentation-generator-guide.md).
+
+## Running with Docker
+
+To run this project in a Docker container:
 
 1. Build the Docker image
    ```bash
-   docker build -t pocketflow-app .
+   docker build -t ir-engine-docs-generator .
    ```
 
 2. Run the container
-
-   You'll need to provide your `GEMINI_API_KEY` for the LLM to function. If you're analyzing private GitHub repositories or want to avoid rate limits, also provide your `GITHUB_TOKEN`.
-   
-   Mount a local directory to `/app/output` inside the container to access the generated tutorials on your host machine.
-   
-   **Example for analyzing a public GitHub repository:**
-   
    ```bash
+   # Load environment variables from .env file
    docker run -it --rm \
-     -e GEMINI_API_KEY="YOUR_GEMINI_API_KEY_HERE" \
-     -v "$(pwd)/output_tutorials":/app/output \
-     pocketflow-app --repo https://github.com/username/repo
+     --env-file .env \
+     -v "/path/to/your/component":/app/code_to_analyze \
+     -v "$(pwd)/output":/app/output \
+     ir-engine-docs-generator --dir /app/code_to_analyze
    ```
-   
-   **Example for analyzing a local directory:**
-   
-   ```bash
-   docker run -it --rm \
-     -e GEMINI_API_KEY="YOUR_GEMINI_API_KEY_HERE" \
-     -v "/path/to/your/local_codebase":/app/code_to_analyze \
-     -v "$(pwd)/output_tutorials":/app/output \
-     pocketflow-app --dir /app/code_to_analyze
-   ```
-</details>
 
-## 💡 Development Tutorial
+## Acknowledgments
 
-- I built using [**Agentic Coding**](https://zacharyhuang.substack.com/p/agentic-coding-the-most-fun-way-to), the fastest development paradigm, where humans simply [design](docs/design.md) and agents [code](flow.py).
+This documentation generator is based on [PocketFlow Tutorial Codebase Knowledge](https://github.com/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge), a tool that uses AI to analyze codebases and generate comprehensive documentation.
 
-- The secret weapon is [Pocket Flow](https://github.com/The-Pocket/PocketFlow), a 100-line LLM framework that lets Agents (e.g., Cursor AI) build for you
+## License
 
-- Check out the Step-by-step YouTube development tutorial:
-
-<br>
-<div align="center">
-  <a href="https://youtu.be/AFY67zOpbSo" target="_blank">
-    <img src="./assets/youtube_thumbnail.png" width="500" alt="Pocket Flow Codebase Tutorial" style="cursor: pointer;">
-  </a>
-</div>
-<br>
-
-
-
+This documentation inherits the license of the iR Engine project (CPAL).

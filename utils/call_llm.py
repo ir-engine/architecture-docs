@@ -54,13 +54,13 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
     #     location=os.getenv("GEMINI_LOCATION", "us-central1")
     # )
 
-    # You can comment the previous line and use the AI Studio key instead:
+    # Use the API key from environment variables
     client = genai.Client(
-        api_key=os.getenv("GEMINI_API_KEY", ""),
+        api_key=os.getenv("GEMINI_API_KEY", "your-api-key-here"),
     )
-    model = os.getenv("GEMINI_MODEL", "gemini-2.5-pro-exp-03-25")
+    model = os.getenv("GEMINI_MODEL", "gemini-2.5-pro-preview-03-25")
     # model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-preview-04-17")
-    
+
     response = client.models.generate_content(model=model, contents=[prompt])
     response_text = response.text
 
@@ -174,7 +174,7 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
 #     # OpenRouter API configuration
 #     api_key = os.getenv("OPENROUTER_API_KEY", "")
 #     model = os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-exp:free")
-    
+
 #     headers = {
 #         "Authorization": f"Bearer {api_key}",
 #     }
@@ -198,9 +198,9 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
 #         response_text = response.json()["choices"][0]["message"]["content"]
 #     except Exception as e:
 #         error_msg = f"Failed to parse OpenRouter response: {e}; Response: {response.text}"
-#         logger.error(error_msg)        
+#         logger.error(error_msg)
 #         raise Exception(error_msg)
-    
+
 
 #     # Log the response
 #     logger.info(f"RESPONSE: {response_text}")

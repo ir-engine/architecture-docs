@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Engine Module System provides the organizational structure for the iR Engine, defining how different functional components are grouped, loaded, and initialized. It serves as the blueprint that ensures all engine subsystems are properly integrated and available when an application starts. By using a modular approach, the engine achieves better maintainability, extensibility, and clarity in its architecture. This chapter explores the concepts, structure, and implementation of the Engine Module System within the iR Engine.
+The Engine Module System provides the organizational structure for the iR Engine, defining how different functional components are grouped, loaded, and initialized. It serves as the blueprint that ensures all engine subsystems are properly integrated and available when an application starts.
+
+By using a modular approach, the engine achieves better maintainability, extensibility, and clarity in its architecture. This chapter explores the concepts, structure, and implementation of the Engine Module System within the iR Engine.
 
 ## Core concepts
 
@@ -119,7 +121,7 @@ export const AvatarAnimationSystem = defineSystem({
   uuid: 'ir-engine.AvatarAnimationSystem',
   execute: () => {
     const entities = avatarAnimationQuery();
-    
+
     for (const entity of entities) {
       // Animation logic
     }
@@ -202,19 +204,19 @@ sequenceDiagram
 
     App->>EngineCore: Initialize engine
     EngineCore->>EngineModule: Import EngineModule.ts
-    
+
     EngineModule->>AssetModule: Import AssetModule.ts
     AssetModule->>ECS: Register asset components
     AssetModule->>ECS: Register asset systems
     AssetModule-->>EngineModule: Module initialized
-    
+
     EngineModule->>AvatarModule: Import AvatarModule.ts
     AvatarModule->>ECS: Register avatar components
     AvatarModule->>ECS: Register avatar systems
     AvatarModule-->>EngineModule: Module initialized
-    
+
     Note over EngineModule: Continues for all modules...
-    
+
     EngineModule-->>EngineCore: All modules initialized
     EngineCore-->>App: Engine ready
 ```

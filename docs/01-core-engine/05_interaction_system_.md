@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Interaction System enables entities in the iR Engine to respond to user actions and interact with each other. It provides a framework for creating interactive objects that can be clicked, grabbed, mounted, or otherwise manipulated by avatars or other entities. By defining how objects respond to proximity, input, and other triggers, the system creates a responsive and engaging virtual environment. This chapter explores the concepts, structure, and implementation of the Interaction System within the iR Engine.
+The Interaction System enables entities in the iR Engine to respond to user actions and interact with each other. It provides a framework for creating interactive objects that can be clicked, grabbed, mounted, or otherwise manipulated by avatars or other entities.
+
+By defining how objects respond to proximity, input, and other triggers, the system creates a responsive and engaging virtual environment. This chapter explores the concepts, structure, and implementation of the Interaction System within the iR Engine.
 
 ## Core components
 
@@ -156,27 +158,27 @@ const InteractableSystem = defineSystem({
   execute: () => {
     // Find all entities with InteractableComponent
     const interactables = interactableQuery();
-    
+
     // Find the local avatar entity
     const avatarEntity = getLocalAvatarEntity();
     if (!avatarEntity) return;
-    
+
     // Get the avatar's position
     const avatarPosition = getComponent(avatarEntity, TransformComponent).position;
-    
+
     // Process each interactable
     for (const entity of interactables) {
       const interactable = getComponent(entity, InteractableComponent);
       const transform = getComponent(entity, TransformComponent);
-      
+
       // Calculate distance to avatar
       const distance = calculateDistance(avatarPosition, transform.position);
-      
+
       // Check if within activation distance
       if (distance <= interactable.activationDistance) {
         // Show interaction label
         showInteractionLabel(entity, interactable.label);
-        
+
         // Check for interaction input
         if (interactable.clickInteract && isInteractKeyPressed()) {
           // Execute callbacks
@@ -209,20 +211,20 @@ const GrabbableSystem = defineSystem({
   execute: () => {
     // Find all entities that are currently grabbed
     const grabbedEntities = grabbedQuery();
-    
+
     for (const entity of grabbedEntities) {
       const grabbed = getComponent(entity, GrabbedComponent);
       const grabber = grabbed.grabberEntity;
-      
+
       // Get the attachment point (hand) transform
       const attachmentPoint = getAttachmentPointTransform(grabber, grabbed.attachmentPoint);
       if (!attachmentPoint) continue;
-      
+
       // Update the grabbed object's transform to follow the hand
       const transform = getMutableComponent(entity, TransformComponent);
       transform.position = calculateGrabbedPosition(attachmentPoint, entity);
       transform.rotation = calculateGrabbedRotation(attachmentPoint, entity);
-      
+
       // If the object has physics, update its kinematic target
       if (hasComponent(entity, RigidBodyComponent)) {
         const rigidBody = getMutableComponent(entity, RigidBodyComponent);
@@ -230,22 +232,22 @@ const GrabbableSystem = defineSystem({
         rigidBody.targetKinematicRotation = transform.rotation;
       }
     }
-    
+
     // Check for grab/release input
     if (isGrabInputPressed()) {
       const avatarEntity = getLocalAvatarEntity();
       const nearbyGrabbable = findNearestGrabbable(avatarEntity);
-      
+
       if (nearbyGrabbable) {
         // Grab the object
         GrabbableComponent.grab(avatarEntity, nearbyGrabbable);
       }
     }
-    
+
     if (isReleaseInputPressed()) {
       const avatarEntity = getLocalAvatarEntity();
       const heldObject = getHeldObject(avatarEntity);
-      
+
       if (heldObject) {
         // Release the object
         GrabbableComponent.drop(avatarEntity, heldObject);
@@ -272,19 +274,19 @@ const MountPointSystem = defineSystem({
   execute: () => {
     // Find all entities that are currently mounted/sitting
     const sittingEntities = sittingQuery();
-    
+
     for (const entity of sittingEntities) {
       const sitting = getComponent(entity, SittingComponent);
       const mountPoint = getComponent(sitting.mountPointEntity, MountPointComponent);
-      
+
       // Get the mount point's transform
       const mountTransform = getComponent(sitting.mountPointEntity, TransformComponent);
-      
+
       // Update the mounted entity's transform
       const transform = getMutableComponent(entity, TransformComponent);
       transform.position = calculateMountedPosition(mountTransform, mountPoint);
       transform.rotation = calculateMountedRotation(mountTransform, mountPoint);
-      
+
       // Check for dismount input
       if (isDismountInputPressed(entity)) {
         // Unmount the entity
@@ -477,17 +479,17 @@ function gatherAvailableInteractables(interactables) {
   const result = [];
   const avatarEntity = getLocalAvatarEntity();
   if (!avatarEntity) return result;
-  
+
   const avatarPosition = getComponent(avatarEntity, TransformComponent).position;
-  
+
   // Process each interactable
   for (const entity of interactables) {
     const interactable = getComponent(entity, InteractableComponent);
     const transform = getComponent(entity, TransformComponent);
-    
+
     // Calculate distance to avatar
     const distance = calculateDistance(avatarPosition, transform.position);
-    
+
     // Check if within activation distance
     if (distance <= interactable.activationDistance) {
       result.push({
@@ -497,10 +499,10 @@ function gatherAvailableInteractables(interactables) {
       });
     }
   }
-  
+
   // Sort by distance (closest first)
   result.sort((a, b) => a.distance - b.distance);
-  
+
   return result;
 }
 ```
@@ -520,15 +522,15 @@ When an interaction occurs, the system executes the appropriate callbacks:
 function executeInteractionCallbacks(interactingEntity, targetEntity, callbacks) {
   for (const callback of callbacks) {
     const { callbackID, target } = callback;
-    
+
     // Get the callback component from the target entity
     const callbackComponent = getComponent(target, CallbackComponent);
     if (!callbackComponent) continue;
-    
+
     // Get the callback function
     const callbackFunction = callbackComponent.callbacks[callbackID];
     if (!callbackFunction) continue;
-    
+
     // Execute the callback
     callbackFunction(interactingEntity, targetEntity);
   }
@@ -548,11 +550,11 @@ The `GrabbableComponent` provides static methods for grabbing and dropping objec
 // Simplified from src/grabbable/GrabbableComponent.ts
 GrabbableComponent.grab = (grabberEntity, grabbableEntity, handedness) => {
   // Validate entities have the required components
-  if (!hasComponent(grabberEntity, GrabberComponent) || 
+  if (!hasComponent(grabberEntity, GrabberComponent) ||
       !hasComponent(grabbableEntity, GrabbableComponent)) {
     return;
   }
-  
+
   // Dispatch a network action to ensure consistency across clients
   dispatchAction(
     GrabbableNetworkAction.setGrabbedObject({
@@ -566,7 +568,7 @@ GrabbableComponent.grab = (grabberEntity, grabbableEntity, handedness) => {
 
 GrabbableComponent.drop = (grabberEntity, grabbableEntity) => {
   // Similar validation
-  
+
   // Dispatch a network action to release the object
   dispatchAction(
     GrabbableNetworkAction.setGrabbedObject({

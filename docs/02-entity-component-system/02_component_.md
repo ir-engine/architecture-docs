@@ -2,7 +2,9 @@
 
 ## Overview
 
-Components are the data containers in the iR Engine's Entity Component System (ECS). They represent specific aspects or characteristics of entities, such as position, health, appearance, or behavior parameters. Unlike traditional object-oriented approaches where data and behavior are combined in classes, components in ECS are pure data structures with no inherent logic or behavior. This separation allows for a more modular, flexible, and performance-optimized approach to building complex applications. By attaching different combinations of components to entities, developers can create diverse object types without deep inheritance hierarchies.
+Components are the data containers in the iR Engine's Entity Component System (ECS). They represent specific aspects or characteristics of entities, such as position, health, appearance, or behavior parameters. Unlike traditional object-oriented approaches where data and behavior are combined in classes, components in ECS are pure data structures with no inherent logic or behavior.
+
+This separation allows for a more modular, flexible, and performance-optimized approach to building complex applications. By attaching different combinations of components to entities, developers can create diverse object types without deep inheritance hierarchies.
 
 ## Core concepts
 
@@ -213,17 +215,17 @@ class ComponentStorage {
   // Arrays to store component data
   private positionX = new Float32Array(MAX_ENTITIES);
   private positionY = new Float32Array(MAX_ENTITIES);
-  
+
   // Bitset to track which entities have this component
   private hasComponent = new Uint8Array(MAX_ENTITIES);
-  
+
   // Set component data for an entity
   setPositionComponent(entity, data) {
     this.positionX[entity] = data.x;
     this.positionY[entity] = data.y;
     this.hasComponent[entity] = 1;
   }
-  
+
   // Get component data for an entity
   getPositionComponent(entity) {
     if (this.hasComponent[entity]) {
@@ -234,12 +236,12 @@ class ComponentStorage {
     }
     return undefined;
   }
-  
+
   // Check if an entity has this component
   hasPositionComponent(entity) {
     return this.hasComponent[entity] === 1;
   }
-  
+
   // Remove component from an entity
   removePositionComponent(entity) {
     this.hasComponent[entity] = 0;
@@ -265,13 +267,13 @@ setComponent(playerEntity, VelocityComponent, { x: 0, y: 0 });
 
 // Add health and status components
 setComponent(playerEntity, HealthComponent, { current: 100, maximum: 100 });
-setComponent(playerEntity, StatusComponent, { 
+setComponent(playerEntity, StatusComponent, {
   isInvulnerable: false,
   stunned: false
 });
 
 // Add input control component
-setComponent(playerEntity, PlayerInputComponent, { 
+setComponent(playerEntity, PlayerInputComponent, {
   moveSpeed: 5,
   jumpHeight: 10
 });

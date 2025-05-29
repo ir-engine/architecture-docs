@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Avatar System is responsible for creating and managing interactive characters within the iR Engine. It provides a comprehensive framework for defining character appearance, skeletal structure, animations, movement, and realistic behaviors. By combining specialized components and systems, the Avatar System enables developers to create lifelike digital actors that can represent players or non-player characters (NPCs) in virtual environments. This chapter explores the concepts, structure, and implementation of the Avatar System within the iR Engine.
+The Avatar System is responsible for creating and managing interactive characters within the iR Engine. It provides a comprehensive framework for defining character appearance, skeletal structure, animations, movement, and realistic behaviors.
+
+By combining specialized components and systems, the Avatar System enables developers to create lifelike digital actors that can represent players or non-player characters (NPCs) in virtual environments. This chapter explores the concepts, structure, and implementation of the Avatar System within the iR Engine.
 
 ## Core components
 
@@ -168,18 +170,18 @@ const AvatarAnimationSystem = defineSystem({
   execute: (deltaSeconds) => {
     // Find all entities with animation components
     const entities = avatarAnimationQuery();
-    
+
     for (const entity of entities) {
       // Get the animation state and mixer
       const animState = getComponent(entity, AvatarAnimationComponent);
       const animComp = getComponent(entity, AnimationComponent);
-      
+
       // Update animation state based on movement
       updateAnimationState(entity, animState);
-      
+
       // Update the animation graph (play/blend animations)
       updateAnimationGraph(entity, deltaSeconds, animComp.mixer, animState);
-      
+
       // Update the animation mixer
       animComp.mixer.update(deltaSeconds);
     }
@@ -205,23 +207,23 @@ const AvatarMovementSystem = defineSystem({
   execute: (deltaSeconds) => {
     // Find all entities with controller components
     const entities = avatarControllerQuery();
-    
+
     for (const entity of entities) {
       // Get the controller and transform components
       const controller = getComponent(entity, AvatarControllerComponent);
       const transform = getMutableComponent(entity, TransformComponent);
-      
+
       // Calculate movement based on input
       const movement = calculateMovement(entity, controller, deltaSeconds);
-      
+
       // Apply physics (gravity, collisions, etc.)
       const finalMovement = applyPhysics(entity, movement);
-      
+
       // Update the avatar's position
       transform.position.x += finalMovement.x;
       transform.position.y += finalMovement.y;
       transform.position.z += finalMovement.z;
-      
+
       // Update rotation to face movement direction
       if (finalMovement.lengthSquared() > 0) {
         transform.rotation = calculateFacingRotation(finalMovement);
@@ -249,17 +251,17 @@ const AvatarIKSystem = defineSystem({
   execute: () => {
     // Find all entities with IK components
     const entities = avatarIKQuery();
-    
+
     for (const entity of entities) {
       // Get the rig component
       const rig = getComponent(entity, AvatarRigComponent);
-      
+
       // Process foot IK for ground adaptation
       processFootIK(entity, rig);
-      
+
       // Process hand IK for object interaction
       processHandIK(entity, rig);
-      
+
       // Process look-at IK for head tracking
       processLookAtIK(entity, rig);
     }
@@ -296,7 +298,7 @@ sequenceDiagram
     AvatarSetup->>AvatarSetup: Set up AvatarRigComponent
     AvatarSetup->>AvatarSetup: Initialize AnimationComponent
     AvatarSetup->>AvatarSetup: Add AvatarControllerComponent
-    
+
     loop Each Frame
         InputSystem->>AvatarSetup: Update controller input
         MovementSystem->>AvatarSetup: Calculate and apply movement
@@ -377,19 +379,19 @@ When a model is loaded, the system analyzes its skeleton to set up the rig:
 // Simplified concept from src/avatar/components/AvatarAnimationComponent.ts
 function setupAvatarRig(avatarEntity, gltfModel) {
   // Create a new rig component
-  setComponent(avatarEntity, AvatarRigComponent, { 
-    bonesToEntities: {} 
+  setComponent(avatarEntity, AvatarRigComponent, {
+    bonesToEntities: {}
   });
-  
+
   // Get the rig component for updating
   const rig = getMutableComponent(avatarEntity, AvatarRigComponent);
-  
+
   // Iterate through the model's bones
   for (const node of gltfModel.nodes) {
     if (node.isBone) {
       // Try to match the bone name to a standard name
       const standardBoneName = mapBoneNameToStandard(node.name);
-      
+
       if (standardBoneName) {
         // Map the standard bone name to this bone entity
         rig.bonesToEntities[standardBoneName] = node.entity;
@@ -415,7 +417,7 @@ function updateAnimationGraph(entity, deltaSeconds, mixer, animState) {
   // Get the current locomotion values
   const { x, y, z } = animState.locomotion;
   const speed = Math.sqrt(x*x + y*y + z*z);
-  
+
   // Determine which animation to play based on speed
   if (speed < 0.1) {
     // Play idle animation
@@ -426,7 +428,7 @@ function updateAnimationGraph(entity, deltaSeconds, mixer, animState) {
     playAnimation(mixer, "walk", 1.0, speed);
     fadeOutAnimation(mixer, "idle");
   }
-  
+
   // Handle emote animations (like waving)
   if (animState.playEmote) {
     playAnimation(mixer, animState.playEmote, 1.0);
@@ -453,16 +455,16 @@ function solveTwoBoneIK(rootMatrix, upperBone, lowerBone, endBone, targetPositio
   const upperLength = upperBone.length;
   const lowerLength = lowerBone.length;
   const totalLength = upperLength + lowerLength;
-  
+
   // Get the root position
   const rootPosition = new Vector3().setFromMatrixPosition(rootMatrix);
-  
+
   // Calculate the direction to the target
   const targetDirection = new Vector3().subVectors(targetPosition, rootPosition).normalize();
-  
+
   // Calculate the distance to the target
   const targetDistance = rootPosition.distanceTo(targetPosition);
-  
+
   // If the target is too far, extend the limb as far as possible
   if (targetDistance > totalLength) {
     // Fully extend the limb toward the target
@@ -471,14 +473,14 @@ function solveTwoBoneIK(rootMatrix, upperBone, lowerBone, endBone, targetPositio
   } else {
     // Calculate the angles using the law of cosines
     const upperAngle = Math.acos(
-      (targetDistance*targetDistance + upperLength*upperLength - lowerLength*lowerLength) / 
+      (targetDistance*targetDistance + upperLength*upperLength - lowerLength*lowerLength) /
       (2 * targetDistance * upperLength)
     );
     const lowerAngle = Math.acos(
-      (upperLength*upperLength + lowerLength*lowerLength - targetDistance*targetDistance) / 
+      (upperLength*upperLength + lowerLength*lowerLength - targetDistance*targetDistance) /
       (2 * upperLength * lowerLength)
     );
-    
+
     // Apply the calculated angles to the bones
     // (Simplified - actual implementation would use quaternions and pole vectors)
     upperBone.rotation.y = upperAngle;

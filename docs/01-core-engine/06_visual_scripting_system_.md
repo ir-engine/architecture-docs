@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Visual Scripting System provides a graphical programming interface for creating interactive behaviors in the iR Engine without writing traditional code. It enables developers, designers, and artists to build complex logic by connecting visual nodes in a graph-based editor. By representing programming concepts as visual elements, the system makes game logic more accessible and easier to understand. This chapter explores the concepts, structure, and implementation of the Visual Scripting System within the iR Engine.
+The Visual Scripting System provides a graphical programming interface for creating interactive behaviors in the iR Engine without writing traditional code. It enables developers, designers, and artists to build complex logic by connecting visual nodes in a graph-based editor.
+
+By representing programming concepts as visual elements, the system makes game logic more accessible and easier to understand. This chapter explores the concepts, structure, and implementation of the Visual Scripting System within the iR Engine.
 
 ## Core concepts
 
@@ -198,7 +200,7 @@ const VisualScriptSystem = defineSystem({
     if (!VisualScriptState.isProfileRegistered(VisualScriptDomain.ECS)) {
       VisualScriptState.registerProfile(registerEngineProfile, VisualScriptDomain.ECS);
     }
-    
+
     // Process global visual script actions
     processVisualScriptActions();
   }
@@ -220,34 +222,34 @@ The `useVisualScriptRunner` hook manages the execution of individual scripts:
 function useVisualScriptRunner({ visualScriptJson, autoRun, registry }) {
   const [engine, setEngine] = useState(null);
   const [running, setRunning] = useState(autoRun);
-  
+
   // Initialize the engine when the script changes
   useEffect(() => {
     if (!visualScriptJson || !registry || !running) return;
-    
+
     // Parse the JSON into a node graph
     const nodes = readGraphFromJSON({ graphJson: visualScriptJson, registry }).nodes;
-    
+
     // Create a new engine instance
     const newEngine = new VisualScriptEngine(nodes);
     setEngine(newEngine);
-    
+
     // Execute initial nodes
     newEngine.executeAllSync();
-    
+
     // Emit start event for event nodes
     registry.dependencies?.ILifecycleEventEmitter?.startEvent.emit();
-    
+
     // Clean up when unmounted
     return () => {
       newEngine.dispose();
     };
   }, [visualScriptJson, registry, running]);
-  
+
   // Play/pause functions
   const play = () => setRunning(true);
   const pause = () => setRunning(false);
-  
+
   return { engine, playing: running, play, pause };
 }
 ```
@@ -274,7 +276,7 @@ sequenceDiagram
     Event->>VSComponent: Trigger event (e.g., interaction)
     VSComponent->>VSRunner: Notify of event
     VSRunner->>VSEngine: Find event node and start execution
-    
+
     loop Node Execution
         VSEngine->>VSEngine: Process current node
         VSEngine->>GameSystems: Perform actions (if action node)
@@ -391,19 +393,19 @@ The engine registers available node types through profiles:
 function registerEngineProfile(registry) {
   // Register component getters
   registerComponentGetters(registry);
-  
+
   // Register component setters
   registerComponentSetters(registry);
-  
+
   // Register event nodes
   registerEventNodes(registry);
-  
+
   // Register action nodes
   registerActionNodes(registry);
-  
+
   // Register flow control nodes
   registerFlowControlNodes(registry);
-  
+
   // Register value nodes
   registerValueNodes(registry);
 }
@@ -424,14 +426,14 @@ function registerComponentSetters(registry) {
     execute: (inputs, context) => {
       const { entity, color } = inputs;
       const targetEntity = entity === 'self' ? context.entity : entity;
-      
+
       // Implementation that uses setComponent to update material color
       // ...
-      
+
       return {};
     }
   });
-  
+
   // Register other component setters
   // ...
 }
@@ -452,7 +454,7 @@ Visual scripts are serialized to and from JSON for storage and editing:
 function serializeVisualScript(graph) {
   const nodes = [];
   const connections = [];
-  
+
   // Serialize each node
   for (const node of graph.nodes) {
     nodes.push({
@@ -462,7 +464,7 @@ function serializeVisualScript(graph) {
       data: node.data
     });
   }
-  
+
   // Serialize each connection
   for (const connection of graph.connections) {
     connections.push({
@@ -477,22 +479,22 @@ function serializeVisualScript(graph) {
       type: connection.type
     });
   }
-  
+
   return { nodes, connections };
 }
 
 function deserializeVisualScript(json, registry) {
   const graph = { nodes: [], connections: [] };
-  
+
   // Create nodes from JSON
   for (const nodeData of json.nodes) {
     const nodeType = registry.getNodeType(nodeData.type);
     if (!nodeType) continue;
-    
+
     const node = createNode(nodeType, nodeData.id, nodeData.position, nodeData.data);
     graph.nodes.push(node);
   }
-  
+
   // Create connections from JSON
   for (const connectionData of json.connections) {
     const connection = createConnection(
@@ -502,7 +504,7 @@ function deserializeVisualScript(json, registry) {
     );
     graph.connections.push(connection);
   }
-  
+
   return graph;
 }
 ```

@@ -29,18 +29,27 @@ Each section contains:
 
 ## How to use the documentation
 
-### Option 1: View markdown files directly
+### Option 1: View on Archbee (recommended)
 
-You can browse the documentation directly by opening the Markdown files in any Markdown viewer:
+The documentation is professionally hosted on Archbee with enhanced navigation, search, and visual features:
+
+**🌐 [View iR Engine architecture documentation on Archbee →](https://docs.ir.world/architecture_docs)**
+
+This hosted version includes:
+- Beautiful visual navigation with color-coded component cards
+- Full-text search across all documentation
+- Responsive design for desktop and mobile
+- Real-time updates when documentation changes
+- Professional presentation optimized for teams
+
+### Option 2: View markdown files directly
+
+You can also browse the documentation directly by opening the Markdown files in any Markdown viewer:
 
 1. Start with `docs/index.md` for a visual overview and navigation
 2. Explore `docs/about.md` for information about iR Engine features
 3. Check `docs/learning-paths.md` for guided learning experiences
 4. Navigate to specific components by following the links
-
-### Option 2: Host on a web server
-
-For team access, you can host these files on any web server or Static Site Generator (SSG).
 
 ## Documentation generator tool
 

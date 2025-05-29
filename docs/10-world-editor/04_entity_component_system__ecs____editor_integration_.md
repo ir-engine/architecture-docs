@@ -1,4 +1,4 @@
-# Entity Component System integration
+# Entity component system integration
 
 ## Overview
 
@@ -62,28 +62,28 @@ import { SceneState } from './SceneState';
  */
 export const EntityState = defineState({
   name: 'EntityState',
-  
+
   // Initial state
   initial: () => ({
     entities: [] as Entity[],
     selectedEntityIds: [] as string[]
   }),
-  
+
   // Create a new entity
   createEntity: (parentId?: string) => {
     const state = getMutableState(EntityState);
     const sceneState = getMutableState(SceneState);
-    
+
     // Create a new entity
     const entity = createEntity();
-    
+
     // Add transform component
     addComponent(entity, 'transform', {
       position: { x: 0, y: 0, z: 0 },
       rotation: { x: 0, y: 0, z: 0 },
       scale: { x: 1, y: 1, z: 1 }
     });
-    
+
     // Add to parent if specified
     if (parentId) {
       const parentEntity = state.entities.value.find(e => e.id === parentId);
@@ -93,25 +93,25 @@ export const EntityState = defineState({
         addComponent(parentEntity, 'hierarchy', hierarchyComponent);
       }
     }
-    
+
     // Add to entity list
     state.entities.merge([entity]);
-    
+
     // Mark scene as modified
     sceneState.isModified.set(true);
-    
+
     return entity;
   },
-  
+
   // Remove an entity
   removeEntity: (entityId: string) => {
     const state = getMutableState(EntityState);
     const sceneState = getMutableState(SceneState);
-    
+
     // Find the entity
     const entity = state.entities.value.find(e => e.id === entityId);
     if (!entity) return false;
-    
+
     // Remove from parent's hierarchy
     state.entities.value.forEach(e => {
       if (hasComponent(e, 'hierarchy')) {
@@ -123,30 +123,30 @@ export const EntityState = defineState({
         }
       }
     });
-    
+
     // Remove the entity
     removeEntity(entity);
-    
+
     // Update entity list
     state.entities.set(state.entities.value.filter(e => e.id !== entityId));
-    
+
     // Deselect if selected
     if (state.selectedEntityIds.value.includes(entityId)) {
       state.selectedEntityIds.set(
         state.selectedEntityIds.value.filter(id => id !== entityId)
       );
     }
-    
+
     // Mark scene as modified
     sceneState.isModified.set(true);
-    
+
     return true;
   },
-  
+
   // Select entities
   selectEntities: (entityIds: string[], addToSelection: boolean = false) => {
     const state = getMutableState(EntityState);
-    
+
     if (addToSelection) {
       // Add to current selection
       const newSelection = [...state.selectedEntityIds.value];
@@ -194,31 +194,31 @@ export const PropertyEditor: React.FC = () => {
   // Get selected entity
   const entityState = useHookstate(EntityState.state);
   const selectedIds = entityState.selectedEntityIds.value;
-  
+
   // Handle multi-selection
   const isMultiSelect = selectedIds.length > 1;
-  
+
   // If nothing selected, show empty state
   if (selectedIds.length === 0) {
     return <div className="property-editor-empty">No entity selected</div>;
   }
-  
+
   // Get the primary selected entity
   const primaryEntityId = selectedIds[0];
   const entity = entityState.entities.value.find(e => e.id === primaryEntityId);
-  
+
   if (!entity) {
     return <div className="property-editor-empty">Selected entity not found</div>;
   }
-  
+
   // Get all components on the entity
   const entityComponents = getEntityComponents(entity);
-  
+
   return (
     <div className="property-editor">
       {/* Entity header with name */}
       <EntityHeader entity={entity} isMultiSelect={isMultiSelect} />
-      
+
       {/* Component editors */}
       {entityComponents.map(componentType => (
         <ComponentEditorWrapper
@@ -228,7 +228,7 @@ export const PropertyEditor: React.FC = () => {
           isMultiSelect={isMultiSelect}
         />
       ))}
-      
+
       {/* Add component button */}
       <AddComponentButton
         entity={entity}
@@ -250,10 +250,10 @@ const ComponentEditorWrapper: React.FC<{
 }> = ({ entity, componentType, isMultiSelect }) => {
   // Get component data
   const componentData = getComponent(entity, componentType);
-  
+
   // Get editor for this component type
   const ComponentEditor = ComponentRegistry.getEditor(componentType);
-  
+
   // If no editor is registered for this component type
   if (!ComponentEditor) {
     return (
@@ -269,14 +269,14 @@ const ComponentEditorWrapper: React.FC<{
       </div>
     );
   }
-  
+
   // Handle component removal
   const handleRemoveComponent = () => {
     removeComponent(entity, componentType);
     // Mark scene as modified
     // Implementation details omitted for brevity
   };
-  
+
   return (
     <div className="component-editor">
       <ComponentHeader
@@ -320,7 +320,7 @@ import { CameraEditor } from '../components/editors/CameraEditor';
  */
 export const ComponentRegistry = defineState({
   name: 'ComponentRegistry',
-  
+
   // Initial state
   initial: () => ({
     // Component definitions
@@ -371,7 +371,7 @@ export const ComponentRegistry = defineState({
       }
       // Additional component definitions...
     },
-    
+
     // Component categories
     categories: [
       { id: 'Basic', name: 'Basic' },
@@ -382,38 +382,38 @@ export const ComponentRegistry = defineState({
       { id: 'Scripting', name: 'Scripting' }
     ]
   }),
-  
+
   // Get component definition
   getComponent: (componentType: string) => {
     const state = getMutableState(ComponentRegistry);
     return state.components[componentType];
   },
-  
+
   // Get editor for component type
   getEditor: (componentType: string) => {
     const state = getMutableState(ComponentRegistry);
     const component = state.components[componentType];
     return component ? component.editor : null;
   },
-  
+
   // Get default data for component type
   getDefaultData: (componentType: string) => {
     const state = getMutableState(ComponentRegistry);
     const component = state.components[componentType];
     return component ? { ...component.defaultData } : {};
   },
-  
+
   // Get components by category
   getComponentsByCategory: (categoryId: string) => {
     const state = getMutableState(ComponentRegistry);
     const result = [];
-    
+
     for (const [type, component] of Object.entries(state.components)) {
       if (component.category === categoryId) {
         result.push({ type, ...component });
       }
     }
-    
+
     return result;
   }
 });
@@ -449,7 +449,7 @@ export const TransformEditor: React.FC<{
   isMultiSelect: boolean;
 }> = ({ entity, data, isMultiSelect }) => {
   const sceneState = useHookstate(SceneState.state);
-  
+
   // Handle position change
   const handlePositionChange = (position: Vector3) => {
     const transform = getComponent(entity, 'transform');
@@ -457,11 +457,11 @@ export const TransformEditor: React.FC<{
       ...transform,
       position
     });
-    
+
     // Mark scene as modified
     sceneState.isModified.set(true);
   };
-  
+
   // Handle rotation change
   const handleRotationChange = (rotation: Vector3) => {
     const transform = getComponent(entity, 'transform');
@@ -469,11 +469,11 @@ export const TransformEditor: React.FC<{
       ...transform,
       rotation
     });
-    
+
     // Mark scene as modified
     sceneState.isModified.set(true);
   };
-  
+
   // Handle scale change
   const handleScaleChange = (scale: Vector3) => {
     const transform = getComponent(entity, 'transform');
@@ -481,11 +481,11 @@ export const TransformEditor: React.FC<{
       ...transform,
       scale
     });
-    
+
     // Mark scene as modified
     sceneState.isModified.set(true);
   };
-  
+
   return (
     <div className="transform-editor">
       <div className="editor-row">
@@ -496,7 +496,7 @@ export const TransformEditor: React.FC<{
           disabled={isMultiSelect}
         />
       </div>
-      
+
       <div className="editor-row">
         <label>Rotation</label>
         <Vector3Input
@@ -505,7 +505,7 @@ export const TransformEditor: React.FC<{
           disabled={isMultiSelect}
         />
       </div>
-      
+
       <div className="editor-row">
         <label>Scale</label>
         <Vector3Input
@@ -550,36 +550,36 @@ export const AddComponentButton: React.FC<{
   // Dialog state
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   // Get component categories
   const categories = ComponentRegistry.state.categories.value;
-  
+
   // Handle component selection
   const handleSelectComponent = (componentType: string) => {
     // Get default data for the component
     const defaultData = ComponentRegistry.getDefaultData(componentType);
-    
+
     // Add component to entity
     addComponent(entity, componentType, defaultData);
-    
+
     // Mark scene as modified
     const sceneState = getMutableState(SceneState);
     sceneState.isModified.set(true);
-    
+
     // Close dialog
     setIsOpen(false);
   };
-  
+
   // Filter components based on search query
   const filterComponents = (components) => {
     if (!searchQuery) return components;
-    
-    return components.filter(component => 
+
+    return components.filter(component =>
       component.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       component.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
   };
-  
+
   return (
     <>
       <Button
@@ -588,7 +588,7 @@ export const AddComponentButton: React.FC<{
       >
         Add Component
       </Button>
-      
+
       <Dialog
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
@@ -599,17 +599,17 @@ export const AddComponentButton: React.FC<{
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search components..."
         />
-        
+
         <div className="component-categories">
           {categories.map(category => {
             // Get components for this category
             const components = filterComponents(
               ComponentRegistry.getComponentsByCategory(category.id)
             );
-            
+
             // Skip empty categories
             if (components.length === 0) return null;
-            
+
             return (
               <div key={category.id} className="component-category">
                 <h3>{category.name}</h3>
@@ -619,7 +619,7 @@ export const AddComponentButton: React.FC<{
                     if (existingComponents.includes(component.type)) {
                       return null;
                     }
-                    
+
                     return (
                       <ListItem
                         key={component.type}
@@ -664,7 +664,7 @@ sequenceDiagram
     participant PropertiesPanel
     participant ComponentRegistry
     participant ECSCore
-    
+
     User->>HierarchyPanel: Clicks "Create Entity"
     HierarchyPanel->>EntityState: createEntity()
     EntityState->>ECSCore: createEntity()
@@ -672,28 +672,28 @@ sequenceDiagram
     EntityState->>ECSCore: addComponent(entity, 'transform', {...})
     EntityState-->>HierarchyPanel: Update with new entity
     HierarchyPanel-->>User: Show new entity in hierarchy
-    
+
     User->>HierarchyPanel: Selects entity
     HierarchyPanel->>EntityState: selectEntities([entityId])
     EntityState-->>PropertiesPanel: Notify of selection change
     PropertiesPanel->>ECSCore: getEntityComponents(entity)
     ECSCore-->>PropertiesPanel: Return component list
-    
+
     loop For each component
         PropertiesPanel->>ComponentRegistry: getEditor(componentType)
         ComponentRegistry-->>PropertiesPanel: Return component editor
         PropertiesPanel->>PropertiesPanel: Render component editor
     end
-    
+
     PropertiesPanel-->>User: Display entity properties
-    
+
     User->>PropertiesPanel: Clicks "Add Component"
     PropertiesPanel->>ComponentRegistry: Show component list
     User->>ComponentRegistry: Selects component type
     ComponentRegistry->>ECSCore: addComponent(entity, componentType, defaultData)
     ECSCore-->>PropertiesPanel: Notify of component addition
     PropertiesPanel-->>User: Show new component editor
-    
+
     User->>PropertiesPanel: Modifies component property
     PropertiesPanel->>ECSCore: updateComponent(entity, componentType, newData)
     ECSCore-->>User: Update visual representation in scene
@@ -725,20 +725,20 @@ import { TransformGizmoSystem } from '../systems/TransformGizmoSystem';
 export const updateTransformGizmo = () => {
   const entityState = getMutableState(EntityState);
   const selectedIds = entityState.selectedEntityIds.value;
-  
+
   // Get the transform gizmo system
   const transformGizmoSystem = getSystem(TransformGizmoSystem);
-  
+
   // If nothing selected, hide gizmo
   if (selectedIds.length === 0) {
     transformGizmoSystem.hide();
     return;
   }
-  
+
   // Get the primary selected entity
   const primaryEntityId = selectedIds[0];
   const entity = entityState.entities.value.find(e => e.id === primaryEntityId);
-  
+
   // If entity has a transform component, show gizmo
   if (entity && hasComponent(entity, 'transform')) {
     const transform = getComponent(entity, 'transform');
@@ -772,18 +772,18 @@ import { getComponent, getAllComponents } from '@ir-engine/ecs';
 export const serializeEntities = () => {
   const entityState = getMutableState(EntityState);
   const entities = entityState.entities.value;
-  
+
   // Serialize each entity
   const serializedEntities = entities.map(entity => {
     // Get all components on the entity
     const components = getAllComponents(entity);
-    
+
     // Serialize each component
     const serializedComponents = {};
     for (const [type, data] of Object.entries(components)) {
       serializedComponents[type] = data;
     }
-    
+
     // Return serialized entity
     return {
       id: entity.id,
@@ -791,7 +791,7 @@ export const serializeEntities = () => {
       components: serializedComponents
     };
   });
-  
+
   return serializedEntities;
 };
 ```
@@ -826,13 +826,13 @@ export const attachVisualScript = (entityId: string, scriptId: string): boolean 
   if (!entity) {
     return false;
   }
-  
+
   // Get the script
   const script = VisualScriptState.getScriptById(scriptId);
   if (!script) {
     return false;
   }
-  
+
   // Check if entity already has a script component
   if (hasComponent(entity, 'script')) {
     // Update existing script component
@@ -849,7 +849,7 @@ export const attachVisualScript = (entityId: string, scriptId: string): boolean 
       parameters: {}
     });
   }
-  
+
   return true;
 };
 ```

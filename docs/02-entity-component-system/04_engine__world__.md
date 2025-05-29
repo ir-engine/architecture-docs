@@ -1,4 +1,4 @@
-# Engine (World)
+# Engine (world)
 
 ## Overview
 
@@ -64,7 +64,7 @@ import { createHyperStore, HyperStore } from '@ir-engine/hyperflux';
 export class Engine {
   static instance: Engine;
   store: HyperStore;
-  
+
   constructor() {
     // Initialize internal state
   }
@@ -74,17 +74,17 @@ export function createEngine(): Engine {
   if (Engine.instance) {
     throw new Error('Engine already created!');
   }
-  
+
   // Create the singleton instance
   Engine.instance = new Engine();
-  
+
   // Create the world/store using bitECS and Hyperflux
   const world = bitECS.createWorld(createHyperStore());
   Engine.instance.store = world as HyperStore;
-  
+
   // Perform additional initialization
   console.log("iR Engine initialized");
-  
+
   return Engine.instance;
 }
 ```
@@ -112,12 +112,12 @@ export function executeSystems(deltaTime: number): void {
   const ecsState = ECSState.get();
   ecsState.deltaSeconds = deltaTime;
   ecsState.elapsedSeconds += deltaTime;
-  
+
   // Execute all systems in the pipeline
   for (const systemOrGroupUUID of DefaultSystemPipeline) {
     executeSystem(systemOrGroupUUID);
   }
-  
+
   // Update performance metrics
   ecsState.lastSystemExecutionTime = performance.now() - ecsState.frameStartTime;
 }
@@ -143,16 +143,16 @@ function gameLoop(timestamp: number): void {
   // Calculate time since last frame
   const deltaTime = (timestamp - lastTimestamp) / 1000; // Convert to seconds
   lastTimestamp = timestamp;
-  
+
   // Process input events
   processInputEvents();
-  
+
   // Update game state by executing systems
   executeSystems(deltaTime);
-  
+
   // Render the current state
   renderFrame();
-  
+
   // Schedule the next frame
   requestAnimationFrame(gameLoop);
 }
@@ -221,34 +221,34 @@ sequenceDiagram
     participant EntityMgr as Entity Manager
     participant CompStore as Component Storage
     participant SysMgr as System Manager
-    
+
     App->>Engine: createEngine()
     Engine->>EntityMgr: Initialize
     Engine->>CompStore: Initialize
     Engine->>SysMgr: Initialize
     Engine-->>App: Engine ready
-    
+
     App->>Engine: Start game loop
-    
+
     loop Each frame
         Engine->>Engine: Calculate deltaTime
         Engine->>SysMgr: executeSystems(deltaTime)
-        
+
         SysMgr->>SysMgr: Get InputSystem
         SysMgr->>CompStore: Query for input entities
         CompStore-->>SysMgr: Input entities
         SysMgr->>SysMgr: Execute InputSystem
-        
+
         SysMgr->>SysMgr: Get MovementSystem
         SysMgr->>CompStore: Query for movable entities
         CompStore-->>SysMgr: Movable entities
         SysMgr->>SysMgr: Execute MovementSystem
-        
+
         SysMgr->>SysMgr: Get RenderSystem
         SysMgr->>CompStore: Query for renderable entities
         CompStore-->>SysMgr: Renderable entities
         SysMgr->>SysMgr: Execute RenderSystem
-        
+
         SysMgr-->>Engine: Systems executed
         Engine->>App: Frame complete
     end

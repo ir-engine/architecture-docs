@@ -1,4 +1,4 @@
-# Chapter 1: Instanceserver Architecture
+# Instanceserver architecture
 
 Welcome to the first chapter of our exploration into iR Engine's multiplayer infrastructure! In this chapter, we'll dive into the architecture of the instanceserver, which is the backbone of iR Engine's multiplayer capabilities.
 
@@ -51,7 +51,7 @@ Let's look at the initialization process in more detail:
 export const start = async (): Promise<Application> => {
   // Create the Feathers application
   const app = await createFeathersKoaApp(ServerMode.Instance, instanceServerPipe)
-  
+
   // Initialize the spatial timer for physics and animations
   startTimer()
 
@@ -59,16 +59,16 @@ export const start = async (): Promise<Application> => {
   const agonesSDK = new AgonesSDK()
   agonesSDK.connect()
   agonesSDK.ready()
-  
+
   // Set up health checks
   setInterval(() => agonesSDK.health(), 1000)
 
   // Configure communication channels
   app.configure(channels)
-  
+
   // Initialize the network
   initializeNetwork()
-  
+
   return app
 }
 ```

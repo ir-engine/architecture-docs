@@ -1,4 +1,4 @@
-# World Editor
+# World editor
 
 ## Overview
 

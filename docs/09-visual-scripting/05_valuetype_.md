@@ -1,4 +1,4 @@
-# ValueType
+# Value type
 
 ## Overview
 
@@ -63,7 +63,7 @@ The iR Engine includes several built-in value types for common data:
 export const FloatValue: ValueType<number, number | string> = {
   name: 'float',
   creator: () => 0,                                  // Default is 0
-  deserialize: (value) => 
+  deserialize: (value) =>
     (typeof value === 'string' ? parseSafeFloat(value, 0) : value),
   serialize: (value: number) => value,               // Numbers serialize as themselves
   lerp: (start: number, end: number, t: number) =>
@@ -82,7 +82,7 @@ export const StringValue: ValueType<string, string> = {
   creator: () => '',                                 // Default is empty string
   deserialize: (value: string) => value,             // Strings deserialize as themselves
   serialize: (value: string) => value,               // Strings serialize as themselves
-  lerp: (start: string, end: string, t: number) => 
+  lerp: (start: string, end: string, t: number) =>
     (t < 0.5 ? start : end),                         // Simple threshold-based interpolation
   equals: (a: string, b: string) => a === b,         // Simple equality check
   clone: (value: string) => value                    // Strings are primitive-like
@@ -98,7 +98,7 @@ export const BooleanValue: ValueType<boolean, boolean> = {
   creator: () => false,                              // Default is false
   deserialize: (value: boolean) => value,            // Booleans deserialize as themselves
   serialize: (value: boolean) => value,              // Booleans serialize as themselves
-  lerp: (start: boolean, end: boolean, t: number) => 
+  lerp: (start: boolean, end: boolean, t: number) =>
     (t < 0.5 ? start : end),                         // Simple threshold-based interpolation
   equals: (a: boolean, b: boolean) => a === b,       // Simple equality check
   clone: (value: boolean) => value                   // Booleans are primitive
@@ -116,19 +116,19 @@ For more complex data structures, the ValueType implementation becomes more soph
 export const Vec3Value: ValueType<Vec3, [number, number, number]> = {
   name: 'vec3',
   creator: () => new Vec3(0, 0, 0),                  // Default is origin (0,0,0)
-  deserialize: (json: [number, number, number]) => 
+  deserialize: (json: [number, number, number]) =>
     new Vec3(json[0], json[1], json[2]),             // Create from array
-  serialize: (value: Vec3) => 
+  serialize: (value: Vec3) =>
     [value.x, value.y, value.z] as [number, number, number], // Convert to array
-  lerp: (start: Vec3, end: Vec3, t: number) => 
+  lerp: (start: Vec3, end: Vec3, t: number) =>
     new Vec3(
       start.x * (1 - t) + end.x * t,
       start.y * (1 - t) + end.y * t,
       start.z * (1 - t) + end.z * t
     ),                                               // Component-wise interpolation
-  equals: (a: Vec3, b: Vec3) => 
+  equals: (a: Vec3, b: Vec3) =>
     a.x === b.x && a.y === b.y && a.z === b.z,       // Component-wise equality
-  clone: (value: Vec3) => 
+  clone: (value: Vec3) =>
     new Vec3(value.x, value.y, value.z)              // Create new instance with same values
 };
 ```
@@ -140,28 +140,28 @@ export const Vec3Value: ValueType<Vec3, [number, number, number]> = {
 export const ListValue: ValueType<any[], any[]> = {
   name: 'list',
   creator: () => [],                                 // Default is empty array
-  deserialize: (json: any[]) => 
+  deserialize: (json: any[]) =>
     json.map(item => deserializeItem(item)),         // Recursively deserialize items
-  serialize: (value: any[]) => 
+  serialize: (value: any[]) =>
     value.map(item => serializeItem(item)),          // Recursively serialize items
   lerp: (start: any[], end: any[], t: number) => {
     // If arrays have different lengths, use threshold approach
     if (start.length !== end.length) {
       return t < 0.5 ? clone(start) : clone(end);
     }
-    
+
     // Otherwise, interpolate each element
-    return start.map((item, index) => 
+    return start.map((item, index) =>
       lerpItem(item, end[index], t)
     );
   },
   equals: (a: any[], b: any[]) => {
     if (a.length !== b.length) return false;
-    return a.every((item, index) => 
+    return a.every((item, index) =>
       areItemsEqual(item, b[index])
     );
   },
-  clone: (value: any[]) => 
+  clone: (value: any[]) =>
     value.map(item => cloneItem(item))               // Deep clone the array
 };
 ```
@@ -256,7 +256,7 @@ function canConnect(
   if (sourceSocket.valueTypeName === targetSocket.valueTypeName) {
     return true;
   }
-  
+
   // Check for implicit conversion
   return canConvert(sourceSocket.valueTypeName, targetSocket.valueTypeName);
 }
@@ -272,7 +272,7 @@ function canConvert(
     'boolean': ['string']
     // Additional conversion rules...
   };
-  
+
   return conversionMap[sourceTypeName]?.includes(targetTypeName) || false;
 }
 ```
@@ -302,21 +302,21 @@ function animateValue<T>(
   if (!valueType) {
     throw new Error(`Unknown value type: ${valueTypeName}`);
   }
-  
+
   const startTime = Date.now();
-  
+
   function update() {
     const elapsed = Date.now() - startTime;
     const t = Math.min(elapsed / duration, 1);
-    
+
     const currentValue = valueType.lerp(startValue, endValue, t);
     onUpdate(currentValue);
-    
+
     if (t < 1) {
       requestAnimationFrame(update);
     }
   }
-  
+
   update();
 }
 ```

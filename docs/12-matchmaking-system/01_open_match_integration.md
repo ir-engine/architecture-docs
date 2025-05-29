@@ -1,4 +1,4 @@
-# Chapter 1: Open Match Integration
+# Open match integration
 
 Welcome to our exploration of iR Engine's matchmaking system! In this chapter, we'll dive into how iR Engine integrates with Google's Open Match framework to provide a powerful and scalable matchmaking solution.
 
@@ -60,7 +60,7 @@ export const createTicket = async (gameMode: string): Promise<MatchTicketType> =
   const ticket = await API.instance.service(matchTicketPath).create({
     gameMode
   })
-  
+
   return ticket
 }
 ```
@@ -83,16 +83,16 @@ The matchmaking function is implemented in Go and deployed as a Kubernetes pod. 
 func makeMatches(p *pb.MatchProfile, poolTickets map[string][]*pb.Ticket) ([]*pb.Match, error) {
     // Group tickets by game mode
     ticketGroups := groupTicketsByGameMode(poolTickets)
-    
+
     // Create matches from ticket groups
     var matches []*pb.Match
     for gameMode, tickets := range ticketGroups {
         // Create matches with appropriate team sizes
         // ...
-        
+
         // Calculate match score
         matchScore := scoreCalculator(matchTickets)
-        
+
         // Create the match
         matches = append(matches, &pb.Match{
             MatchId:       fmt.Sprintf("profile-%v-time-%v-%v", p.GetName(), time.Now().Format("2006-01-02T15:04:05.00"), count),
@@ -102,7 +102,7 @@ func makeMatches(p *pb.MatchProfile, poolTickets map[string][]*pb.Ticket) ([]*pb
             // ...
         })
     }
-    
+
     return matches, nil
 }
 ```
@@ -124,10 +124,10 @@ func assign(be pb.BackendServiceClient, p *pb.MatchProfile, matches []*pb.Match)
         for _, ticket := range match.GetTickets() {
             ticketIDs = append(ticketIDs, ticket.GetId())
         }
-        
+
         // Generate a connection string (instanceserver ID)
         conn := uuid.New().String()
-        
+
         // Assign tickets to the connection
         req := &pb.AssignTicketsRequest{
             Assignments: []*pb.AssignmentGroup{
@@ -140,13 +140,13 @@ func assign(be pb.BackendServiceClient, p *pb.MatchProfile, matches []*pb.Match)
                 },
             },
         }
-        
+
         // Make the assignment
         if _, err := be.AssignTickets(context.Background(), req); err != nil {
             return fmt.Errorf("AssignTickets failed for match %v, got %w", match.GetMatchId(), err)
         }
     }
-    
+
     return nil
 }
 ```

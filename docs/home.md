@@ -1,3 +1,7 @@
+---
+title: Home
+---
+
 # iR Engine architectural documentation
 
 Welcome to the iR Engine architectural documentation. This comprehensive guide covers the architecture, components, and systems that make up the Infinite Reality Engine.

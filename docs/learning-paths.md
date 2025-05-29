@@ -1,3 +1,7 @@
+---
+title: Learning paths
+---
+
 # Learning paths
 
 This guide provides recommended learning paths for developers at different experience levels. Choose the path that best matches your current knowledge and goals.

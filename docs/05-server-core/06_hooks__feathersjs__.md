@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Hooks component is a powerful feature of the iR Engine's server core that enables the addition of processing logic before, after, or during error handling of service method executions. It provides a structured way to implement cross-cutting concerns such as authentication, validation, and data transformation without cluttering the core service logic. By leveraging the hook system of FeathersJS, this component creates a modular, reusable approach to handling common patterns across different services. This chapter explores the implementation, types, and usage of hooks within the iR Engine.
+The Hooks component is a powerful feature of the iR Engine's server core that enables the addition of processing logic before, after, or during error handling of service method executions. It provides a structured way to implement cross-cutting concerns such as authentication, validation, and data transformation without cluttering the core service logic. 
+
+By leveraging the hook system of FeathersJS, this component creates a modular, reusable approach to handling common patterns across different services. This chapter explores the implementation, types, and usage of hooks within the iR Engine.
 
 ## Core concepts
 

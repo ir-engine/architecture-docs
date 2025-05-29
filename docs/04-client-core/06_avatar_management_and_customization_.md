@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Avatar Management and Customization system provides users with a visual representation within the iR Engine's 3D environments. It handles the selection, customization, loading, and animation of avatars, allowing users to establish their identity and presence in virtual spaces. By integrating with external avatar creation services and implementing real-time facial expression mapping, the system creates more engaging and personalized experiences. This chapter explores the implementation, workflow, and components involved in managing avatars within the iR Engine client.
+The Avatar Management and Customization system provides users with a visual representation within the iR Engine's 3D environments. It handles the selection, customization, loading, and animation of avatars, allowing users to establish their identity and presence in virtual spaces. 
+
+By integrating with external avatar creation services and implementing real-time facial expression mapping, the system creates more engaging and personalized experiences. This chapter explores the implementation, workflow, and components involved in managing avatars within the iR Engine client.
 
 ## Core concepts
 

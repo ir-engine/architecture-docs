@@ -1,6 +1,8 @@
 # Client core
 
-The client-side core for the iR Engine is a platform designed for creating and experiencing shared 3D or XR (Extended Reality) environments. It includes an Admin Panel that allows administrators to manage various aspects of the platform, such as users, projects, and servers. Users can authenticate themselves, navigate through different parts of the application using a client-side routing system, and have their 3D avatars managed and customized. The system also handles the provisioning of real-time server instances required for these interactive experiences and supports in-world user interfaces (XRUI) for immersive interaction.
+The client-side core for the iR Engine is a platform designed for creating and experiencing shared 3D or XR (Extended Reality) environments. It includes an Admin Panel that allows administrators to manage various aspects of the platform, such as users, projects, and servers. 
+
+Users can authenticate themselves, navigate through different parts of the application using a client-side routing system, and have their 3D avatars managed and customized. The system also handles the provisioning of real-time server instances required for these interactive experiences and supports in-world user interfaces (XRUI) for immersive interaction.
 
 ## Architecture overview
 

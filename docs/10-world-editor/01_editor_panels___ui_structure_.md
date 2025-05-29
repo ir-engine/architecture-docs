@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Editor Panels and UI Structure component is a fundamental element of the iR Engine's World Editor that organizes the user interface into specialized, interactive panels. It provides a flexible framework for arranging and managing the various tools and views needed for 3D world creation. By implementing a dockable panel system, this component enables users to customize their workspace while maintaining a consistent and intuitive editing experience. This chapter explores the implementation, organization, and customization of the editor's user interface.
+The Editor Panels and UI Structure component is a fundamental element of the iR Engine's World Editor that organizes the user interface into specialized, interactive panels. It provides a flexible framework for arranging and managing the various tools and views needed for 3D world creation.
+
+By implementing a dockable panel system, this component enables users to customize their workspace while maintaining a consistent and intuitive editing experience. This chapter explores the implementation, organization, and customization of the editor's user interface.
 
 ## Core concepts
 
@@ -70,7 +72,7 @@ import './EditorContainer.css';
 export const EditorContainer: React.FC = () => {
   // Get editor state
   const editorState = useHookstate(EditorState.state);
-  
+
   // Define default layout
   const defaultLayout = {
     dockbox: {
@@ -95,13 +97,13 @@ export const EditorContainer: React.FC = () => {
       ]
     }
   };
-  
+
   // Handle layout changes
   const handleLayoutChange = (newLayout) => {
     // Save layout to persistent storage
     localStorage.setItem('editorLayout', JSON.stringify(newLayout));
   };
-  
+
   // Load saved layout on component mount
   useEffect(() => {
     const savedLayout = localStorage.getItem('editorLayout');
@@ -115,7 +117,7 @@ export const EditorContainer: React.FC = () => {
       }
     }
   }, []);
-  
+
   return (
     <div className="editor-container">
       <Toolbar />
@@ -186,29 +188,29 @@ import { GridTool } from './tools/GridTool';
 export const ViewportContent: React.FC = () => {
   // Reference to the canvas element
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+
   // Get editor state
   const editorState = useHookstate(EditorState.state);
-  
+
   // Initialize engine and scene
   useEffect(() => {
     if (!canvasRef.current) return;
-    
+
     // Initialize engine with canvas
     const engine = new Engine(canvasRef.current);
-    
+
     // Store engine reference in editor state
     editorState.engine.set(engine);
-    
+
     // Set up scene and camera
     // Implementation details omitted for brevity
-    
+
     // Clean up on unmount
     return () => {
       engine.dispose();
     };
   }, [canvasRef]);
-  
+
   return (
     <div className="viewport-container">
       <canvas ref={canvasRef} className="viewport-canvas" />
@@ -259,20 +261,20 @@ export const HierarchyPanelTab = {
 const HierarchyContent: React.FC = () => {
   // Get editor state
   const editorState = useHookstate(EditorState.state);
-  
+
   // Handle node selection
   const handleNodeSelect = (nodeId: string) => {
     // Update selection in editor state
     editorState.selectedEntityId.set(nodeId);
   };
-  
+
   return (
     <div className="hierarchy-container">
       <div className="hierarchy-toolbar">
         <button onClick={() => EditorState.createEntity()}>Add Entity</button>
         <button onClick={() => EditorState.deleteSelectedEntity()}>Delete</button>
       </div>
-      <HierarchyTree 
+      <HierarchyTree
         rootNodes={editorState.scene.entities.value}
         onNodeSelect={handleNodeSelect}
         selectedNodeId={editorState.selectedEntityId.value}
@@ -321,37 +323,37 @@ const PropertiesContent: React.FC = () => {
   // Get editor state
   const editorState = useHookstate(EditorState.state);
   const selectedId = editorState.selectedEntityId.value;
-  
+
   // Get selected entity
-  const selectedEntity = selectedId 
+  const selectedEntity = selectedId
     ? editorState.scene.entities.value.find(e => e.id === selectedId)
     : null;
-  
+
   if (!selectedEntity) {
     return <div className="properties-empty">No entity selected</div>;
   }
-  
+
   return (
     <div className="properties-container">
       <h3>{selectedEntity.name}</h3>
-      
+
       <section className="properties-section">
         <h4>Transform</h4>
-        <PropertyEditor 
+        <PropertyEditor
           entity={selectedEntity}
           component="transform"
         />
       </section>
-      
+
       {selectedEntity.components.material && (
         <section className="properties-section">
           <h4>Material</h4>
-          <MaterialEditor 
+          <MaterialEditor
             entity={selectedEntity}
           />
         </section>
       )}
-      
+
       {/* Additional component editors */}
     </div>
   );
@@ -378,32 +380,32 @@ sequenceDiagram
     participant HierarchyPanel
     participant PropertiesPanel
     participant EditorState
-    
+
     User->>EditorContainer: Open editor
     EditorContainer->>DockLayout: Initialize with default layout
     DockLayout->>ViewportPanel: Render in main area
     DockLayout->>HierarchyPanel: Render in side panel
     DockLayout->>PropertiesPanel: Render in side panel
-    
+
     User->>ViewportPanel: Select object in 3D view
     ViewportPanel->>EditorState: Update selection
     EditorState-->>HierarchyPanel: Notify of selection change
     HierarchyPanel->>HierarchyPanel: Highlight selected node
     EditorState-->>PropertiesPanel: Notify of selection change
     PropertiesPanel->>PropertiesPanel: Display object properties
-    
+
     User->>HierarchyPanel: Select different object
     HierarchyPanel->>EditorState: Update selection
     EditorState-->>ViewportPanel: Notify of selection change
     ViewportPanel->>ViewportPanel: Highlight selected object
     EditorState-->>PropertiesPanel: Notify of selection change
     PropertiesPanel->>PropertiesPanel: Display new object properties
-    
+
     User->>PropertiesPanel: Modify property value
     PropertiesPanel->>EditorState: Update object property
     EditorState-->>ViewportPanel: Notify of property change
     ViewportPanel->>ViewportPanel: Update visual representation
-    
+
     User->>DockLayout: Drag panel to new position
     DockLayout->>DockLayout: Recalculate layout
     DockLayout->>EditorContainer: Notify of layout change
@@ -430,10 +432,10 @@ Panels can be docked in different positions:
 const dockPanel = (panelId, position) => {
   // Get the dock layout instance
   const dockLayout = dockLayoutRef.current;
-  
+
   // Get the panel to dock
   const panel = dockLayout.find(panelId);
-  
+
   // Dock the panel at the specified position
   dockLayout.dockMove(panel, position, 'middle');
 };
@@ -458,13 +460,13 @@ Related panels can be grouped as tabs:
 const groupPanelsAsTabs = (panelIds, groupId) => {
   // Get the dock layout instance
   const dockLayout = dockLayoutRef.current;
-  
+
   // Get the panels to group
   const panels = panelIds.map(id => dockLayout.find(id));
-  
+
   // Group the panels as tabs
   dockLayout.dockMove(panels[0], panels[1], 'middle');
-  
+
   // Set the group ID for the tab group
   const tabGroup = dockLayout.getTabGroup(panels[0]);
   tabGroup.group = groupId;
@@ -532,15 +534,15 @@ import { EditorState } from '../../services/EditorServices';
 const Panel = () => {
   // Subscribe to editor state
   const editorState = useHookstate(EditorState.state);
-  
+
   // Get current selection
   const selectedEntityId = editorState.selectedEntityId.value;
-  
+
   // Update selection
   const handleSelect = (entityId) => {
     editorState.selectedEntityId.set(entityId);
   };
-  
+
   // ... panel rendering
 };
 ```
@@ -566,17 +568,17 @@ const ViewportPanel = () => {
   useEffect(() => {
     // Create transform gizmo system
     const gizmoSystem = new TransformGizmoSystem(scene, camera);
-    
+
     // Configure gizmo based on editor state
     gizmoSystem.setMode(editorState.transformMode.value);
     gizmoSystem.setSpace(editorState.transformSpace.value);
-    
+
     // Clean up on unmount
     return () => {
       gizmoSystem.dispose();
     };
   }, [scene, camera]);
-  
+
   // ... viewport rendering
 };
 ```
@@ -601,16 +603,16 @@ import { FilesState } from '../../services/FilesState';
 const AssetsPanel = () => {
   // Subscribe to files state
   const filesState = useHookstate(FilesState.state);
-  
+
   // Get current directory and files
   const currentDir = filesState.currentDirectory.value;
   const files = filesState.files.value;
-  
+
   // Handle file selection
   const handleFileSelect = (file) => {
     FilesState.selectFile(file.id);
   };
-  
+
   // ... assets panel rendering
 };
 ```

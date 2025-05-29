@@ -2,7 +2,9 @@
 
 ## Overview
 
-XRUI (Extended Reality User Interface) and In-World Widgets provide the foundation for creating user interfaces that exist within the 3D environment rather than as traditional 2D overlays. By rendering UI elements directly in the 3D scene, the system enables more immersive and spatially relevant interactions. This chapter explores the implementation, components, and workflow of the XRUI system within the iR Engine client, demonstrating how web technologies like React are leveraged to create interactive interfaces in 3D space.
+XRUI (Extended Reality User Interface) and In-World Widgets provide the foundation for creating user interfaces that exist within the 3D environment rather than as traditional 2D overlays. By rendering UI elements directly in the 3D scene, the system enables more immersive and spatially relevant interactions. 
+
+This chapter explores the implementation, components, and workflow of the XRUI system within the iR Engine client, demonstrating how web technologies like React are leveraged to create interactive interfaces in 3D space.
 
 ## Core concepts
 

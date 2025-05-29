@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Asset Handling and Pipeline component is a critical element of the iR Engine's World Editor that manages the import, organization, and optimization of digital resources used in 3D worlds. It provides a comprehensive system for bringing external files into projects, organizing them in a structured library, and processing them for optimal performance. By implementing specialized preview and compression tools, this component ensures that creators can efficiently work with various asset types while maintaining high performance in their worlds. This chapter explores the implementation, workflow, and optimization of assets within the World Editor.
+The Asset Handling and Pipeline component is a critical element of the iR Engine's World Editor that manages the import, organization, and optimization of digital resources used in 3D worlds. It provides a comprehensive system for bringing external files into projects, organizing them in a structured library, and processing them for optimal performance.
+
+By implementing specialized preview and compression tools, this component ensures that creators can efficiently work with various asset types while maintaining high performance in their worlds. This chapter explores the implementation, workflow, and optimization of assets within the World Editor.
 
 ## Core concepts
 
@@ -69,7 +71,7 @@ import Topbar from './topbar';
 const AssetsPanel: React.FC = () => {
   const { t } = useTranslation();
   const filesState = useHookstate(FilesState.state);
-  
+
   return (
     <div className="assets-panel">
       <Topbar />
@@ -87,7 +89,7 @@ const AssetsPanel: React.FC = () => {
  */
 const AssetsPanelTitle: React.FC = () => {
   const { t } = useTranslation();
-  
+
   return (
     <PanelDragContainer>
       <PanelTitle>{t('editor:assets.title')}</PanelTitle>
@@ -138,18 +140,18 @@ export const FileBrowser: React.FC<{
   const filesState = useHookstate(FilesState.state);
   const files = filesState.files.value;
   const selectedFileId = filesState.selectedFileId.value;
-  
+
   // Load files for the current path
   useEffect(() => {
     FilesState.loadDirectory(currentPath);
   }, [currentPath]);
-  
+
   // Handle file selection
   const handleFileClick = (file: FileData) => {
     FilesState.selectFile(file.id);
     onFileSelect(file);
   };
-  
+
   // Handle context menu
   const handleContextMenu = (e: React.MouseEvent, file: FileData) => {
     e.preventDefault();
@@ -157,7 +159,7 @@ export const FileBrowser: React.FC<{
     // Show context menu at cursor position
     ContextMenu.show(e.clientX, e.clientY, file);
   };
-  
+
   return (
     <div className="file-browser">
       {files.map(file => (
@@ -205,17 +207,17 @@ export const AssetsPreviewPanel: React.FC = () => {
   const filesState = useHookstate(FilesState.state);
   const selectedFileId = filesState.selectedFileId.value;
   const selectedFile = filesState.files.value.find(f => f.id === selectedFileId);
-  
+
   // State for preview component
   const [PreviewComponent, setPreviewComponent] = useState<React.ComponentType<any> | null>(null);
-  
+
   // Determine preview component based on file type
   useEffect(() => {
     if (!selectedFile) {
       setPreviewComponent(null);
       return;
     }
-    
+
     // Select appropriate preview component based on file type
     switch (selectedFile.contentType) {
       case 'image/png':
@@ -240,12 +242,12 @@ export const AssetsPreviewPanel: React.FC = () => {
         break;
     }
   }, [selectedFile]);
-  
+
   // If no file is selected or no preview component is available
   if (!selectedFile || !PreviewComponent) {
     return <div className="no-preview">No file selected</div>;
   }
-  
+
   // Render the appropriate preview component
   return (
     <div className="asset-preview-panel">
@@ -284,7 +286,7 @@ export const handleUploadFiles = async (
 ): Promise<string[]> => {
   // Get import settings
   const importSettings = ImportSettingsState.getSettings();
-  
+
   // Process each file
   const uploadPromises = files.map(async (file) => {
     // Check if file should be processed before upload
@@ -296,20 +298,20 @@ export const handleUploadFiles = async (
         file = await optimizeModel(file, importSettings.modelOptimization);
       }
     }
-    
+
     // Upload the file to the server
     const response = await uploadFileToServer(file, directory);
-    
+
     // Return the path to the uploaded file
     return response.path;
   });
-  
+
   // Wait for all uploads to complete
   const uploadedPaths = await Promise.all(uploadPromises);
-  
+
   // Refresh the directory to show new files
   await FilesState.refreshDirectory(directory);
-  
+
   return uploadedPaths;
 };
 
@@ -324,13 +326,13 @@ const uploadFileToServer = async (file: File, directory: string) => {
   const formData = new FormData();
   formData.append('file', file);
   formData.append('directory', directory);
-  
+
   // Send the upload request
   const response = await fetch('/api/upload', {
     method: 'POST',
     body: formData
   });
-  
+
   // Parse and return the response
   return await response.json();
 };
@@ -368,15 +370,15 @@ export const ImageCompressionPanel: React.FC<{
   const [quality, setQuality] = useState(75);
   const [mipMaps, setMipMaps] = useState(true);
   const [loading, setLoading] = useState(false);
-  
+
   // Handle compression
   const handleCompress = async () => {
     setLoading(true);
-    
+
     try {
       // Get the file content
       const fileContent = await fetch(file.url).then(res => res.blob());
-      
+
       // Compress the image
       const compressedImage = await compressImage(fileContent, {
         format,
@@ -384,10 +386,10 @@ export const ImageCompressionPanel: React.FC<{
         mipMaps,
         originalName: file.name
       });
-      
+
       // Upload the compressed image
       await handleUploadFiles([compressedImage], file.directory);
-      
+
       // Close the panel
       onClose();
     } catch (error) {
@@ -396,11 +398,11 @@ export const ImageCompressionPanel: React.FC<{
       setLoading(false);
     }
   };
-  
+
   return (
     <div className="image-compression-panel">
       <h3>Image Compression</h3>
-      
+
       <div className="form-group">
         <label>Format</label>
         <Select
@@ -413,7 +415,7 @@ export const ImageCompressionPanel: React.FC<{
           ]}
         />
       </div>
-      
+
       <div className="form-group">
         <label>Quality: {quality}%</label>
         <Slider
@@ -423,7 +425,7 @@ export const ImageCompressionPanel: React.FC<{
           onChange={(value) => setQuality(value)}
         />
       </div>
-      
+
       <div className="form-group">
         <label>Generate MipMaps</label>
         <input
@@ -432,11 +434,11 @@ export const ImageCompressionPanel: React.FC<{
           onChange={(e) => setMipMaps(e.target.checked)}
         />
       </div>
-      
+
       <div className="actions">
         <Button onClick={onClose} variant="secondary">Cancel</Button>
-        <Button 
-          onClick={handleCompress} 
+        <Button
+          onClick={handleCompress}
           variant="primary"
           disabled={loading}
         >
@@ -481,15 +483,15 @@ export const ModelCompressionPanel: React.FC<{
   const [compressTextures, setCompressTextures] = useState(true);
   const [draco, setDraco] = useState(true);
   const [loading, setLoading] = useState(false);
-  
+
   // Handle optimization
   const handleOptimize = async () => {
     setLoading(true);
-    
+
     try {
       // Get the file content
       const fileContent = await fetch(file.url).then(res => res.blob());
-      
+
       // Optimize the model
       const optimizedModel = await optimizeModel(fileContent, {
         generateLODs,
@@ -498,10 +500,10 @@ export const ModelCompressionPanel: React.FC<{
         draco,
         originalName: file.name
       });
-      
+
       // Upload the optimized model
       await handleUploadFiles([optimizedModel], file.directory);
-      
+
       // Close the panel
       onClose();
     } catch (error) {
@@ -510,11 +512,11 @@ export const ModelCompressionPanel: React.FC<{
       setLoading(false);
     }
   };
-  
+
   return (
     <div className="model-optimization-panel">
       <h3>Model Optimization</h3>
-      
+
       <div className="form-group">
         <Checkbox
           label="Generate LODs (Levels of Detail)"
@@ -522,7 +524,7 @@ export const ModelCompressionPanel: React.FC<{
           onChange={(e) => setGenerateLODs(e.target.checked)}
         />
       </div>
-      
+
       {generateLODs && (
         <div className="form-group">
           <label>LOD Levels</label>
@@ -534,7 +536,7 @@ export const ModelCompressionPanel: React.FC<{
           />
         </div>
       )}
-      
+
       <div className="form-group">
         <Checkbox
           label="Compress Textures"
@@ -542,7 +544,7 @@ export const ModelCompressionPanel: React.FC<{
           onChange={(e) => setCompressTextures(e.target.checked)}
         />
       </div>
-      
+
       <div className="form-group">
         <Checkbox
           label="Apply Draco Compression"
@@ -550,11 +552,11 @@ export const ModelCompressionPanel: React.FC<{
           onChange={(e) => setDraco(e.target.checked)}
         />
       </div>
-      
+
       <div className="actions">
         <Button onClick={onClose} variant="secondary">Cancel</Button>
-        <Button 
-          onClick={handleOptimize} 
+        <Button
+          onClick={handleOptimize}
           variant="primary"
           disabled={loading}
         >
@@ -586,7 +588,7 @@ sequenceDiagram
     participant Server
     participant Optimizer
     participant PreviewPanel
-    
+
     User->>AssetsPanel: Drag files or click Import
     AssetsPanel->>AssetFunctions: handleUploadFiles()
     AssetFunctions->>Optimizer: Apply auto-optimization (if enabled)
@@ -595,11 +597,11 @@ sequenceDiagram
     Server-->>AssetFunctions: Confirm upload
     AssetFunctions->>FileBrowser: Refresh directory
     FileBrowser-->>User: Display new files
-    
+
     User->>FileBrowser: Select file
     FileBrowser->>PreviewPanel: Show file preview
     PreviewPanel-->>User: Display appropriate preview
-    
+
     User->>FileBrowser: Right-click file, select "Optimize"
     FileBrowser->>AssetsPanel: Show optimization panel
     User->>AssetsPanel: Configure optimization settings
@@ -644,23 +646,23 @@ export const addModelToScene = async (modelId: string): Promise<Entity> => {
   if (!modelFile) {
     throw new Error(`Model with ID ${modelId} not found`);
   }
-  
+
   // Create an entity for the model
   const entity = EditorState.createEntity();
-  
+
   // Add a model component to the entity
   EditorState.addComponent(entity, 'model', {
     url: modelFile.url,
     type: modelFile.contentType
   });
-  
+
   // Position the entity at the center of the scene
   EditorState.addComponent(entity, 'transform', {
     position: { x: 0, y: 0, z: 0 },
     rotation: { x: 0, y: 0, z: 0 },
     scale: { x: 1, y: 1, z: 1 }
   });
-  
+
   return entity;
 };
 ```
@@ -692,7 +694,7 @@ export const createMaterialFromTexture = async (textureId: string): Promise<stri
   if (!textureFile) {
     throw new Error(`Texture with ID ${textureId} not found`);
   }
-  
+
   // Create a material with the texture
   const materialId = await MaterialsState.createMaterial({
     name: `${textureFile.name.split('.')[0]}_material`,
@@ -704,7 +706,7 @@ export const createMaterialFromTexture = async (textureId: string): Promise<stri
       metalness: 0.0
     }
   });
-  
+
   return materialId;
 };
 ```
@@ -740,7 +742,7 @@ export const createPlaySoundNode = async (
   if (!soundFile) {
     throw new Error(`Sound with ID ${soundId} not found`);
   }
-  
+
   // Create a play sound node in the graph
   const nodeId = await VisualScriptState.createNode(graphId, {
     type: 'playSound',
@@ -751,7 +753,7 @@ export const createPlaySoundNode = async (
       loop: false
     }
   });
-  
+
   return nodeId;
 };
 ```

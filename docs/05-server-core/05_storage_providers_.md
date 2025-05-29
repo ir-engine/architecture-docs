@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Storage Providers component is an essential element of the iR Engine's server core that manages the storage and retrieval of files such as images, videos, and 3D models. It provides a unified interface for file operations while abstracting the underlying storage implementation, whether local filesystem, Amazon S3, or Google Cloud Storage. By implementing this abstraction layer, the system enables flexibility in storage solutions without requiring changes to application code. This chapter explores the implementation, interface, and usage of storage providers within the iR Engine.
+The Storage Providers component is an essential element of the iR Engine's server core that manages the storage and retrieval of files such as images, videos, and 3D models. It provides a unified interface for file operations while abstracting the underlying storage implementation, whether local filesystem, Amazon S3, or Google Cloud Storage. 
+
+By implementing this abstraction layer, the system enables flexibility in storage solutions without requiring changes to application code. This chapter explores the implementation, interface, and usage of storage providers within the iR Engine.
 
 ## Core concepts
 

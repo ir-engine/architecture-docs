@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Instance Provisioning and Networking system enables multiple users to connect to shared virtual environments within the iR Engine. It handles the discovery, creation, and connection to server instances that host these shared spaces, establishing real-time communication channels between users. By leveraging WebRTC technology and specialized server architectures, the system creates the foundation for multi-user experiences where users can see and interact with each other in the same virtual space. This chapter explores the implementation, workflow, and components involved in connecting users to shared instances within the iR Engine client.
+The Instance Provisioning and Networking system enables multiple users to connect to shared virtual environments within the iR Engine. It handles the discovery, creation, and connection to server instances that host these shared spaces, establishing real-time communication channels between users. 
+
+By leveraging WebRTC technology and specialized server architectures, the system creates the foundation for multi-user experiences where users can see and interact with each other in the same virtual space. This chapter explores the implementation, workflow, and components involved in connecting users to shared instances within the iR Engine client.
 
 ## Core concepts
 

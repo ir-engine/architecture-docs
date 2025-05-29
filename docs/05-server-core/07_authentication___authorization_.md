@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Authentication & Authorization component is a critical element of the iR Engine's server core that manages user identity verification and access control. It ensures that only legitimate users can access the system and that they can only perform actions they are permitted to do. By implementing a comprehensive security layer using JSON Web Tokens (JWT) and scope-based permissions, this component protects sensitive data and functionality from unauthorized access. This chapter explores the implementation, workflow, and security mechanisms of authentication and authorization within the iR Engine.
+The Authentication & Authorization component is a critical element of the iR Engine's server core that manages user identity verification and access control. It ensures that only legitimate users can access the system and that they can only perform actions they are permitted to do. 
+
+By implementing a comprehensive security layer using JSON Web Tokens (JWT) and scope-based permissions, this component protects sensitive data and functionality from unauthorized access. This chapter explores the implementation, workflow, and security mechanisms of authentication and authorization within the iR Engine.
 
 ## Core concepts
 

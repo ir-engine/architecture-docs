@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Admin Panel System provides a centralized interface for managing and monitoring the iR Engine platform. It enables administrators to view and modify users, projects, locations, and server instances through a secure, role-based interface. By leveraging the client core's routing, authentication, and API services, the admin panel creates a comprehensive management dashboard that separates administrative functions from the regular user experience. This chapter explores the implementation, components, and workflow of the admin panel within the iR Engine client.
+The Admin Panel System provides a centralized interface for managing and monitoring the iR Engine platform. It enables administrators to view and modify users, projects, locations, and server instances through a secure, role-based interface. 
+
+By leveraging the client core's routing, authentication, and API services, the admin panel creates a comprehensive management dashboard that separates administrative functions from the regular user experience. This chapter explores the implementation, components, and workflow of the admin panel within the iR Engine client.
 
 ## Core concepts
 

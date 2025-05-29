@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Database Management component is a critical element of the iR Engine's server core that handles persistent data storage and retrieval. It provides a structured approach to defining database schemas, managing data operations, and maintaining data integrity. By leveraging Knex.js, a flexible SQL query builder, this component creates an abstraction layer between the application and the underlying database system. This chapter explores the implementation, workflow, and tools used for database management within the iR Engine.
+The Database Management component is a critical element of the iR Engine's server core that handles persistent data storage and retrieval. It provides a structured approach to defining database schemas, managing data operations, and maintaining data integrity. 
+
+By leveraging Knex.js, a flexible SQL query builder, this component creates an abstraction layer between the application and the underlying database system. This chapter explores the implementation, workflow, and tools used for database management within the iR Engine.
 
 ## Core concepts
 

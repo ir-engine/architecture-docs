@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Real-time Communication component is a critical element of the iR Engine's server core that enables instant, bidirectional data exchange between the server and connected clients. It provides a robust infrastructure for pushing updates to clients without requiring them to poll the server, creating a responsive and interactive user experience. By leveraging WebSockets through the Primus library, this component supports features like live updates, messaging, and collaborative interactions. This chapter explores the implementation, configuration, and event distribution system of real-time communication within the iR Engine.
+The Real-time Communication component is a critical element of the iR Engine's server core that enables instant, bidirectional data exchange between the server and connected clients. It provides a robust infrastructure for pushing updates to clients without requiring them to poll the server, creating a responsive and interactive user experience. 
+
+By leveraging WebSockets through the Primus library, this component supports features like live updates, messaging, and collaborative interactions. This chapter explores the implementation, configuration, and event distribution system of real-time communication within the iR Engine.
 
 ## Core concepts
 

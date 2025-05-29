@@ -1,7 +1,7 @@
 # Summary
 
 ## Getting started
-* [Home](home.md)
+* [Index](home.md)
 * [About iR Engine](about.md)
 * [Learning paths](learning-paths.md)
 

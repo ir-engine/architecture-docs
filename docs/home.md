@@ -1,5 +1,5 @@
 ---
-title: Home
+title: Index
 ---
 
 # iR Engine architectural documentation

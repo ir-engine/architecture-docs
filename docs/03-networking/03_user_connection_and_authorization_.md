@@ -2,7 +2,9 @@
 
 ## Overview
 
-The User Connection and Authorization system is a critical component of the iR Engine's multiplayer infrastructure that manages how players connect to game instances and verifies their permissions. It ensures that only authenticated users with appropriate authorization can access specific game environments. By implementing robust security checks and connection management, this system protects game instances from unauthorized access while providing legitimate players with a seamless connection experience. This chapter explores the implementation, workflow, and security aspects of user connection and authorization within the iR Engine.
+The User Connection and Authorization system is a critical component of the iR Engine's multiplayer infrastructure that manages how players connect to game instances and verifies their permissions. It ensures that only authenticated users with appropriate authorization can access specific game environments.
+
+By implementing robust security checks and connection management, this system protects game instances from unauthorized access while providing legitimate players with a seamless connection experience. This chapter explores the implementation, workflow, and security aspects of user connection and authorization within the iR Engine.
 
 ## Core concepts
 
@@ -48,25 +50,25 @@ The system processes incoming connection requests from clients:
 // Simplified from: src/SocketFunctions.ts
 function setupSocketFunctions(app) {
   const logger = app.get('logger');
-  
+
   // Create a network server to handle connections
   const server = new NetworkServer();
-  
+
   // Handle new connection attempts
   server.on('connection', (spark) => {
     logger.info(`New connection attempt from ${spark.address.ip}`);
-    
+
     // Set up event handlers for this connection
     spark.on('data', async (message) => {
       try {
         // Parse the incoming message
         const data = JSON.parse(message);
-        
+
         // Handle authentication request
         if (data.type === 'authenticate') {
           await handleAuthenticationRequest(app, spark, data);
         }
-        
+
         // Handle other message types
         // ...
       } catch (error) {
@@ -77,13 +79,13 @@ function setupSocketFunctions(app) {
         }));
       }
     });
-    
+
     // Handle disconnection
     spark.on('end', () => {
       handleDisconnection(app, spark);
     });
   });
-  
+
   return server;
 }
 ```
@@ -104,37 +106,37 @@ The authentication process verifies the identity of connecting users:
 async function handleAuthenticationRequest(app, spark, data) {
   const logger = app.get('logger');
   const { token, peerID, instanceId } = data;
-  
+
   try {
     // Validate the authentication token
     const authResult = await app.service('authentication').strategies.jwt.authenticate(
       { accessToken: token },
       {}
     );
-    
+
     // Extract user information from the authentication result
     const identityProviderPath = app.get('authentication').entity;
     const userId = authResult[identityProviderPath].userId;
-    
+
     logger.info(`User ${userId} authenticated successfully`);
-    
+
     // Store user information with the connection
     spark.userId = userId;
     spark.peerID = peerID;
     spark.instanceId = instanceId;
-    
+
     // Proceed to authorization
     await authorizeUserForInstance(app, spark, userId, instanceId);
   } catch (error) {
     logger.error(`Authentication failed: ${error.message}`);
-    
+
     // Send authentication failure response
     spark.write(JSON.stringify({
       status: 'error',
       message: 'Authentication failed',
       code: 'INVALID_TOKEN'
     }));
-    
+
     // Close the connection
     spark.end();
   }
@@ -157,20 +159,20 @@ The authorization process checks if authenticated users can access specific inst
 // Simplified from: src/NetworkFunctions.ts
 async function authorizeUserForInstance(app, spark, userId, instanceId) {
   const logger = app.get('logger');
-  
+
   try {
     // Get instance details
     const instance = await app.service('instance').get(instanceId);
     if (!instance) {
       throw new Error(`Instance ${instanceId} not found`);
     }
-    
+
     // Get user details
     const user = await app.service('user').get(userId);
     if (!user) {
       throw new Error(`User ${userId} not found`);
     }
-    
+
     // Check if the user is banned
     const banQuery = {
       query: {
@@ -182,7 +184,7 @@ async function authorizeUserForInstance(app, spark, userId, instanceId) {
     if (bans.total > 0) {
       throw new Error(`User ${userId} is banned`);
     }
-    
+
     // Check if the instance is private and if the user is authorized
     if (instance.isPrivate) {
       const authQuery = {
@@ -196,7 +198,7 @@ async function authorizeUserForInstance(app, spark, userId, instanceId) {
         throw new Error(`User ${userId} not authorized for private instance ${instanceId}`);
       }
     }
-    
+
     // Check if the instance is full
     const currentUsers = await app.service('user-instance').find({
       query: {
@@ -206,21 +208,21 @@ async function authorizeUserForInstance(app, spark, userId, instanceId) {
     if (currentUsers.total >= instance.maxUsers) {
       throw new Error(`Instance ${instanceId} is full`);
     }
-    
+
     logger.info(`User ${userId} authorized for instance ${instanceId}`);
-    
+
     // Proceed to connection establishment
     await establishConnection(app, spark, user, instance);
   } catch (error) {
     logger.error(`Authorization failed: ${error.message}`);
-    
+
     // Send authorization failure response
     spark.write(JSON.stringify({
       status: 'error',
       message: error.message,
       code: 'AUTHORIZATION_FAILED'
     }));
-    
+
     // Close the connection
     spark.end();
   }
@@ -243,23 +245,23 @@ After successful authentication and authorization, the connection is established
 // Simplified from: src/NetworkFunctions.ts
 async function establishConnection(app, spark, user, instance) {
   const logger = app.get('logger');
-  
+
   try {
     // Add the connection to the instance channel
     app.channel(`instanceIds/${instance.id}`).join(spark);
-    
+
     // Record the user's presence in the instance
     await app.service('user-instance').create({
       userId: user.id,
       instanceId: instance.id,
       peerID: spark.peerID
     });
-    
+
     // Get WebRTC router capabilities for this instance
     const instanceServerState = getState(InstanceServerState);
     const router = instanceServerState.routers[0]; // Simplified
     const routerRtpCapabilities = router.rtpCapabilities;
-    
+
     // Send success response with necessary connection information
     spark.write(JSON.stringify({
       status: 'success',
@@ -274,25 +276,25 @@ async function establishConnection(app, spark, user, instance) {
         name: instance.name
       }
     }));
-    
+
     // Notify other users in the instance about the new connection
     app.service('message').create({
       type: 'user-joined',
       instanceId: instance.id,
       userId: user.id
     });
-    
+
     logger.info(`User ${user.id} successfully connected to instance ${instance.id}`);
   } catch (error) {
     logger.error(`Connection establishment failed: ${error.message}`);
-    
+
     // Send connection failure response
     spark.write(JSON.stringify({
       status: 'error',
       message: 'Failed to establish connection',
       code: 'CONNECTION_FAILED'
     }));
-    
+
     // Close the connection
     spark.end();
   }
@@ -315,22 +317,22 @@ The system manages user disconnections from instances:
 // Simplified from: src/channels.ts
 async function handleDisconnection(app, spark) {
   const logger = app.get('logger');
-  
+
   // Check if this was an authenticated connection
   if (!spark.userId || !spark.instanceId) {
     logger.info(`Unauthenticated connection from ${spark.address.ip} disconnected`);
     return;
   }
-  
+
   try {
     const userId = spark.userId;
     const instanceId = spark.instanceId;
-    
+
     logger.info(`User ${userId} disconnected from instance ${instanceId}`);
-    
+
     // Remove the user from the instance channel
     app.channel(`instanceIds/${instanceId}`).leave(spark);
-    
+
     // Remove the user's presence record
     await app.service('user-instance').remove(null, {
       query: {
@@ -338,21 +340,21 @@ async function handleDisconnection(app, spark) {
         instanceId: instanceId
       }
     });
-    
+
     // Notify other users in the instance about the disconnection
     app.service('message').create({
       type: 'user-left',
       instanceId: instanceId,
       userId: userId
     });
-    
+
     // Check if the instance is now empty
     const remainingUsers = await app.service('user-instance').find({
       query: {
         instanceId: instanceId
       }
     });
-    
+
     // If the instance is empty and configured for auto-shutdown, initiate shutdown
     if (remainingUsers.total === 0) {
       const instance = await app.service('instance').get(instanceId);
@@ -385,10 +387,10 @@ sequenceDiagram
     participant Server as iR Engine Server
     participant Auth as Authentication Service
     participant DB as Database Services
-    
+
     Client->>Server: Connection request (token, instanceId)
     Server->>Auth: Validate token
-    
+
     alt Invalid token
         Auth-->>Server: Authentication failed
         Server-->>Client: Error: Invalid token
@@ -397,19 +399,19 @@ sequenceDiagram
         Auth-->>Server: Authentication successful (userId)
         Server->>DB: Get user and instance details
         Server->>DB: Check user bans
-        
+
         alt User is banned
             Server-->>Client: Error: User is banned
             Server->>Server: Close connection
         else User is not banned
             Server->>DB: Check instance authorization
-            
+
             alt Not authorized for instance
                 Server-->>Client: Error: Not authorized
                 Server->>Server: Close connection
             else Authorized for instance
                 Server->>DB: Check instance capacity
-                
+
                 alt Instance is full
                     Server-->>Client: Error: Instance full
                     Server->>Server: Close connection
@@ -422,14 +424,14 @@ sequenceDiagram
             end
         end
     end
-    
+
     Note over Client,Server: Active connection
-    
+
     Client->>Server: Disconnection
     Server->>DB: Remove user presence
     Server->>DB: Notify other users
     Server->>DB: Check if instance empty
-    
+
     alt Instance empty and auto-shutdown enabled
         Server->>Server: Initiate instance shutdown
     end
@@ -459,18 +461,18 @@ The connection system interacts with instance lifecycle management:
 // Simplified integration with instance lifecycle
 async function updateInstanceForUser(app, userId, instanceId) {
   const instanceServerState = getState(InstanceServerState);
-  
+
   // Check if the instance is already initialized on this server
   if (!instanceServerState.instance || instanceServerState.instance.id !== instanceId) {
     // Initialize the instance if needed
     await initializeInstance(app, instanceId);
   }
-  
+
   // Ensure the instance is ready
   if (!instanceServerState.ready) {
     throw new Error(`Instance ${instanceId} is not ready`);
   }
-  
+
   // Update instance user count
   await app.service('instance').patch(instanceId, {
     currentUsers: {
@@ -496,17 +498,17 @@ async function setupWebRTCForUser(app, spark, userId, instanceId) {
   // Get the router for this instance
   const instanceServerState = getState(InstanceServerState);
   const router = instanceServerState.routers[0]; // Simplified
-  
+
   // Send router capabilities to the client
   spark.write(JSON.stringify({
     type: 'webrtc-router-capabilities',
     routerRtpCapabilities: router.rtpCapabilities
   }));
-  
+
   // Set up event handlers for WebRTC transport creation
   spark.on('data', (message) => {
     const data = JSON.parse(message);
-    
+
     if (data.type === 'webrtc-transport-create') {
       handleWebRtcTransportCreate(app, spark, data);
     } else if (data.type === 'webrtc-transport-connect') {
@@ -535,10 +537,10 @@ The connection system uses FeathersJS services for data operations:
 async function validateUserAccess(app, userId, instanceId) {
   // Check if the user exists
   const user = await app.service('user').get(userId);
-  
+
   // Check if the instance exists
   const instance = await app.service('instance').get(instanceId);
-  
+
   // Check if the user is banned
   const bans = await app.service('ban').find({
     query: {
@@ -546,11 +548,11 @@ async function validateUserAccess(app, userId, instanceId) {
       active: true
     }
   });
-  
+
   if (bans.total > 0) {
     throw new Error('User is banned');
   }
-  
+
   // Check instance-specific authorization
   if (instance.isPrivate) {
     const authorizations = await app.service('instance-authorization').find({
@@ -559,12 +561,12 @@ async function validateUserAccess(app, userId, instanceId) {
         userId: userId
       }
     });
-    
+
     if (authorizations.total === 0) {
       throw new Error('Not authorized for this instance');
     }
   }
-  
+
   return { user, instance };
 }
 ```

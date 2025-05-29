@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Instance Lifecycle Management system is a core component of the iR Engine's multiplayer infrastructure that handles the creation, initialization, operation, and termination of game server instances. It ensures that game environments are efficiently provisioned when needed and properly released when no longer in use. By managing the complete lifecycle of server instances, this system enables dynamic scaling of multiplayer games while optimizing resource utilization. This chapter explores the implementation, stages, and workflow of instance lifecycle management within the iR Engine.
+The Instance Lifecycle Management system is a core component of the iR Engine's multiplayer infrastructure that handles the creation, initialization, operation, and termination of game server instances. It ensures that game environments are efficiently provisioned when needed and properly released when no longer in use.
+
+By managing the complete lifecycle of server instances, this system enables dynamic scaling of multiplayer games while optimizing resource utilization. This chapter explores the implementation, stages, and workflow of instance lifecycle management within the iR Engine.
 
 ## Core concepts
 
@@ -59,20 +61,20 @@ export const InstanceServerState = defineState({
   initial: {
     // Whether the instance is ready for players
     ready: false,
-    
+
     // Details about this specific instance
     instance: null! as InstanceType,
-    
+
     // Whether this is a media-only instance
     isMediaInstance: false,
-    
+
     // The current scene being hosted
     currentScene: null! as { name: string, sceneId: string },
-    
+
     // Connection information
     address: '',
     port: -1,
-    
+
     // Other state properties as needed
   }
 });
@@ -95,31 +97,31 @@ The initialization process prepares a server for hosting a specific game instanc
 async function initializeInstance(app, instanceId) {
   const logger = app.get('logger');
   logger.info(`Initializing instance ${instanceId}`);
-  
+
   // Get instance data from the database
   const instanceResult = await app.service('instance').get(instanceId);
-  
+
   // Update the instance state
   const instanceServerState = getMutableState(InstanceServerState);
   instanceServerState.instance.set(instanceResult);
-  
+
   // If using Kubernetes/Agones, mark this server as allocated
   if (config.kubernetes.enabled) {
     const serverState = app.get('serverState');
     await serverState.agonesSDK.allocate();
     logger.info('Agones server allocated');
   }
-  
+
   // Initialize the game engine
   await initializeEngine(app);
-  
+
   // Load the appropriate scene
   await loadScene(instanceResult.sceneId);
-  
+
   // Mark the instance as ready
   instanceServerState.ready.set(true);
   logger.info(`Instance ${instanceId} initialized and ready`);
-  
+
   return instanceResult;
 }
 ```
@@ -141,23 +143,23 @@ Loading the appropriate scene is a critical part of instance initialization:
 async function loadScene(sceneId) {
   const logger = app.get('logger');
   logger.info(`Loading scene ${sceneId}`);
-  
+
   // Get scene data from the database
   const sceneResult = await app.service('scene').get(sceneId);
-  
+
   // Update the current scene in the instance state
   const instanceServerState = getMutableState(InstanceServerState);
   instanceServerState.currentScene.set({
     name: sceneResult.name,
     sceneId: sceneResult.id
   });
-  
+
   // Load the scene in the engine
   SceneState.loadScene(sceneResult.url, sceneResult.id);
-  
+
   // Initialize scene-specific systems
   initializeSceneSystems(sceneResult);
-  
+
   logger.info(`Scene ${sceneId} loaded successfully`);
 }
 ```
@@ -177,34 +179,34 @@ The system manages user connections to instances:
 // Simplified from: src/channels.ts
 async function updateInstance(app, user, instanceId) {
   const logger = app.get('logger');
-  
+
   // Check if the instance exists
   const instanceResult = await app.service('instance').get(instanceId);
   if (!instanceResult) {
     throw new Error(`Instance ${instanceId} not found`);
   }
-  
+
   // Get the current instance state
   const instanceServerState = getState(InstanceServerState);
-  
+
   // If the instance is not initialized, initialize it
   if (!instanceServerState.instance || instanceServerState.instance.id !== instanceId) {
     await initializeInstance(app, instanceId);
   }
-  
+
   // Check if the instance is ready
   if (!instanceServerState.ready) {
     throw new Error(`Instance ${instanceId} is not ready`);
   }
-  
+
   // Check if the user is authorized to join this instance
   if (!isUserAuthorized(user, instanceResult)) {
     throw new Error(`User ${user.id} is not authorized to join instance ${instanceId}`);
   }
-  
+
   // Add the user to the instance
   await addUserToInstance(app, user, instanceId);
-  
+
   logger.info(`User ${user.id} connected to instance ${instanceId}`);
   return instanceResult;
 }
@@ -228,22 +230,22 @@ The system handles user disconnections and potential instance shutdown:
 async function handleUserDisconnect(app, user) {
   const logger = app.get('logger');
   logger.info(`User ${user.id} disconnected`);
-  
+
   // Get the current instance state
   const instanceServerState = getState(InstanceServerState);
   const instanceId = instanceServerState.instance?.id;
-  
+
   if (!instanceId) {
     logger.warn('No active instance found during user disconnect');
     return;
   }
-  
+
   // Remove the user from the instance
   await removeUserFromInstance(app, user, instanceId);
-  
+
   // Check if the instance is now empty
   const connectedUsers = await getInstanceUsers(app, instanceId);
-  
+
   // If the instance is empty and configured for auto-shutdown, shut it down
   if (connectedUsers.length === 0 && instanceServerState.instance?.autoShutdownWhenEmpty) {
     logger.info(`Instance ${instanceId} is empty, initiating shutdown`);
@@ -268,26 +270,26 @@ The shutdown process terminates an instance and releases resources:
 async function shutdownServer(app, instanceId) {
   const logger = app.get('logger');
   logger.info(`Shutting down instance ${instanceId}`);
-  
+
   // Mark the instance as ended in the database
   await app.service('instance').patch(instanceId, {
     ended: true,
     endedAt: new Date()
   });
-  
+
   // Disconnect any remaining users
   await disconnectAllUsers(app, instanceId);
-  
+
   // Perform any necessary cleanup
   await cleanupInstance(app, instanceId);
-  
+
   // If using Kubernetes/Agones, tell it we're shutting down
   if (config.kubernetes.enabled) {
     const serverState = app.get('serverState');
     await serverState.agonesSDK.shutdown();
     logger.info('Agones server shutdown initiated');
   }
-  
+
   logger.info(`Instance ${instanceId} shutdown complete`);
 }
 ```
@@ -310,33 +312,33 @@ import { AgonesSDK } from '@google-cloud/agones-sdk';
 async function start() {
   const logger = app.get('logger');
   logger.info('Starting instance server');
-  
+
   // Initialize the application
   const app = await createApp();
-  
+
   // If using Kubernetes/Agones, connect to the Agones SDK
   if (config.kubernetes.enabled) {
     const agonesSDK = new AgonesSDK();
-    
+
     // Connect to the Agones system
     await agonesSDK.connect();
     logger.info('Connected to Agones SDK');
-    
+
     // Tell Agones this server is ready to host a game
     await agonesSDK.ready();
     logger.info('Reported ready status to Agones');
-    
+
     // Set up a health check heartbeat
     setInterval(() => agonesSDK.health(), 1000);
-    
+
     // Store the SDK for later use
     app.set('serverState', { agonesSDK });
   }
-  
+
   // Start listening for connections
   const server = app.listen(app.get('port'));
   logger.info(`Instance server listening on port ${app.get('port')}`);
-  
+
   return { app, server };
 }
 ```
@@ -360,26 +362,26 @@ sequenceDiagram
     participant ILM as Instance Lifecycle Manager
     participant Agones
     participant Instance as Game Instance
-    
+
     API->>ILM: Request new instance (gameMode, sceneId)
     ILM->>Agones: Allocate server
     Agones-->>ILM: Server allocated (address, port)
     ILM->>Instance: Initialize (instanceId)
-    
+
     Instance->>Instance: Load scene
     Instance->>Instance: Set up networking
     Instance->>Instance: Initialize game systems
     Instance-->>ILM: Ready status (InstanceServerState.ready = true)
-    
+
     ILM-->>API: Instance ready (address, port)
     API-->>Player: Connection details
     Player->>Instance: Connect to instance
-    
+
     Note over Instance: Active gameplay
-    
+
     Player->>Instance: Disconnect
     Instance->>Instance: Check if empty
-    
+
     alt Instance is empty
         Instance->>Instance: Initiate shutdown
         Instance->>Agones: Report shutdown
@@ -415,10 +417,10 @@ async function initializeEngine(app) {
   const { routers, workers } = await startWebRTC();
   app.set('routers', routers);
   app.set('workers', workers);
-  
+
   // Register the Mediasoup server system
   Engine.instance.systemRegistry.add(MediasoupServerSystem);
-  
+
   logger.info('WebRTC communication system initialized');
 }
 ```
@@ -440,13 +442,13 @@ app.on('connection', (connection) => {
     try {
       // Authenticate the user
       const user = await authenticateUser(authResult);
-      
+
       // Get the requested instance ID
       const { instanceId } = connection.handshake.query;
-      
+
       // Update or initialize the instance
       await updateInstance(app, user, instanceId);
-      
+
       // Notify the user of successful connection
       connection.emit('instance-ready', {
         status: 'success',
@@ -459,7 +461,7 @@ app.on('connection', (connection) => {
       });
     }
   });
-  
+
   // When a user disconnects
   connection.on('disconnect', async () => {
     const user = connection.user;
@@ -485,16 +487,16 @@ The instance lifecycle uses FeathersJS services for data management:
 async function initializeInstance(app, instanceId) {
   // Get instance data from the database using the instance service
   const instanceResult = await app.service('instance').get(instanceId);
-  
+
   // Get scene data using the scene service
   const sceneResult = await app.service('scene').get(instanceResult.sceneId);
-  
+
   // Update instance status using the instance service
   await app.service('instance').patch(instanceId, {
     status: 'active',
     currentUsers: 0
   });
-  
+
   // Other initialization steps
 }
 ```

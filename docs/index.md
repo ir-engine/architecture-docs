@@ -8,37 +8,31 @@ New to iR Engine? Choose your learning path:
 
 ::::link-array
 
-:::link-array-item
-headerColor="#4A90E2"
-title="For beginners"
-description="Start here if you're new to the iR Engine"
-link="./learning-paths.md#beginners"
+:::link-array-item{headerType="COLOR" headerColor="#4A90E2"}
 
-🌱 **Beginner's Guide**
+🌱 **For beginners**
 
-Perfect starting point for developers new to the iR Engine. Learn the fundamentals and core concepts.
+Start here if you're new to the iR Engine. Perfect starting point for developers new to the iR Engine. Learn the fundamentals and core concepts.
+
+[Beginner's Guide](./learning-paths.md#beginners)
 :::
 
-:::link-array-item
-headerColor="#50E3C2"
-title="For intermediate developers"
-description="Already familiar with the basics?"
-link="./learning-paths.md#intermediate"
+:::link-array-item{headerType="COLOR" headerColor="#50E3C2"}
 
-🚀 **Intermediate Guide**
+🚀 **For intermediate developers**
 
-Build upon your existing knowledge and dive deeper into advanced iR Engine features.
+Already familiar with the basics? Build upon your existing knowledge and dive deeper into advanced iR Engine features.
+
+[Intermediate Guide](./learning-paths.md#intermediate)
 :::
 
-:::link-array-item
-headerColor="#F5A623"
-title="For advanced developers"
-description="Looking to extend the engine?"
-link="./learning-paths.md#advanced"
+:::link-array-item{headerType="COLOR" headerColor="#F5A623"}
 
-🔧 **Advanced Guide**
+🔧 **For advanced developers**
 
-Explore advanced topics, customization, and extending the iR Engine for your specific needs.
+Looking to extend the engine? Explore advanced topics, customization, and extending the iR Engine for your specific needs.
+
+[Advanced Guide](./learning-paths.md#advanced)
 :::
 
 ::::
@@ -47,59 +41,49 @@ Explore advanced topics, customization, and extending the iR Engine for your spe
 
 ::::link-array
 
-:::link-array-item
-headerColor="#4A90E2"
-title="Core engine"
-description="The central engine that powers the platform"
-link="./01-core-engine/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#4A90E2"}
 
-⚙️ **Core Engine**
+⚙️ **Core engine**
 
-The foundational systems that power the entire iR Engine platform.
+The central engine that powers the platform. The foundational systems that power the entire iR Engine platform.
+
+[Explore Core Engine](./01-core-engine/index.md)
 :::
 
-:::link-array-item
-headerColor="#50E3C2"
-title="Entity component system"
-description="The foundational architecture"
-link="./02-entity-component-system/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#50E3C2"}
 
-🧩 **Entity Component System**
+🧩 **Entity component system**
 
-Learn about the ECS architecture that structures all game objects and logic.
+The foundational architecture. Learn about the ECS architecture that structures all game objects and logic.
+
+[Explore Entity Component System](./02-entity-component-system/index.md)
 :::
 
-:::link-array-item
-headerColor="#F5A623"
-title="Networking"
-description="Systems for multiplayer functionality"
-link="./03-networking/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#F5A623"}
 
 🌐 **Networking**
 
-Core networking systems that enable multiplayer experiences.
+Systems for multiplayer functionality. Core networking systems that enable multiplayer experiences.
+
+[Explore Networking](./03-networking/index.md)
 :::
 
-:::link-array-item
-headerColor="#D0021B"
-title="Client core"
-description="Client-side implementation"
-link="./04-client-core/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#D0021B"}
 
-💻 **Client Core**
+💻 **Client core**
 
-Client-side architecture and implementation details.
+Client-side implementation. Client-side architecture and implementation details.
+
+[Explore Client Core](./04-client-core/index.md)
 :::
 
-:::link-array-item
-headerColor="#7ED321"
-title="Server core"
-description="Server-side implementation"
-link="./05-server-core/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#7ED321"}
 
-🖥️ **Server Core**
+🖥️ **Server core**
 
-Server-side architecture and backend systems.
+Server-side implementation. Server-side architecture and backend systems.
+
+[Explore Server Core](./05-server-core/index.md)
 :::
 
 ::::
@@ -108,92 +92,76 @@ Server-side architecture and backend systems.
 
 ::::link-array
 
-:::link-array-item
-headerColor="#F5A623"
-title="Physics and spatial systems"
-description="Physics and transform systems"
-link="./06-physics-and-spatial-systems/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#F5A623"}
 
-🎯 **Physics and Spatial Systems**
+🎯 **Physics and spatial systems**
 
-Physics simulation and spatial transformation systems.
+Physics and transform systems. Physics simulation and spatial transformation systems.
+
+[Explore Physics and Spatial Systems](./06-physics-and-spatial-systems/index.md)
 :::
 
-:::link-array-item
-headerColor="#D0021B"
-title="Input and interaction"
-description="Input handling and user interactions"
-link="./07-input-and-interaction/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#D0021B"}
 
-🎮 **Input and Interaction**
+🎮 **Input and interaction**
 
-User input handling and interaction systems.
+Input handling and user interactions. User input handling and interaction systems.
+
+[Explore Input and Interaction](./07-input-and-interaction/index.md)
 :::
 
-:::link-array-item
-headerColor="#BD10E0"
-title="UI framework"
-description="UI components and XRUI system"
-link="./08-ui-framework/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#BD10E0"}
 
-🎨 **UI Framework**
+🎨 **UI framework**
 
-User interface components and the XRUI system.
+UI components and XRUI system. User interface components and the XRUI system.
+
+[Explore UI Framework](./08-ui-framework/index.md)
 :::
 
-:::link-array-item
-headerColor="#9013FE"
-title="Visual scripting"
-description="Node-based visual programming"
-link="./09-visual-scripting/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#9013FE"}
 
-🔀 **Visual Scripting**
+🔀 **Visual scripting**
 
-Node-based visual programming system for non-programmers.
+Node-based visual programming. Node-based visual programming system for non-programmers.
+
+[Explore Visual Scripting](./09-visual-scripting/index.md)
 :::
 
-:::link-array-item
-headerColor="#9013FE"
-title="World editor"
-description="3D world creation and editing tools"
-link="./10-world-editor/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#9013FE"}
 
-🌍 **World Editor**
+🌍 **World editor**
 
-Tools for creating and editing 3D worlds and scenes.
+3D world creation and editing tools. Tools for creating and editing 3D worlds and scenes.
+
+[Explore World Editor](./10-world-editor/index.md)
 :::
 
-:::link-array-item
-headerColor="#4A90E2"
-title="Multiplayer infrastructure"
-description="Instanceserver, WebRTC, and Agones"
-link="./11-multiplayer-infrastructure/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#4A90E2"}
 
-🔗 **Multiplayer Infrastructure**
+🔗 **Multiplayer infrastructure**
 
-Advanced multiplayer systems including WebRTC and Agones.
+Instanceserver, WebRTC, and Agones. Advanced multiplayer systems including WebRTC and Agones.
+
+[Explore Multiplayer Infrastructure](./11-multiplayer-infrastructure/index.md)
 :::
 
-:::link-array-item
-headerColor="#50E3C2"
-title="Matchmaking system"
-description="Open match-based matchmaking"
-link="./12-matchmaking-system/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#50E3C2"}
 
-🎲 **Matchmaking System**
+🎲 **Matchmaking system**
 
-Player matchmaking using Open Match framework.
+Open match-based matchmaking. Player matchmaking using Open Match framework.
+
+[Explore Matchmaking System](./12-matchmaking-system/index.md)
 :::
 
-:::link-array-item
-headerColor="#7ED321"
-title="Background processing"
-description="Task server and background jobs"
-link="./13-background-processing/index.md"
+:::link-array-item{headerType="COLOR" headerColor="#7ED321"}
 
-⚡ **Background Processing**
+⚡ **Background processing**
 
-Background task processing and job management systems.
+Task server and background jobs. Background task processing and job management systems.
+
+[Explore Background Processing](./13-background-processing/index.md)
 :::
 
 ::::

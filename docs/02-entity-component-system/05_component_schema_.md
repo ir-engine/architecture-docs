@@ -2,7 +2,9 @@
 
 ## Overview
 
-Component schemas define the structure, data types, default values, and validation rules for components in the iR Engine's Entity Component System. They serve as blueprints that ensure consistency and type safety across all instances of a component type. By formalizing the data structure of components, schemas enable efficient storage, serialization, validation, and editor integration. This chapter explores the concept, structure, and implementation of component schemas within the iR Engine, demonstrating how they enhance the robustness and usability of the ECS architecture.
+Component schemas define the structure, data types, default values, and validation rules for components in the iR Engine's Entity Component System. They serve as blueprints that ensure consistency and type safety across all instances of a component type.
+
+By formalizing the data structure of components, schemas enable efficient storage, serialization, validation, and editor integration. This chapter explores the concept, structure, and implementation of component schemas within the iR Engine, demonstrating how they enhance the robustness and usability of the ECS architecture.
 
 ## Core concepts
 
@@ -68,19 +70,19 @@ The schema system supports a variety of data types to accommodate different comp
 
 ```typescript
 // Number field with default and constraints
-const healthField = S.Number({ 
+const healthField = S.Number({
   default: 100,   // Default value
   minimum: 0,     // Minimum allowed value
   maximum: 100    // Maximum allowed value
 });
 
 // String field with default
-const nameField = S.String({ 
+const nameField = S.String({
   default: "Player" // Default value
 });
 
 // Boolean field with default
-const activeField = S.Bool({ 
+const activeField = S.Bool({
   default: true    // Default value
 });
 ```
@@ -89,16 +91,16 @@ const activeField = S.Bool({
 
 ```typescript
 // Array of numbers with default
-const scoresField = S.Array(S.Number(), { 
+const scoresField = S.Array(S.Number(), {
   default: [0, 0, 0] // Default value
 });
 
 // Enumeration with default
-const colorField = S.Enum({ 
-  RED: 0, 
-  GREEN: 1, 
-  BLUE: 2 
-}, { 
+const colorField = S.Enum({
+  RED: 0,
+  GREEN: 1,
+  BLUE: 2
+}, {
   default: 0  // Default to RED
 });
 
@@ -171,22 +173,22 @@ Schemas can include validation rules to ensure component data meets specific req
 const CharacterStatsComponent = defineComponent({
   name: 'CharacterStatsComponent',
   schema: S.Object({
-    health: S.Number({ 
-      default: 100, 
+    health: S.Number({
+      default: 100,
       minimum: 0,      // Health cannot be negative
       maximum: 100     // Health cannot exceed 100
     }),
-    strength: S.Number({ 
-      default: 10, 
+    strength: S.Number({
+      default: 10,
       minimum: 1       // Strength must be at least 1
     }),
-    level: S.Number({ 
-      default: 1, 
+    level: S.Number({
+      default: 1,
       minimum: 1,      // Level must be at least 1
       integer: true    // Level must be an integer
     }),
-    name: S.String({ 
-      default: "Hero", 
+    name: S.String({
+      default: "Hero",
       minLength: 2,    // Name must be at least 2 characters
       maxLength: 20    // Name cannot exceed 20 characters
     })
@@ -254,7 +256,7 @@ When component data is set, validation rules are applied:
 const entity = createEntity();
 
 // Try to set health to an invalid value
-setComponent(entity, CharacterStatsComponent, { 
+setComponent(entity, CharacterStatsComponent, {
   health: -20,  // Below minimum (0)
   level: 0.5    // Below minimum (1) and not an integer
 });
@@ -281,7 +283,7 @@ const CharacterComponent = defineComponent({
     // Basic information
     name: S.String({ default: "Character", minLength: 1 }),
     level: S.Number({ default: 1, minimum: 1, integer: true }),
-    
+
     // Stats
     stats: S.Object({
       health: S.Number({ default: 100, minimum: 0 }),
@@ -290,7 +292,7 @@ const CharacterComponent = defineComponent({
       dexterity: S.Number({ default: 10, minimum: 1 }),
       intelligence: S.Number({ default: 10, minimum: 1 })
     }),
-    
+
     // Equipment slots
     equipment: S.Object({
       weapon: S.String({ default: "" }),
@@ -298,10 +300,10 @@ const CharacterComponent = defineComponent({
       helmet: S.String({ default: "" }),
       boots: S.String({ default: "" })
     }),
-    
+
     // Inventory
     inventory: S.Array(S.String(), { default: [] }),
-    
+
     // Status effects
     statusEffects: S.Array(S.Object({
       type: S.String(),
@@ -324,37 +326,37 @@ const PhysicsBodyComponent = defineComponent({
   name: 'PhysicsBodyComponent',
   schema: S.Object({
     // Physical properties
-    mass: S.Number({ 
-      default: 1.0, 
+    mass: S.Number({
+      default: 1.0,
       minimum: 0.001,  // Mass must be positive
       maximum: 1000    // Limit maximum mass for stability
     }),
-    
+
     // Collision properties
     collider: S.Object({
-      type: S.Enum({ 
-        BOX: 0, 
-        SPHERE: 1, 
-        CAPSULE: 2 
+      type: S.Enum({
+        BOX: 0,
+        SPHERE: 1,
+        CAPSULE: 2
       }, { default: 0 }),
-      
+
       // Dimensions depend on collider type
       dimensions: S.Object({
         x: S.Number({ default: 1.0, minimum: 0.01 }),
         y: S.Number({ default: 1.0, minimum: 0.01 }),
         z: S.Number({ default: 1.0, minimum: 0.01 })
       }),
-      
+
       radius: S.Number({ default: 0.5, minimum: 0.01 })
     }),
-    
+
     // Physics material properties
     material: S.Object({
       friction: S.Number({ default: 0.5, minimum: 0, maximum: 1 }),
       restitution: S.Number({ default: 0.3, minimum: 0, maximum: 1 }),
       density: S.Number({ default: 1.0, minimum: 0.01 })
     }),
-    
+
     // Physics flags
     flags: S.Object({
       isKinematic: S.Bool({ default: false }),

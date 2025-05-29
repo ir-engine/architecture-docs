@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Engine, often referred to as the World in ECS terminology, is the central coordinator of the iR Engine's Entity Component System. It serves as the container for all entities, components, and systems, providing the context in which they operate. The Engine manages entity creation and destruction, stores component data, orchestrates system execution, and maintains the application's main loop. By centralizing these responsibilities, the Engine ensures that all parts of the ECS work together coherently, creating a unified environment for game or application logic. This chapter explores the concept, structure, and implementation of the Engine within the iR Engine.
+The Engine, often referred to as the World in ECS terminology, is the central coordinator of the iR Engine's Entity Component System. It serves as the container for all entities, components, and systems, providing the context in which they operate. The Engine manages entity creation and destruction, stores component data, orchestrates system execution, and maintains the application's main loop.
+
+By centralizing these responsibilities, the Engine ensures that all parts of the ECS work together coherently, creating a unified environment for game or application logic. This chapter explores the concept, structure, and implementation of the Engine within the iR Engine.
 
 ## Core concepts
 

@@ -2,7 +2,9 @@
 
 ## Overview
 
-Systems are the logic processors in the iR Engine's Entity Component System (ECS). They contain the algorithms and behaviors that operate on entities based on the components they possess. While entities provide identity and components store data, systems implement the actual functionality that makes applications dynamic and interactive. Systems typically query for entities with specific component combinations, process their data according to game rules or application logic, and update component values accordingly. This separation of logic from data is a key principle of the ECS architecture, enabling modular, maintainable, and performant code.
+Systems are the logic processors in the iR Engine's Entity Component System (ECS). They contain the algorithms and behaviors that operate on entities based on the components they possess. While entities provide identity and components store data, systems implement the actual functionality that makes applications dynamic and interactive.
+
+Systems typically query for entities with specific component combinations, process their data according to game rules or application logic, and update component values accordingly. This separation of logic from data is a key principle of the ECS architecture, enabling modular, maintainable, and performant code.
 
 ## Core concepts
 
@@ -70,24 +72,24 @@ import { defineSystem, getComponent } from '@ir-engine/ecs';
 const MovementSystem = defineSystem({
   // Unique identifier for the system
   uuid: 'game.MovementSystem',
-  
+
   // Logic to execute when the system runs
   execute: () => {
     // Get all entities matching our query
     const entities = movableEntitiesQuery();
-    
+
     // Process each entity
     for (const entity of entities) {
       // Get the entity's components
       const position = getComponent(entity, PositionComponent);
       const velocity = getComponent(entity, VelocityComponent);
-      
+
       // Update position based on velocity
       position.x += velocity.dx;
       position.y += velocity.dy;
     }
   },
-  
+
   // Configuration for system execution order
   insert: {
     after: ['game.InputSystem'],
@@ -117,14 +119,14 @@ sequenceDiagram
     Engine->>System: Call execute()
     System->>Query: Get matching entities
     Query-->>System: Return entity list [1, 5, 8]
-    
+
     loop For each entity
         System->>Components: Get component data
         Components-->>System: Return component values
         System->>System: Process data (apply logic)
         System->>Components: Update component values
     end
-    
+
     System-->>Engine: Execution complete
 ```
 
@@ -195,7 +197,7 @@ const InputSystem = defineSystem({
   uuid: 'game.InputSystem',
   execute: () => {
     const entities = playerControlledQuery();
-    
+
     // Check for input events
     if (isKeyPressed('ArrowRight')) {
       for (const entity of entities) {
@@ -229,11 +231,11 @@ const EnemySpawnSystem = defineSystem({
   uuid: 'game.EnemySpawnSystem',
   execute: () => {
     const timeComponent = getComponent(globalEntity, TimeComponent);
-    
+
     // Spawn a new enemy every 5 seconds
     if (timeComponent.elapsed % 5 < 0.016) { // Assuming 60 FPS
       const enemyEntity = createEntity();
-      
+
       // Initialize with required components
       setComponent(enemyEntity, PositionComponent, {
         x: Math.random() * 800,
@@ -283,18 +285,18 @@ const PhysicsSystem = defineSystem({
       const velocity = getComponent(entity, VelocityComponent);
       velocity.dy += 9.8 * deltaTime; // Apply gravity
     }
-    
+
     // Update positions based on velocity
     const physicsEntities = physicsBodyQuery();
     for (const entity of physicsEntities) {
       const position = getComponent(entity, PositionComponent);
       const velocity = getComponent(entity, VelocityComponent);
       const body = getComponent(entity, PhysicsBodyComponent);
-      
+
       // Apply velocity with drag
       position.x += velocity.dx * deltaTime;
       position.y += velocity.dy * deltaTime;
-      
+
       // Apply drag
       velocity.dx *= (1 - body.drag * deltaTime);
       velocity.dy *= (1 - body.drag * deltaTime);
@@ -324,24 +326,24 @@ const CollisionSystem = defineSystem({
   uuid: 'game.CollisionSystem',
   execute: () => {
     const entities = collidableQuery();
-    
+
     // Check each entity against all others
     for (let i = 0; i < entities.length; i++) {
       const entityA = entities[i];
       const posA = getComponent(entityA, PositionComponent);
       const colliderA = getComponent(entityA, ColliderComponent);
-      
+
       for (let j = i + 1; j < entities.length; j++) {
         const entityB = entities[j];
         const posB = getComponent(entityB, PositionComponent);
         const colliderB = getComponent(entityB, ColliderComponent);
-        
+
         // Simple circle collision check
         const dx = posA.x - posB.x;
         const dy = posA.y - posB.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         const minDistance = colliderA.radius + colliderB.radius;
-        
+
         if (distance < minDistance) {
           // Collision detected!
           // Add collision response or trigger events

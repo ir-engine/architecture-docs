@@ -46,7 +46,7 @@ For team access, you can host these files on any web server or Static Site Gener
 
 This documentation was created using PocketFlow, a documentation generator tool that:
 
-1. Analyzes codebases to identify key abstractions
+1. Analyzes codebases to identify key abstra238798238798ctions
 2. Determines relationships between components
 3. Creates beginner-friendly tutorials explaining how the code works
 

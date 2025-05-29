@@ -2,7 +2,7 @@
 
 This guide provides recommended learning paths for developers at different experience levels. Choose the path that best matches your current knowledge and goals.
 
-## <a name="beginners"></a>For beginners
+## For beginners
 
 If you're new to the iR Engine, follow this path to build a solid foundation:
 
@@ -45,7 +45,7 @@ Finally, dive into [Networking](./03-networking/index.md) to see how everything 
 - Real-time communication
 - WebRTC integration
 
-## <a name="intermediate"></a>For intermediate developers
+## For intermediate developers
 
 After understanding the core components, explore these specialized topics:
 
@@ -76,7 +76,7 @@ The [UI framework](./08-ui-framework/index.md) documentation explains:
 - XRUI system for immersive interfaces
 - Theming and styling
 
-## <a name="advanced"></a>For advanced developers
+## For advanced developers
 
 For those interested in extending the engine or understanding its deeper systems:
 

@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Mediasoup WebRTC Communication Backbone is the core real-time communication system of the iR Engine's multiplayer infrastructure. It enables the efficient exchange of audio, video, and custom game data between players in a multiplayer environment. By leveraging WebRTC technology and the Mediasoup Selective Forwarding Unit (SFU) architecture, the system provides low-latency, scalable communication channels that are essential for creating responsive multiplayer experiences. This chapter explores the implementation, components, and workflow of the WebRTC communication backbone within the iR Engine.
+The Mediasoup WebRTC Communication Backbone is the core real-time communication system of the iR Engine's multiplayer infrastructure. It enables the efficient exchange of audio, video, and custom game data between players in a multiplayer environment.
+
+By leveraging WebRTC technology and the Mediasoup Selective Forwarding Unit (SFU) architecture, the system provides low-latency, scalable communication channels that are essential for creating responsive multiplayer experiences. This chapter explores the implementation, components, and workflow of the WebRTC communication backbone within the iR Engine.
 
 ## Core concepts
 
@@ -65,7 +67,7 @@ export async function startWebRTC() {
     });
     workers.push(worker);
   }
-  
+
   // Create a router in each worker
   const routers = [];
   for (const worker of workers) {
@@ -74,7 +76,7 @@ export async function startWebRTC() {
     });
     routers.push(router);
   }
-  
+
   logger.info('Mediasoup workers and routers created');
   return { routers, workers };
 }
@@ -94,10 +96,10 @@ Transports establish the communication channels between clients and the server:
 // Simplified from src/WebRTCFunctions.ts
 export async function handleWebRtcTransportCreate(action) {
   const { networkId, direction } = action;
-  
+
   // Get the appropriate router
   const router = getRouterForNetwork(networkId);
-  
+
   // Create transport options with ICE candidates and DTLS parameters
   const options = {
     listenIps: config.mediasoup.webRtcTransport.listenIps,
@@ -106,10 +108,10 @@ export async function handleWebRtcTransportCreate(action) {
     preferUdp: true,
     initialAvailableOutgoingBitrate: 1000000
   };
-  
+
   // Create the WebRTC transport
   const transport = await router.createWebRtcTransport(options);
-  
+
   // Store the transport in state
   const transportState = getMutableState(MediasoupTransportState);
   transportState.transports[networkId][direction].merge({
@@ -118,17 +120,17 @@ export async function handleWebRtcTransportCreate(action) {
     iceCandidates: transport.iceCandidates,
     dtlsParameters: transport.dtlsParameters
   });
-  
+
   // Set up transport event handlers
   transport.on('dtlsstatechange', (dtlsState) => {
     if (dtlsState === 'closed') {
       transport.close();
     }
   });
-  
+
   // Store the transport object for later use
   transportObjects[transport.id] = transport;
-  
+
   return transport;
 }
 ```
@@ -148,20 +150,20 @@ Producers represent outgoing media or data streams:
 // Simplified from src/WebRTCFunctions.ts
 export async function handleRequestProducer(action) {
   const { networkId, transportId, kind, rtpParameters, appData } = action;
-  
+
   // Get the transport object
   const transport = transportObjects[transportId];
   if (!transport) {
     throw new Error(`Transport ${transportId} not found`);
   }
-  
+
   // Create the producer
   const producer = await transport.produce({
     kind,
     rtpParameters,
     appData
   });
-  
+
   // Store the producer in state
   const producerState = getMutableState(MediasoupMediaProducerState);
   producerState.producers[networkId].merge({
@@ -172,16 +174,16 @@ export async function handleRequestProducer(action) {
       appData
     }
   });
-  
+
   // Set up producer event handlers
   producer.on('transportclose', () => {
     producer.close();
     // Remove from state
   });
-  
+
   // Store the producer object for later use
   producerObjects[producer.id] = producer;
-  
+
   return producer;
 }
 ```
@@ -201,15 +203,15 @@ Consumers represent incoming media or data streams:
 // Simplified from src/WebRTCFunctions.ts
 export async function handleRequestConsumer(action) {
   const { networkId, consumerNetworkId, producerId, transportId, appData } = action;
-  
+
   // Get the transport and producer objects
   const transport = transportObjects[transportId];
   const producer = producerObjects[producerId];
-  
+
   if (!transport || !producer) {
     throw new Error('Transport or producer not found');
   }
-  
+
   // Check if the consumer can consume the producer
   if (!router.canConsume({
     producerId: producer.id,
@@ -217,7 +219,7 @@ export async function handleRequestConsumer(action) {
   })) {
     throw new Error('Cannot consume this producer');
   }
-  
+
   // Create the consumer
   const consumer = await transport.consume({
     producerId: producer.id,
@@ -225,7 +227,7 @@ export async function handleRequestConsumer(action) {
     paused: true,
     appData
   });
-  
+
   // Store the consumer in state
   const consumerState = getMutableState(MediasoupMediaConsumerState);
   consumerState.consumers[networkId].merge({
@@ -236,16 +238,16 @@ export async function handleRequestConsumer(action) {
       appData
     }
   });
-  
+
   // Set up consumer event handlers
   consumer.on('transportclose', () => {
     consumer.close();
     // Remove from state
   });
-  
+
   // Store the consumer object for later use
   consumerObjects[consumer.id] = consumer;
-  
+
   return consumer;
 }
 ```
@@ -270,17 +272,17 @@ const requestDataConsumerActionQueue = defineActionQueue(MediasoupDataConsumerAc
 // Handler for data producer requests
 const handleRequestDataProducer = async (action) => {
   const { networkId, transportId, label, protocol, appData } = action;
-  
+
   // Get the transport object
   const transport = transportObjects[transportId];
-  
+
   // Create the data producer
   const dataProducer = await transport.produceData({
     label,
     protocol,
     appData
   });
-  
+
   // Store the data producer in state
   const dataProducerState = getMutableState(MediasoupDataProducerState);
   dataProducerState.dataProducers[networkId].merge({
@@ -291,24 +293,24 @@ const handleRequestDataProducer = async (action) => {
       appData
     }
   });
-  
+
   return dataProducer;
 };
 
 // Handler for data consumer requests
 const handleRequestDataConsumer = async (action) => {
   const { networkId, dataProducerId, transportId, appData } = action;
-  
+
   // Get the transport and data producer objects
   const transport = transportObjects[transportId];
   const dataProducer = dataProducerObjects[dataProducerId];
-  
+
   // Create the data consumer
   const dataConsumer = await transport.consumeData({
     dataProducerId,
     appData
   });
-  
+
   // Store the data consumer in state
   const dataConsumerState = getMutableState(MediasoupDataConsumerState);
   dataConsumerState.dataConsumers[networkId].merge({
@@ -320,7 +322,7 @@ const handleRequestDataConsumer = async (action) => {
       appData
     }
   });
-  
+
   return dataConsumer;
 };
 ```
@@ -341,23 +343,23 @@ sequenceDiagram
     participant AliceClient as Alice's Game Client
     participant Server as iR Engine Server (Mediasoup)
     participant BobClient as Bob's Game Client
-    
+
     AliceClient->>Server: Request WebRTC Transport (send direction)
     Server-->>AliceClient: Transport details (ICE candidates, DTLS params)
     AliceClient->>Server: Connect Transport (DTLS parameters)
-    
+
     AliceClient->>Server: Request Audio Producer
     Server-->>AliceClient: Producer created successfully
     AliceClient->>Server: Start sending audio stream
-    
+
     BobClient->>Server: Request WebRTC Transport (receive direction)
     Server-->>BobClient: Transport details (ICE candidates, DTLS params)
     BobClient->>Server: Connect Transport (DTLS parameters)
-    
+
     BobClient->>Server: Request Consumer for Alice's audio
     Server-->>BobClient: Consumer details (RTP parameters)
     Server->>BobClient: Forward Alice's audio stream
-    
+
     Note over AliceClient,BobClient: Similar flow for video and data channels
 ```
 
@@ -384,10 +386,10 @@ export const InstanceServerModule = {
   async initialize() {
     // Initialize Mediasoup
     await startWebRTC();
-    
+
     // Register the Mediasoup server system
     Engine.instance.systemRegistry.add(MediasoupServerSystem);
-    
+
     // Other initialization steps
   }
 };
@@ -448,7 +450,7 @@ function handleUserConnected(user, socket) {
         networkId: user.networkId,
         direction: data.direction
       });
-      
+
       // Return transport details to the client
       callback({
         id: transport.id,
@@ -460,7 +462,7 @@ function handleUserConnected(user, socket) {
       callback({ error: error.message });
     }
   });
-  
+
   // Other WebRTC-related event handlers
 }
 ```

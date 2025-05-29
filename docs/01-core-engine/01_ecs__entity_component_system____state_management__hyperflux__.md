@@ -2,7 +2,9 @@
 
 ## Overview
 
-The iR Engine is built upon two fundamental architectural patterns: the Entity-component-system (ECS) for organizing game objects and their behaviors, and Hyperflux for state management. Together, these systems provide a structured approach to defining objects in the virtual world, their properties, behaviors, and how data is shared across different parts of the engine. This chapter explores how these core systems work together to create a flexible, modular, and performant foundation for interactive applications.
+The iR Engine is built upon two fundamental architectural patterns: the Entity-component-system (ECS) for organizing game objects and their behaviors, and Hyperflux for state management. Together, these systems provide a structured approach to defining objects in the virtual world, their properties, behaviors, and how data is shared across different parts of the engine.
+
+This chapter explores how these core systems work together to create a flexible, modular, and performant foundation for interactive applications.
 
 ## Entity-component-system (ECS)
 
@@ -64,7 +66,7 @@ import { defineSystem, defineQuery, getComponent } from '@ir-engine/ecs';
 const bouncyThingsQuery = defineQuery([
   TransformComponent,
   RigidBodyComponent,
-  BouncinessComponent 
+  BouncinessComponent
 ]);
 
 export const BouncingSystem = defineSystem({
@@ -152,12 +154,12 @@ export const PhysicsSystem = defineSystem({
   uuid: 'my.engine.PhysicsSystem',
   execute: () => {
     const settings = getState(GameSettingsState);
-    
+
     // Skip physics updates if the game is paused
     if (settings.isPaused) {
       return;
     }
-    
+
     // Process physics for all relevant entities
     for (const entity of physicsQuery()) {
       // Physics logic here
@@ -186,19 +188,19 @@ sequenceDiagram
     participant Hyperflux as Hyperflux State
     participant PhysicsSystem
     participant BallEntity as Ball Entity Components
-    
+
     User->>Hyperflux: Click "Pause" button
     Hyperflux->>Hyperflux: Set GameSettingsState.isPaused = true
-    
+
     loop Game Loop
         PhysicsSystem->>Hyperflux: Check GameSettingsState.isPaused
         Hyperflux-->>PhysicsSystem: isPaused = true
         PhysicsSystem->>PhysicsSystem: Skip physics update (ball freezes)
     end
-    
+
     User->>Hyperflux: Click "Resume" button
     Hyperflux->>Hyperflux: Set GameSettingsState.isPaused = false
-    
+
     loop Game Loop
         PhysicsSystem->>Hyperflux: Check GameSettingsState.isPaused
         Hyperflux-->>PhysicsSystem: isPaused = false

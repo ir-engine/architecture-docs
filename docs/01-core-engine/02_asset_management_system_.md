@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Asset Management System is responsible for handling all the digital resources that make up a virtual world in the iR Engine. These resources, known as assets, include 3D models, textures, audio files, and more. The system provides a structured approach to locating, loading, processing, and managing these assets efficiently. By centralizing asset handling, the engine ensures that resources are loaded when needed, shared between different parts of the application, and properly managed throughout their lifecycle. This chapter explores the concepts, structure, and implementation of the Asset Management System within the iR Engine.
+The Asset Management System is responsible for handling all the digital resources that make up a virtual world in the iR Engine. These resources, known as assets, include 3D models, textures, audio files, and more. The system provides a structured approach to locating, loading, processing, and managing these assets efficiently.
+
+By centralizing asset handling, the engine ensures that resources are loaded when needed, shared between different parts of the application, and properly managed throughout their lifecycle. This chapter explores the concepts, structure, and implementation of the Asset Management System within the iR Engine.
 
 ## Core concepts
 
@@ -46,7 +48,7 @@ The system selects the appropriate loader based on the asset's file extension:
 // Simplified concept from src/assets/classes/AssetLoader.ts
 function getLoader(fileName: string) {
   const fileExtension = fileName.split('.').pop()?.toLowerCase();
-  
+
   switch (fileExtension) {
     case 'glb':
     case 'gltf':
@@ -113,7 +115,7 @@ function loadResource(
   // Check if the asset is already in the cache
   const cacheState = getState(AssetCacheState);
   const cachedAsset = cacheState[url];
-  
+
   if (cachedAsset) {
     // Asset is in the cache
     if (cachedAsset.status === ResourceStatus.Loaded) {
@@ -129,7 +131,7 @@ function loadResource(
       return;
     }
   }
-  
+
   // Asset is not in the cache or needs to be reloaded
   // Mark as loading in the cache
   const mutableCache = getMutableState(AssetCacheState);
@@ -138,10 +140,10 @@ function loadResource(
     status: ResourceStatus.Loading,
     references: [entity]
   });
-  
+
   // Get the appropriate loader for this asset type
   const loader = getLoader(url);
-  
+
   // Start loading the asset
   loader.load(
     url,
@@ -187,17 +189,17 @@ When an entity no longer needs an asset, the system must be notified to update r
 function unloadResource(url: string, entity: Entity): void {
   const mutableCache = getMutableState(AssetCacheState);
   const cachedAsset = mutableCache[url].value;
-  
+
   if (!cachedAsset) return; // Asset not in cache
-  
+
   // Remove the entity from references
   const newReferences = cachedAsset.references.filter(ref => ref !== entity);
-  
+
   if (newReferences.length === 0) {
     // No more references - asset can be fully unloaded
     // Perform any cleanup needed for this asset type
     // ...
-    
+
     // Remove from cache
     mutableCache[url].set(undefined);
   } else {
@@ -228,7 +230,7 @@ sequenceDiagram
 
     GameLogic->>AssetSystem: loadResource("models/spaceship.glb", entity)
     AssetSystem->>AssetCache: Check if "models/spaceship.glb" is cached
-    
+
     alt Asset in cache and loaded
         AssetCache-->>AssetSystem: Return cached asset
         AssetSystem->>AssetCache: Add entity to references
@@ -269,8 +271,8 @@ const ModelComponent = defineComponent({
 
 // Create a spaceship entity and specify its model
 const spaceshipEntity = createEntity();
-setComponent(spaceshipEntity, ModelComponent, { 
-  src: "models/spaceship.glb" 
+setComponent(spaceshipEntity, ModelComponent, {
+  src: "models/spaceship.glb"
 });
 
 // A system that processes entities with ModelComponent
@@ -279,10 +281,10 @@ const ModelSystem = defineSystem({
   execute: () => {
     // Find all entities with ModelComponent
     const entities = modelQuery();
-    
+
     for (const entity of entities) {
       const modelComp = getComponent(entity, ModelComponent);
-      
+
       // Check if this entity already has its model loaded
       if (!hasComponent(entity, LoadedModelComponent)) {
         // Request the model to be loaded
@@ -327,10 +329,10 @@ function loadModelWithDependencies(modelUrl: string, entity: Entity): void {
     entity,
     (loadedModel) => {
       // Model loaded successfully
-      
+
       // Extract texture dependencies from the model
       const textureDependencies = extractTextureDependencies(loadedModel);
-      
+
       // Load each texture dependency
       for (const textureUrl of textureDependencies) {
         loadResource(
@@ -343,7 +345,7 @@ function loadModelWithDependencies(modelUrl: string, entity: Entity): void {
           }
         );
       }
-      
+
       // Now the model with all its textures is ready to use
     }
   );

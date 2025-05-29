@@ -2,7 +2,9 @@
 
 ## Overview
 
-Hyperflux is the primary state management system used in the iR Engine client core. It provides a centralized approach to managing application data and ensuring that the user interface stays synchronized with that data. By implementing a reactive pattern, Hyperflux enables different parts of the application to respond automatically to data changes, creating a consistent and responsive user experience. This chapter explores the concepts, implementation, and usage of Hyperflux within the iR Engine client.
+Hyperflux is the primary state management system used in the iR Engine client core. It provides a centralized approach to managing application data and ensuring that the user interface stays synchronized with that data.
+
+By implementing a reactive pattern, Hyperflux enables different parts of the application to respond automatically to data changes, creating a consistent and responsive user experience. This chapter explores the concepts, implementation, and usage of Hyperflux within the iR Engine client.
 
 ## Core concepts
 
@@ -72,10 +74,10 @@ import { ThemePreferenceState } from './ThemePreferenceState';
 function ThemeToggleButton() {
   // Access the theme state
   const themePrefs = useMutableState(ThemePreferenceState);
-  
+
   // Read the current value
   const isDarkModeOn = themePrefs.darkModeEnabled.value;
-  
+
   return (
     <button>
       Turn Dark Mode {isDarkModeOn ? 'Off' : 'On'}
@@ -104,13 +106,13 @@ import { ThemePreferenceState } from './ThemePreferenceState';
 function handleThemeToggleClick() {
   // Get a mutable reference to the state
   const themePrefs = getMutableState(ThemePreferenceState);
-  
+
   // Read the current value
   const currentMode = themePrefs.darkModeEnabled.value;
-  
+
   // Set the new value (toggle it)
   themePrefs.darkModeEnabled.set(!currentMode);
-  
+
   console.log('Dark mode is now:', themePrefs.darkModeEnabled.value);
 }
 ```
@@ -212,18 +214,18 @@ export const CounterState = defineState({
   initial: {
     count: 0
   },
-  
+
   // Actions are functions that modify the state
   increment: () => {
     const state = getMutableState(CounterState);
     state.count.set(state.count.value + 1);
   },
-  
+
   decrement: () => {
     const state = getMutableState(CounterState);
     state.count.set(state.count.value - 1);
   },
-  
+
   reset: () => {
     const state = getMutableState(CounterState);
     state.count.set(0);
@@ -253,7 +255,7 @@ function UserSettingsPage() {
   const userProfile = useMutableState(UserProfileState);
   const themePrefs = useMutableState(ThemePreferenceState);
   const notifications = useMutableState(NotificationState);
-  
+
   // Component logic using all three states
   // ...
 }
@@ -281,10 +283,10 @@ interface ModalData {
 
 export const ModalState = defineState({
   name: 'ee.client.ModalState',
-  initial: { 
+  initial: {
     modals: [] as ModalData[]
   },
-  
+
   // Action to open a modal
   openModal: (elementContent: JSX.Element) => {
     const modals = getMutableState(ModalState).modals;
@@ -292,7 +294,7 @@ export const ModalState = defineState({
     modals.merge([{ element: elementContent, id }]);
     return id;
   },
-  
+
   // Action to close a modal
   closeModal: (id: string) => {
     const state = getMutableState(ModalState);
@@ -324,7 +326,7 @@ export const ThemeState = defineState({
   initial: {
     theme: 'light' // 'light' or 'dark'
   },
-  
+
   // Action to toggle the theme
   toggleTheme: () => {
     const state = getMutableState(ThemeState);
@@ -337,22 +339,22 @@ export const ThemeState = defineState({
 export const useThemeProvider = () => {
   const themeState = useMutableState(ThemeState);
   const currentTheme = themeState.theme.value;
-  
+
   useEffect(() => {
     // Apply theme to document
     document.body.classList.remove('light-theme', 'dark-theme');
     document.body.classList.add(`${currentTheme}-theme`);
-    
+
     // Update meta theme-color for mobile browsers
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
       metaThemeColor.setAttribute(
-        'content', 
+        'content',
         currentTheme === 'dark' ? '#121212' : '#ffffff'
       );
     }
   }, [currentTheme]);
-  
+
   return { currentTheme, toggleTheme: ThemeState.toggleTheme };
 };
 ```

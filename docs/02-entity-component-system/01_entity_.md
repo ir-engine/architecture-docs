@@ -2,7 +2,9 @@
 
 ## Overview
 
-An entity is the fundamental unit of identity in the iR Engine's Entity Component System (ECS). It serves as a unique identifier for any distinct object or element within an application, from player characters and environmental objects to UI elements and abstract concepts. Entities themselves are lightweight and contain no data or behavior; they are simply unique numerical IDs that other parts of the system can reference. This simplicity is a key strength of the ECS architecture, enabling efficient creation, management, and destruction of application elements.
+An entity is the fundamental unit of identity in the iR Engine's Entity Component System (ECS). It serves as a unique identifier for any distinct object or element within an application, from player characters and environmental objects to UI elements and abstract concepts.
+
+Entities themselves are lightweight and contain no data or behavior; they are simply unique numerical IDs that other parts of the system can reference. This simplicity is a key strength of the ECS architecture, enabling efficient creation, management, and destruction of application elements.
 
 ## Core concepts
 

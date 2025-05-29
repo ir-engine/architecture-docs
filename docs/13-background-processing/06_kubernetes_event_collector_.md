@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Kubernetes Event Collector is a specialized background task within the iR Engine that monitors and logs events from the Kubernetes cluster where the application is deployed. It serves as an operational monitoring system, capturing important cluster activities such as pod startups, failures, scaling operations, and system warnings. By collecting and recording these events, the collector provides valuable insights for troubleshooting, operational awareness, and system health monitoring. This chapter explores the implementation, functionality, and integration of the Kubernetes Event Collector within the iR Engine's background processing system.
+The Kubernetes Event Collector is a specialized background task within the iR Engine that monitors and logs events from the Kubernetes cluster where the application is deployed. It serves as an operational monitoring system, capturing important cluster activities such as pod startups, failures, scaling operations, and system warnings. 
+
+By collecting and recording these events, the collector provides valuable insights for troubleshooting, operational awareness, and system health monitoring. This chapter explores the implementation, functionality, and integration of the Kubernetes Event Collector within the iR Engine's background processing system.
 
 ## Purpose and functionality
 

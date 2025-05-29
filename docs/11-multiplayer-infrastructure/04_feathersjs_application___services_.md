@@ -2,7 +2,9 @@
 
 ## Overview
 
-The FeathersJS Application & Services component forms the foundation of the iR Engine's multiplayer infrastructure, providing a structured framework for building and organizing server-side functionality. It enables the creation of modular, reusable services that handle specific aspects of the multiplayer system, such as user management, instance tracking, and real-time communication. By leveraging FeathersJS's architecture, the iR Engine achieves a clean separation of concerns, standardized API patterns, and robust real-time capabilities. This chapter explores the implementation, structure, and benefits of the FeathersJS framework within the iR Engine.
+The FeathersJS Application & Services component forms the foundation of the iR Engine's multiplayer infrastructure, providing a structured framework for building and organizing server-side functionality. It enables the creation of modular, reusable services that handle specific aspects of the multiplayer system, such as user management, instance tracking, and real-time communication. 
+
+By leveraging FeathersJS's architecture, the iR Engine achieves a clean separation of concerns, standardized API patterns, and robust real-time capabilities. This chapter explores the implementation, structure, and benefits of the FeathersJS framework within the iR Engine.
 
 ## Core concepts
 

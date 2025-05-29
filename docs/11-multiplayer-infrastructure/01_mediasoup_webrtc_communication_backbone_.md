@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Mediasoup WebRTC Communication Backbone is the core real-time communication system of the iR Engine's multiplayer infrastructure. It enables the efficient exchange of audio, video, and custom game data between players in a multiplayer environment. By leveraging WebRTC technology and the Mediasoup Selective Forwarding Unit (SFU) architecture, the system provides low-latency, scalable communication channels that are essential for creating responsive multiplayer experiences. This chapter explores the implementation, components, and workflow of the WebRTC communication backbone within the iR Engine.
+The Mediasoup WebRTC Communication Backbone is the core real-time communication system of the iR Engine's multiplayer infrastructure. It enables the efficient exchange of audio, video, and custom game data between players in a multiplayer environment. 
+
+By leveraging WebRTC technology and the Mediasoup Selective Forwarding Unit (SFU) architecture, the system provides low-latency, scalable communication channels that are essential for creating responsive multiplayer experiences. This chapter explores the implementation, components, and workflow of the WebRTC communication backbone within the iR Engine.
 
 ## Core concepts
 

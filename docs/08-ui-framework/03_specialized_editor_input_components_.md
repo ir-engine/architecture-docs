@@ -2,7 +2,9 @@
 
 ## Overview
 
-Specialized editor input components are custom UI controls designed for editing specific data types within the iR Engine editor. Unlike standard form elements, these components provide intuitive interfaces tailored to the unique requirements of 3D editing, such as manipulating vectors, colors, and asset references. By offering visual feedback and specialized interaction patterns, these components significantly improve the editing experience, allowing users to make precise adjustments efficiently.
+Specialized editor input components are custom UI controls designed for editing specific data types within the iR Engine editor. Unlike standard form elements, these components provide intuitive interfaces tailored to the unique requirements of 3D editing, such as manipulating vectors, colors, and asset references. 
+
+By offering visual feedback and specialized interaction patterns, these components significantly improve the editing experience, allowing users to make precise adjustments efficiently.
 
 ## Core components
 

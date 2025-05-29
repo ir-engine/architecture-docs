@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Match Assignment is the final output of the iR Engine's matchmaking system that provides players with the information needed to join their game session. It contains the connection details for the assigned game server and any additional game-specific information required by the client. By delivering this crucial information to players, match assignments complete the matchmaking process, enabling players to transition from searching for a game to actively participating in one. This chapter explores the structure, delivery, and usage of match assignments within the matchmaking architecture.
+The Match Assignment is the final output of the iR Engine's matchmaking system that provides players with the information needed to join their game session. It contains the connection details for the assigned game server and any additional game-specific information required by the client. 
+
+By delivering this crucial information to players, match assignments complete the matchmaking process, enabling players to transition from searching for a game to actively participating in one. This chapter explores the structure, delivery, and usage of match assignments within the matchmaking architecture.
 
 ## Core concepts
 

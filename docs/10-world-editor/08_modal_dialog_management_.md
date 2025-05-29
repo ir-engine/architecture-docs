@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Modal Dialog Management component is an essential element of the iR Engine's World Editor that handles focused user interactions through popup windows. It provides a standardized system for requesting user input, confirming actions, and displaying important information while temporarily blocking interaction with the rest of the editor. By implementing a centralized modal state service, this component ensures consistent behavior and appearance across all dialog interactions. This chapter explores the implementation, workflow, and usage of modal dialogs within the World Editor.
+The Modal Dialog Management component is an essential element of the iR Engine's World Editor that handles focused user interactions through popup windows. It provides a standardized system for requesting user input, confirming actions, and displaying important information while temporarily blocking interaction with the rest of the editor. 
+
+By implementing a centralized modal state service, this component ensures consistent behavior and appearance across all dialog interactions. This chapter explores the implementation, workflow, and usage of modal dialogs within the World Editor.
 
 ## Core concepts
 

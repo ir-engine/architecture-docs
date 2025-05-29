@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Periodic Task Scheduler is a mechanism within the iR Engine's background processing system that enables tasks to run automatically at regular intervals. Rather than being a standalone component, it's an architectural pattern implemented within each task that requires periodic execution. By using JavaScript's built-in timing functions, particularly `setInterval`, the system ensures that critical background operations like data collection, monitoring, and maintenance happen consistently without manual intervention. This chapter explores the implementation, functionality, and benefits of periodic task scheduling within the iR Engine.
+The Periodic Task Scheduler is a mechanism within the iR Engine's background processing system that enables tasks to run automatically at regular intervals. Rather than being a standalone component, it's an architectural pattern implemented within each task that requires periodic execution. 
+
+By using JavaScript's built-in timing functions, particularly `setInterval`, the system ensures that critical background operations like data collection, monitoring, and maintenance happen consistently without manual intervention. This chapter explores the implementation, functionality, and benefits of periodic task scheduling within the iR Engine.
 
 ## Purpose and functionality
 

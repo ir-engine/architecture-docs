@@ -1,6 +1,8 @@
 # UI framework
 
-The iR Engine UI framework provides a comprehensive set of reusable components and tools for building the user interface of the iR Engine editor. It features a system for creating editor property panels with specialized input controls, a real-time chat module, and an integrated icon system. Styling is consistently applied using Tailwind CSS, and components are developed and documented with Storybook. State throughout the UI is managed by Hyperflux.
+The iR Engine UI framework provides a comprehensive set of reusable components and tools for building the user interface of the iR Engine editor. It features a system for creating editor property panels with specialized input controls, a real-time chat module, and an integrated icon system. 
+
+Styling is consistently applied using Tailwind CSS, and components are developed and documented with Storybook. State throughout the UI is managed by Hyperflux.
 
 ## System architecture
 

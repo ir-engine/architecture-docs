@@ -2,7 +2,9 @@
 
 ## Overview
 
-The chat feature module provides a comprehensive real-time communication system that can be integrated into iR Engine applications. It enables users to exchange text messages, share media files, and participate in video calls without leaving the application. This module demonstrates how the UI primitives, specialized input components, and icon system can be combined to create a complex, interactive feature. By encapsulating all chat-related functionality in a cohesive module, the system maintains separation of concerns while providing a complete communication solution.
+The chat feature module provides a comprehensive real-time communication system that can be integrated into iR Engine applications. It enables users to exchange text messages, share media files, and participate in video calls without leaving the application. This module demonstrates how the UI primitives, specialized input components, and icon system can be combined to create a complex, interactive feature. 
+
+By encapsulating all chat-related functionality in a cohesive module, the system maintains separation of concerns while providing a complete communication solution.
 
 ## Architecture
 

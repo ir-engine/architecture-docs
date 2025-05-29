@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Entity Component System (ECS) integration is a fundamental element of the iR Engine's World Editor that provides a flexible architecture for defining and manipulating objects in 3D worlds. It implements a composition-based approach where entities are constructed from modular components rather than rigid inheritance hierarchies. By separating data (components) from logic (systems) and identity (entities), this architecture enables intuitive visual editing of complex objects while maintaining high performance. This chapter explores the implementation, workflow, and benefits of the ECS integration within the World Editor.
+The Entity Component System (ECS) integration is a fundamental element of the iR Engine's World Editor that provides a flexible architecture for defining and manipulating objects in 3D worlds. It implements a composition-based approach where entities are constructed from modular components rather than rigid inheritance hierarchies. 
+
+By separating data (components) from logic (systems) and identity (entities), this architecture enables intuitive visual editing of complex objects while maintaining high performance. This chapter explores the implementation, workflow, and benefits of the ECS integration within the World Editor.
 
 ## Core concepts
 

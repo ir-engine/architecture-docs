@@ -2,7 +2,9 @@
 
 ## Overview
 
-Input pointer management is the subsystem responsible for tracking and managing individual pointer inputs such as mouse cursors, touch points, and other screen-space interaction devices. This system enables the engine to handle multiple simultaneous pointers across different rendering contexts, providing essential support for complex user interfaces and multi-touch interactions.
+Input pointer management is the subsystem responsible for tracking and managing individual pointer inputs such as mouse cursors, touch points, and other screen-space interaction devices. 
+
+This system enables the engine to handle multiple simultaneous pointers across different rendering contexts, providing essential support for complex user interfaces and multi-touch interactions.
 
 ## Core components
 

@@ -2,7 +2,9 @@
 
 ## Overview
 
-The UI primitives system forms the foundation of the iR Engine user interface framework. It provides a standardized set of reusable UI components that maintain consistent styling throughout the application. These primitives serve as the basic building blocks for constructing more complex UI elements and interfaces, ensuring visual coherence and reducing development time. The styling of these components is implemented using Tailwind CSS, a utility-first CSS framework that enables efficient and consistent design application.
+The UI primitives system forms the foundation of the iR Engine user interface framework. It provides a standardized set of reusable UI components that maintain consistent styling throughout the application. These primitives serve as the basic building blocks for constructing more complex UI elements and interfaces, ensuring visual coherence and reducing development time. 
+
+The styling of these components is implemented using Tailwind CSS, a utility-first CSS framework that enables efficient and consistent design application.
 
 ## Core concepts
 

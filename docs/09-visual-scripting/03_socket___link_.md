@@ -2,7 +2,9 @@
 
 ## Overview
 
-Sockets and links form the connection system of the iR Engine visual scripting framework. Sockets are the connection points on nodes that allow them to receive input or send output, while links are the connections between these sockets that define how data and execution flow through the visual script. Together, they create the pathways that enable nodes to communicate and work together to form a complete logical system. This chapter explores the concept, structure, and implementation of sockets and links within the iR Engine.
+Sockets and links form the connection system of the iR Engine visual scripting framework. Sockets are the connection points on nodes that allow them to receive input or send output, while links are the connections between these sockets that define how data and execution flow through the visual script. 
+
+Together, they create the pathways that enable nodes to communicate and work together to form a complete logical system. This chapter explores the concept, structure, and implementation of sockets and links within the iR Engine.
 
 ## Core concepts
 

@@ -2,7 +2,9 @@
 
 ## Overview
 
-Storybook integration provides a dedicated environment for developing, documenting, and testing UI components in isolation. It serves as an interactive component catalog that allows developers to view and interact with components outside the main application context. The iR Engine UI framework leverages Storybook extensively to showcase component variations, document usage patterns, and ensure visual consistency. This approach accelerates development by enabling focused work on individual components and facilitates collaboration by providing a shared reference for designers and developers.
+Storybook integration provides a dedicated environment for developing, documenting, and testing UI components in isolation. It serves as an interactive component catalog that allows developers to view and interact with components outside the main application context. 
+
+The iR Engine UI framework leverages Storybook extensively to showcase component variations, document usage patterns, and ensure visual consistency. This approach accelerates development by enabling focused work on individual components and facilitates collaboration by providing a shared reference for designers and developers.
 
 ## Core concepts
 

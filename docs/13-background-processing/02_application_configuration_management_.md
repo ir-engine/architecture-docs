@@ -2,7 +2,9 @@
 
 ## Overview
 
-Application Configuration Management is a system that provides a centralized approach to managing and accessing configuration settings for the iR Engine's background processing application. It enables the Task Server and its various tasks to retrieve operational parameters such as server ports, task intervals, database connection details, and other environment-specific settings. By separating configuration from code, this system enhances flexibility, maintainability, and operational clarity across different deployment environments.
+Application Configuration Management is a system that provides a centralized approach to managing and accessing configuration settings for the iR Engine's background processing application. It enables the Task Server and its various tasks to retrieve operational parameters such as server ports, task intervals, database connection details, and other environment-specific settings. 
+
+By separating configuration from code, this system enhances flexibility, maintainability, and operational clarity across different deployment environments.
 
 ## Purpose and functionality
 

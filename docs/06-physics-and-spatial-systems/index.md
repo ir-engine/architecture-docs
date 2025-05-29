@@ -1,6 +1,8 @@
 # Physics and spatial systems
 
-The iR Engine physics and spatial systems provide the core architecture for managing three-dimensional environments and interactions. Built on an Entity Component System (ECS) foundation, these systems handle object transforms (position, rotation, scale), 3D rendering via Three.js, physics simulations, user input processing, and Extended Reality (XR) integration. The engine employs specialized systems that work together to manage different reference spaces for XR applications and adapt Three.js to the ECS architecture through custom patches and proxies.
+The iR Engine physics and spatial systems provide the core architecture for managing three-dimensional environments and interactions. Built on an Entity Component System (ECS) foundation, these systems handle object transforms (position, rotation, scale), 3D rendering via Three.js, physics simulations, user input processing, and Extended Reality (XR) integration. 
+
+The engine employs specialized systems that work together to manage different reference spaces for XR applications and adapt Three.js to the ECS architecture through custom patches and proxies.
 
 ## System architecture
 

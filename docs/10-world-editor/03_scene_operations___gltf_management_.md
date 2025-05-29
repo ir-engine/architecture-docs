@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Scene Operations and GLTF Management component is a fundamental element of the iR Engine's World Editor that handles the creation, loading, and saving of 3D environments. It provides a comprehensive system for managing scene files using the GL Transmission Format (GLTF), enabling users to preserve their work and share it across different platforms. By implementing specialized functions for scene serialization and deserialization, this component ensures that complex 3D worlds can be reliably stored and reconstructed. This chapter explores the implementation, workflow, and management of scenes within the World Editor.
+The Scene Operations and GLTF Management component is a fundamental element of the iR Engine's World Editor that handles the creation, loading, and saving of 3D environments. It provides a comprehensive system for managing scene files using the GL Transmission Format (GLTF), enabling users to preserve their work and share it across different platforms. 
+
+By implementing specialized functions for scene serialization and deserialization, this component ensures that complex 3D worlds can be reliably stored and reconstructed. This chapter explores the implementation, workflow, and management of scenes within the World Editor.
 
 ## Core concepts
 

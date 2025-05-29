@@ -1,6 +1,8 @@
 # Server core
 
-The iR Engine Server Core is the backend system for a real-time 3D application. It uses the FeathersJS framework to manage data through various services (users, projects, media files), handles user authentication and authorization, and enables live, two-way communication with clients using WebSockets. The system supports different file storage solutions (local, S3, GCS) and relies on a SQL database, managed by Knex, for persistent data. All operations are guided by a central application configuration system.
+The iR Engine Server Core is the backend system for a real-time 3D application. It uses the FeathersJS framework to manage data through various services (users, projects, media files), handles user authentication and authorization, and enables live, two-way communication with clients using WebSockets. 
+
+The system supports different file storage solutions (local, S3, GCS) and relies on a SQL database, managed by Knex, for persistent data. All operations are guided by a central application configuration system.
 
 ## Architecture overview
 

@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Match Ticket is a fundamental data structure within the iR Engine's matchmaking system that represents a player's or group's request to join a game. It contains essential information about the desired game type, player attributes, and timing details that the matchmaking system uses to find appropriate matches. By serving as a standardized format for game requests, match tickets enable the system to efficiently process and fulfill player matchmaking needs. This chapter explores the structure, creation, and lifecycle of match tickets within the matchmaking architecture.
+The Match Ticket is a fundamental data structure within the iR Engine's matchmaking system that represents a player's or group's request to join a game. It contains essential information about the desired game type, player attributes, and timing details that the matchmaking system uses to find appropriate matches. 
+
+By serving as a standardized format for game requests, match tickets enable the system to efficiently process and fulfill player matchmaking needs. This chapter explores the structure, creation, and lifecycle of match tickets within the matchmaking architecture.
 
 ## Core concepts
 

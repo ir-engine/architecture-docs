@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Task Server Application is the central coordinator of the iR Engine's background processing system. It serves as the foundation for managing and executing various automated tasks that run behind the scenes. These tasks include collecting analytics data, monitoring system events, performing scheduled maintenance, and other operations that don't require direct user interaction. By centralizing the initialization and management of background tasks, the Task Server ensures reliable execution of critical background operations.
+The Task Server Application is the central coordinator of the iR Engine's background processing system. It serves as the foundation for managing and executing various automated tasks that run behind the scenes. These tasks include collecting analytics data, monitoring system events, performing scheduled maintenance, and other operations that don't require direct user interaction. 
+
+By centralizing the initialization and management of background tasks, the Task Server ensures reliable execution of critical background operations.
 
 ## Purpose and functionality
 

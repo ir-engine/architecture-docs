@@ -2,7 +2,9 @@
 
 ## Overview
 
-The node and value registry serves as the central repository for all building blocks available in the iR Engine visual scripting system. It maintains a comprehensive catalog of node definitions and value types, providing a single source of truth that all components of the system can reference. By centralizing these definitions, the registry ensures consistency across the editor, runtime, and serialization systems, while also enabling extensibility through the addition of new node types and data types. This chapter explores the concept, structure, and implementation of the node and value registry within the iR Engine.
+The node and value registry serves as the central repository for all building blocks available in the iR Engine visual scripting system. It maintains a comprehensive catalog of node definitions and value types, providing a single source of truth that all components of the system can reference. 
+
+By centralizing these definitions, the registry ensures consistency across the editor, runtime, and serialization systems, while also enabling extensibility through the addition of new node types and data types. This chapter explores the concept, structure, and implementation of the node and value registry within the iR Engine.
 
 ## Core concepts
 

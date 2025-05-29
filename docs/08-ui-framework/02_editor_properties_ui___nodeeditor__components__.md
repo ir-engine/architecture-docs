@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Editor Properties UI system provides a structured framework for creating and managing property editing panels within the iR Engine editor. These panels allow users to inspect and modify the properties of entities in the scene without writing code. Built on top of the UI primitives discussed in the previous chapter, this system organizes related properties into collapsible sections, each dedicated to a specific component type. This approach creates an intuitive and consistent editing experience throughout the application.
+The Editor Properties UI system provides a structured framework for creating and managing property editing panels within the iR Engine editor. These panels allow users to inspect and modify the properties of entities in the scene without writing code. 
+
+Built on top of the UI primitives discussed in the previous chapter, this system organizes related properties into collapsible sections, each dedicated to a specific component type. This approach creates an intuitive and consistent editing experience throughout the application.
 
 ## Core concepts
 

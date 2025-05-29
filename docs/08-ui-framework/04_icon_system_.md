@@ -2,7 +2,9 @@
 
 ## Overview
 
-The icon system provides a comprehensive framework for managing and using visual symbols throughout the iR Engine UI. It transforms raw SVG icon definitions into standardized React components that can be easily imported and used in the application. By automating the icon generation process and ensuring consistent behavior, the system enables developers to efficiently incorporate visual cues that enhance usability and aesthetics. The icons automatically adapt to their context, inheriting colors and scaling appropriately based on the surrounding UI elements.
+The icon system provides a comprehensive framework for managing and using visual symbols throughout the iR Engine UI. It transforms raw SVG icon definitions into standardized React components that can be easily imported and used in the application. 
+
+By automating the icon generation process and ensuring consistent behavior, the system enables developers to efficiently incorporate visual cues that enhance usability and aesthetics. The icons automatically adapt to their context, inheriting colors and scaling appropriately based on the surrounding UI elements.
 
 ## Core components
 

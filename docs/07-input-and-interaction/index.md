@@ -1,6 +1,8 @@
 # Input and interaction system
 
-The iR Engine input and interaction system provides a comprehensive framework for managing user inputs within the 3D engine environment. This system processes actions from various input devices including keyboards, mice, and XR controllers, determines what the user is attempting to interact with in the virtual environment, and enables game objects to respond to these inputs through the Entity Component System (ECS) architecture.
+The iR Engine input and interaction system provides a comprehensive framework for managing user inputs within the 3D engine environment. 
+
+This system processes actions from various input devices including keyboards, mice, and XR controllers, determines what the user is attempting to interact with in the virtual environment, and enables game objects to respond to these inputs through the Entity Component System (ECS) architecture.
 
 ## System overview
 

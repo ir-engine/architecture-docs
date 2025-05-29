@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Instance Lifecycle Management system is a core component of the iR Engine's multiplayer infrastructure that handles the creation, initialization, operation, and termination of game server instances. It ensures that game environments are efficiently provisioned when needed and properly released when no longer in use. By managing the complete lifecycle of server instances, this system enables dynamic scaling of multiplayer games while optimizing resource utilization. This chapter explores the implementation, stages, and workflow of instance lifecycle management within the iR Engine.
+The Instance Lifecycle Management system is a core component of the iR Engine's multiplayer infrastructure that handles the creation, initialization, operation, and termination of game server instances. It ensures that game environments are efficiently provisioned when needed and properly released when no longer in use. 
+
+By managing the complete lifecycle of server instances, this system enables dynamic scaling of multiplayer games while optimizing resource utilization. This chapter explores the implementation, stages, and workflow of instance lifecycle management within the iR Engine.
 
 ## Core concepts
 

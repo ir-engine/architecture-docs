@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Service Interaction Layer provides a standardized mechanism for background tasks to communicate with other components of the iR Engine. It enables tasks to retrieve data, store results, and trigger actions without needing to understand the internal implementation details of those components. By leveraging FeathersJS services, the layer creates a consistent, modular approach to inter-component communication. This chapter explores how background tasks use the Service Interaction Layer to access and manipulate data across the iR Engine ecosystem.
+The Service Interaction Layer provides a standardized mechanism for background tasks to communicate with other components of the iR Engine. It enables tasks to retrieve data, store results, and trigger actions without needing to understand the internal implementation details of those components. 
+
+By leveraging FeathersJS services, the layer creates a consistent, modular approach to inter-component communication. This chapter explores how background tasks use the Service Interaction Layer to access and manipulate data across the iR Engine ecosystem.
 
 ## Purpose and functionality
 

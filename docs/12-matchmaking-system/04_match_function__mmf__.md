@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Match Function (MMF) is a core component of the iR Engine's matchmaking system that implements the logic for grouping players into balanced game sessions. It processes match tickets according to the criteria defined in match profiles, creating match proposals that represent potential game instances. By applying game-specific rules and considering factors like team sizes and player attributes, the MMF ensures that matches are fair, balanced, and aligned with the game's design. This chapter explores the implementation, workflow, and integration of the match function within the matchmaking architecture.
+The Match Function (MMF) is a core component of the iR Engine's matchmaking system that implements the logic for grouping players into balanced game sessions. It processes match tickets according to the criteria defined in match profiles, creating match proposals that represent potential game instances. 
+
+By applying game-specific rules and considering factors like team sizes and player attributes, the MMF ensures that matches are fair, balanced, and aligned with the game's design. This chapter explores the implementation, workflow, and integration of the match function within the matchmaking architecture.
 
 ## Core concepts
 

@@ -2,7 +2,9 @@
 
 ## Overview
 
-Node definitions serve as the blueprints for all node types available in the iR Engine visual scripting system. They define the structure, behavior, and appearance of each type of node that can be used in visual scripts. By providing a formal specification for node types, node definitions enable the system to create consistent instances of nodes, validate connections between them, and execute their logic correctly. This chapter explores the concept, structure, and implementation of node definitions within the iR Engine.
+Node definitions serve as the blueprints for all node types available in the iR Engine visual scripting system. They define the structure, behavior, and appearance of each type of node that can be used in visual scripts. 
+
+By providing a formal specification for node types, node definitions enable the system to create consistent instances of nodes, validate connections between them, and execute their logic correctly. This chapter explores the concept, structure, and implementation of node definitions within the iR Engine.
 
 ## Core concepts
 

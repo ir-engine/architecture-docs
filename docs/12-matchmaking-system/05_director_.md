@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Director is the orchestration component of the iR Engine's matchmaking system that coordinates the entire matchmaking process. It manages the flow of match requests, initiates the creation of match proposals, and finalizes matches by assigning players to game servers. By continuously monitoring the system and making decisions about when and how to create matches, the Director ensures that players are efficiently grouped into appropriate game sessions. This chapter explores the implementation, workflow, and responsibilities of the Director within the matchmaking architecture.
+The Director is the orchestration component of the iR Engine's matchmaking system that coordinates the entire matchmaking process. It manages the flow of match requests, initiates the creation of match proposals, and finalizes matches by assigning players to game servers. 
+
+By continuously monitoring the system and making decisions about when and how to create matches, the Director ensures that players are efficiently grouped into appropriate game sessions. This chapter explores the implementation, workflow, and responsibilities of the Director within the matchmaking architecture.
 
 ## Core concepts
 

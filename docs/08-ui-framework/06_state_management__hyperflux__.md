@@ -2,7 +2,9 @@
 
 ## Overview
 
-State management is a critical aspect of modern UI development, particularly for complex applications like the iR Engine. Hyperflux is the state management system used throughout the iR Engine UI framework to maintain data consistency and enable reactive updates across components. It provides a centralized approach to managing both global application state and local component state, ensuring that UI elements automatically reflect the current data and remain synchronized. This chapter explores how Hyperflux works and how it's implemented in the iR Engine UI framework.
+State management is a critical aspect of modern UI development, particularly for complex applications like the iR Engine. Hyperflux is the state management system used throughout the iR Engine UI framework to maintain data consistency and enable reactive updates across components. 
+
+It provides a centralized approach to managing both global application state and local component state, ensuring that UI elements automatically reflect the current data and remain synchronized. This chapter explores how Hyperflux works and how it's implemented in the iR Engine UI framework.
 
 ## Core concepts
 

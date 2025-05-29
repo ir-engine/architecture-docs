@@ -1,6 +1,8 @@
 # Visual scripting
 
-The iR Engine visual scripting system enables the creation of interactive behaviors and logic through a graphical programming interface. Instead of writing traditional code, users build programs by arranging and connecting nodes (individual operations or functions) on a visual script graph (the main canvas). Nodes have input and output sockets (connection points) that are joined by links (wires) to define how data and control signals flow. The execution engine processes these visual scripts at runtime, following the paths defined by the connections between nodes.
+The iR Engine visual scripting system enables the creation of interactive behaviors and logic through a graphical programming interface. Instead of writing traditional code, users build programs by arranging and connecting nodes (individual operations or functions) on a visual script graph (the main canvas). Nodes have input and output sockets (connection points) that are joined by links (wires) to define how data and control signals flow. 
+
+The execution engine processes these visual scripts at runtime, following the paths defined by the connections between nodes.
 
 ## System architecture
 

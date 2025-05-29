@@ -2,7 +2,9 @@
 
 ## Overview
 
-Profiles are modular collections of related node definitions and value types that extend the capabilities of the iR Engine visual scripting system. They provide a structured way to organize, load, and manage specialized sets of visual scripting components for different domains or purposes. By grouping related functionality into profiles, the system remains modular, extensible, and focused, allowing developers to include only the components needed for their specific applications. This chapter explores the concept, structure, and implementation of profiles within the iR Engine.
+Profiles are modular collections of related node definitions and value types that extend the capabilities of the iR Engine visual scripting system. They provide a structured way to organize, load, and manage specialized sets of visual scripting components for different domains or purposes. 
+
+By grouping related functionality into profiles, the system remains modular, extensible, and focused, allowing developers to include only the components needed for their specific applications. This chapter explores the concept, structure, and implementation of profiles within the iR Engine.
 
 ## Core concepts
 

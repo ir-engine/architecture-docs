@@ -2,7 +2,9 @@
 
 ## Overview
 
-The World Editor is a comprehensive component of the iR Engine that provides a complete environment for creating and modifying 3D virtual worlds. It enables users to import, arrange, and configure various assets within scenes through an intuitive interface. By leveraging the Entity Component System (ECS) architecture and providing visual tools for manipulation and scripting, this component empowers creators to build complex interactive environments without extensive programming knowledge. This documentation explores the architecture, features, and workflows of the World Editor.
+The World Editor is a comprehensive component of the iR Engine that provides a complete environment for creating and modifying 3D virtual worlds. It enables users to import, arrange, and configure various assets within scenes through an intuitive interface. 
+
+By leveraging the Entity Component System (ECS) architecture and providing visual tools for manipulation and scripting, this component empowers creators to build complex interactive environments without extensive programming knowledge. This documentation explores the architecture, features, and workflows of the World Editor.
 
 ## Core components
 

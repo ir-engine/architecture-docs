@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Editor State Management component is a critical element of the iR Engine's World Editor that provides a centralized system for maintaining and synchronizing the editor's internal state. It implements a reactive state management pattern using Hyperflux, enabling different parts of the editor to share information without direct coupling. By creating a consistent source of truth for editor data, this component ensures that all UI elements and systems reflect the same state. This chapter explores the implementation, architecture, and benefits of the state management system within the World Editor.
+The Editor State Management component is a critical element of the iR Engine's World Editor that provides a centralized system for maintaining and synchronizing the editor's internal state. It implements a reactive state management pattern using Hyperflux, enabling different parts of the editor to share information without direct coupling. 
+
+By creating a consistent source of truth for editor data, this component ensures that all UI elements and systems reflect the same state. This chapter explores the implementation, architecture, and benefits of the state management system within the World Editor.
 
 ## Core concepts
 

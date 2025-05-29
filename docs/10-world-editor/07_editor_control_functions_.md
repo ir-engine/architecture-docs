@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Editor Control Functions component is a fundamental element of the iR Engine's World Editor that provides a centralized set of operations for manipulating entities and components. It implements an internal API that abstracts common editing tasks, enabling consistent behavior across different parts of the user interface. By separating the implementation of editing operations from the UI elements that trigger them, this component creates a modular and maintainable architecture. This chapter explores the implementation, usage, and benefits of the editor control functions within the World Editor.
+The Editor Control Functions component is a fundamental element of the iR Engine's World Editor that provides a centralized set of operations for manipulating entities and components. It implements an internal API that abstracts common editing tasks, enabling consistent behavior across different parts of the user interface. 
+
+By separating the implementation of editing operations from the UI elements that trigger them, this component creates a modular and maintainable architecture. This chapter explores the implementation, usage, and benefits of the editor control functions within the World Editor.
 
 ## Core concepts
 

@@ -2,7 +2,9 @@
 
 ## Overview
 
-The XR integration system enables the iR Engine to support immersive Virtual Reality (VR) and Augmented Reality (AR) experiences. It provides a bridge between the engine and the browser's WebXR API, allowing applications to initiate XR sessions, track user movement, handle XR input devices, and render content to XR displays. This system is essential for creating applications where users can interact with virtual environments through head-mounted displays and motion controllers.
+The XR integration system enables the iR Engine to support immersive Virtual Reality (VR) and Augmented Reality (AR) experiences. It provides a bridge between the engine and the browser's WebXR API, allowing applications to initiate XR sessions, track user movement, handle XR input devices, and render content to XR displays. 
+
+This system is essential for creating applications where users can interact with virtual environments through head-mounted displays and motion controllers.
 
 ## Core components
 

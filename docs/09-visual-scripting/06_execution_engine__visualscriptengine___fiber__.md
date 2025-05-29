@@ -2,7 +2,9 @@
 
 ## Overview
 
-The execution engine is the runtime system that brings visual scripts to life. It transforms the static structure of nodes, sockets, and links into dynamic, running programs by managing execution flow, resolving data dependencies, and coordinating asynchronous operations. The iR Engine's execution engine consists of two primary components: the VisualScriptEngine, which orchestrates the overall execution process, and Fibers, which represent individual execution paths through the graph. This chapter explores the concept, structure, and implementation of the execution engine within the iR Engine.
+The execution engine is the runtime system that brings visual scripts to life. It transforms the static structure of nodes, sockets, and links into dynamic, running programs by managing execution flow, resolving data dependencies, and coordinating asynchronous operations. 
+
+The iR Engine's execution engine consists of two primary components: the VisualScriptEngine, which orchestrates the overall execution process, and Fibers, which represent individual execution paths through the graph. This chapter explores the concept, structure, and implementation of the execution engine within the iR Engine.
 
 ## Core concepts
 

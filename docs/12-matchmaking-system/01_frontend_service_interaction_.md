@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Frontend Service Interaction component serves as the entry point to the iR Engine's matchmaking system. It provides the API interface through which game clients communicate with the matchmaking infrastructure, enabling players to request matches and receive game assignments. By abstracting the complexity of the underlying matchmaking processes, this component creates a straightforward way for games to integrate with the matchmaking system. This chapter explores the implementation, workflow, and integration of the frontend service within the iR Engine's matchmaking architecture.
+The Frontend Service Interaction component serves as the entry point to the iR Engine's matchmaking system. It provides the API interface through which game clients communicate with the matchmaking infrastructure, enabling players to request matches and receive game assignments. 
+
+By abstracting the complexity of the underlying matchmaking processes, this component creates a straightforward way for games to integrate with the matchmaking system. This chapter explores the implementation, workflow, and integration of the frontend service within the iR Engine's matchmaking architecture.
 
 ## Core concepts
 

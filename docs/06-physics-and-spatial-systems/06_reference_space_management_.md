@@ -2,7 +2,9 @@
 
 ## Overview
 
-Reference space management provides a framework for defining and coordinating different coordinate systems within the virtual environment. This system is particularly important for XR (Virtual/Augmented Reality) applications, where multiple spatial reference frames must be synchronized: the virtual world's coordinate system, the user's physical space, and the viewer's perspective. By managing these different "spaces," the engine can correctly translate between physical movements and virtual positioning.
+Reference space management provides a framework for defining and coordinating different coordinate systems within the virtual environment. This system is particularly important for XR (Virtual/Augmented Reality) applications, where multiple spatial reference frames must be synchronized: the virtual world's coordinate system, the user's physical space, and the viewer's perspective. 
+
+By managing these different "spaces," the engine can correctly translate between physical movements and virtual positioning.
 
 ## ReferenceSpaceState
 

@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Gizmos component is a critical element of the iR Engine's World Editor that provides interactive 3D controls for manipulating objects in the viewport. It implements specialized visual handles that enable direct manipulation of entity properties, particularly transformations like position, rotation, and scale. By creating intuitive spatial controls that correspond to the underlying component data, this system bridges the gap between visual editing and data manipulation. This chapter explores the implementation, interaction, and types of gizmos available in the World Editor.
+The Gizmos component is a critical element of the iR Engine's World Editor that provides interactive 3D controls for manipulating objects in the viewport. It implements specialized visual handles that enable direct manipulation of entity properties, particularly transformations like position, rotation, and scale. 
+
+By creating intuitive spatial controls that correspond to the underlying component data, this system bridges the gap between visual editing and data manipulation. This chapter explores the implementation, interaction, and types of gizmos available in the World Editor.
 
 ## Core concepts
 

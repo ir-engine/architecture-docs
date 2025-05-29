@@ -1,8 +1,10 @@
-# Value type
+# ValueType
 
 ## Overview
 
-ValueType is a fundamental concept in the iR Engine visual scripting system that defines the nature and behavior of data that flows between nodes. Each ValueType represents a specific kind of data (such as numbers, strings, or vectors) and provides a complete specification for how that data should be created, manipulated, compared, and stored. By formalizing these data types, the system ensures consistent handling of values throughout the visual script, enables type checking for connections, and supports serialization for saving and loading scripts. This chapter explores the concept, structure, and implementation of ValueTypes within the iR Engine.
+ValueType is a fundamental concept in the iR Engine visual scripting system that defines the nature and behavior of data that flows between nodes. Each ValueType represents a specific kind of data (such as numbers, strings, or vectors) and provides a complete specification for how that data should be created, manipulated, compared, and stored. 
+
+By formalizing these data types, the system ensures consistent handling of values throughout the visual script, enables type checking for connections, and supports serialization for saving and loading scripts. This chapter explores the concept, structure, and implementation of ValueTypes within the iR Engine.
 
 ## Core concepts
 

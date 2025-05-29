@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Visual Scripting System is a powerful component of the iR Engine's World Editor that enables the creation of interactive behaviors without traditional programming. It implements a node-based interface where users connect visual elements representing actions, events, and data to define logic flows. By providing an intuitive graphical alternative to text-based coding, this system makes behavior creation accessible to users with varying technical backgrounds. This chapter explores the implementation, workflow, and capabilities of the visual scripting system within the World Editor.
+The Visual Scripting System is a powerful component of the iR Engine's World Editor that enables the creation of interactive behaviors without traditional programming. It implements a node-based interface where users connect visual elements representing actions, events, and data to define logic flows. 
+
+By providing an intuitive graphical alternative to text-based coding, this system makes behavior creation accessible to users with varying technical backgrounds. This chapter explores the implementation, workflow, and capabilities of the visual scripting system within the World Editor.
 
 ## Core concepts
 

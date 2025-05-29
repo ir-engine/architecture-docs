@@ -2,7 +2,9 @@
 
 ## Overview
 
-The User Connection and Authorization system is a critical component of the iR Engine's multiplayer infrastructure that manages how players connect to game instances and verifies their permissions. It ensures that only authenticated users with appropriate authorization can access specific game environments. By implementing robust security checks and connection management, this system protects game instances from unauthorized access while providing legitimate players with a seamless connection experience. This chapter explores the implementation, workflow, and security aspects of user connection and authorization within the iR Engine.
+The User Connection and Authorization system is a critical component of the iR Engine's multiplayer infrastructure that manages how players connect to game instances and verifies their permissions. It ensures that only authenticated users with appropriate authorization can access specific game environments. 
+
+By implementing robust security checks and connection management, this system protects game instances from unauthorized access while providing legitimate players with a seamless connection experience. This chapter explores the implementation, workflow, and security aspects of user connection and authorization within the iR Engine.
 
 ## Core concepts
 

@@ -1,6 +1,10 @@
 # Matchmaking system
 
-The matchmaking system is designed to connect players for online games within the iR Engine. It processes player requests, called match tickets, which specify what kind of game a player wants to join. The system uses configurable rules, known as match profiles, to define the criteria for a valid game session (e.g., game mode, team size). A core component, the match function (MMF), processes available tickets against these profiles to propose groups of players for matches. The director orchestrates this entire flow: it uses match profiles to get proposals from the MMF, and then finalizes these by creating a match assignment (like a server address) for the successful tickets. Players interact with this system, submitting tickets and checking for their assignments, through a frontend service interaction layer.
+## Overview
+
+The matchmaking system is designed to connect players for online games within the iR Engine. It processes player requests, called match tickets, which specify what kind of game a player wants to join. The system uses configurable rules, known as match profiles, to define the criteria for a valid game session (e.g., game mode, team size).
+
+A core component, the match function (MMF), processes available tickets against these profiles to propose groups of players for matches. The director orchestrates this entire flow: it uses match profiles to get proposals from the MMF, and then finalizes these by creating a match assignment (like a server address) for the successful tickets. Players interact with this system, submitting tickets and checking for their assignments, through a frontend service interaction layer.
 
 ## Architecture overview
 

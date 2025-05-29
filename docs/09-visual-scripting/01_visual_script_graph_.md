@@ -2,7 +2,9 @@
 
 ## Overview
 
-The visual script graph is the foundational component of the iR Engine visual scripting system. It serves as the container and organizational structure for visual programming, providing a canvas where users arrange and connect nodes to create logical flows. Similar to a flowchart or blueprint, the graph defines both the components of a script and the relationships between them. This chapter explores the concept, structure, and implementation of visual script graphs within the iR Engine.
+The visual script graph is the foundational component of the iR Engine visual scripting system. It serves as the container and organizational structure for visual programming, providing a canvas where users arrange and connect nodes to create logical flows. Similar to a flowchart or blueprint, the graph defines both the components of a script and the relationships between them. 
+
+This chapter explores the concept, structure, and implementation of visual script graphs within the iR Engine.
 
 ## Core concepts
 

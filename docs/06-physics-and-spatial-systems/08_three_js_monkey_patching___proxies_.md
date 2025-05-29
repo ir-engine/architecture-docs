@@ -2,7 +2,9 @@
 
 ## Overview
 
-The iR Engine uses specialized techniques to integrate the Three.js rendering library with its Entity Component System (ECS) architecture. This integration ensures that the ECS remains the single source of truth for entity data while leveraging Three.js's powerful rendering capabilities. Two key techniques enable this seamless integration: monkey patching and JavaScript proxies. These mechanisms ensure that changes to entity transforms are consistently reflected in both the ECS and Three.js, preventing synchronization issues and maintaining system integrity.
+The iR Engine uses specialized techniques to integrate the Three.js rendering library with its Entity Component System (ECS) architecture. This integration ensures that the ECS remains the single source of truth for entity data while leveraging Three.js's powerful rendering capabilities. 
+
+Two key techniques enable this seamless integration: monkey patching and JavaScript proxies. These mechanisms ensure that changes to entity transforms are consistently reflected in both the ECS and Three.js, preventing synchronization issues and maintaining system integrity.
 
 ## The integration challenge
 

@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Analytics Data Collector is a specialized background task within the iR Engine that periodically gathers, processes, and stores statistical information about platform usage. It collects metrics such as active user counts, running instances, chat activity, and other operational data. By regularly capturing these statistics, the collector creates a valuable historical record that can be used for monitoring platform health, analyzing usage patterns, and making data-driven decisions. This chapter explores the implementation, functionality, and integration of the Analytics Data Collector within the iR Engine's background processing system.
+The Analytics Data Collector is a specialized background task within the iR Engine that periodically gathers, processes, and stores statistical information about platform usage. It collects metrics such as active user counts, running instances, chat activity, and other operational data. 
+
+By regularly capturing these statistics, the collector creates a valuable historical record that can be used for monitoring platform health, analyzing usage patterns, and making data-driven decisions. This chapter explores the implementation, functionality, and integration of the Analytics Data Collector within the iR Engine's background processing system.
 
 ## Purpose and functionality
 

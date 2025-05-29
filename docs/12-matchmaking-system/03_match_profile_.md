@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Match Profile is a configuration structure within the iR Engine's matchmaking system that defines the criteria and requirements for creating valid game matches. It serves as a blueprint that specifies what constitutes a complete and balanced game session for a particular mode or type. By providing parameters such as team sizes, player counts, and filtering criteria, match profiles guide the matchmaking process in grouping appropriate players together. This chapter explores the structure, implementation, and role of match profiles within the matchmaking architecture.
+The Match Profile is a configuration structure within the iR Engine's matchmaking system that defines the criteria and requirements for creating valid game matches. It serves as a blueprint that specifies what constitutes a complete and balanced game session for a particular mode or type. 
+
+By providing parameters such as team sizes, player counts, and filtering criteria, match profiles guide the matchmaking process in grouping appropriate players together. This chapter explores the structure, implementation, and role of match profiles within the matchmaking architecture.
 
 ## Core concepts
 

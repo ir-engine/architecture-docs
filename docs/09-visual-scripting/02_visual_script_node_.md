@@ -2,7 +2,9 @@
 
 ## Overview
 
-Visual script nodes are the fundamental building blocks of the iR Engine visual scripting system. Each node represents a specific operation, function, or action that can be performed within a visual script. Nodes are placed on the visual script graph and connected to create logical flows and data transformations. By combining different types of nodes, users can create complex behaviors without writing traditional code. This chapter explores the concept, structure, and implementation of visual script nodes within the iR Engine.
+Visual script nodes are the fundamental building blocks of the iR Engine visual scripting system. Each node represents a specific operation, function, or action that can be performed within a visual script. Nodes are placed on the visual script graph and connected to create logical flows and data transformations. 
+
+By combining different types of nodes, users can create complex behaviors without writing traditional code. This chapter explores the concept, structure, and implementation of visual script nodes within the iR Engine.
 
 ## Core concepts
 

@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Application Configuration component is a foundational element of the iR Engine's server core that manages the server's operational parameters and environment-specific settings. It provides a centralized system for defining, accessing, and updating configuration values that control various aspects of the server's behavior. By abstracting configuration from code, this system enables the server to adapt to different deployment environments without requiring code changes. This chapter explores the implementation, workflow, and benefits of the application configuration system within the iR Engine.
+The Application Configuration component is a foundational element of the iR Engine's server core that manages the server's operational parameters and environment-specific settings. It provides a centralized system for defining, accessing, and updating configuration values that control various aspects of the server's behavior.
+
+By abstracting configuration from code, this system enables the server to adapt to different deployment environments without requiring code changes. This chapter explores the implementation, workflow, and benefits of the application configuration system within the iR Engine.
 
 ## Core concepts
 
@@ -173,13 +175,13 @@ import { createKnexClient } from './db';
 export const updateAppConfig = async (): Promise<void> => {
   // Create database client
   const knexClient = createKnexClient();
-  
+
   try {
     // Fetch settings from database
     const settings = await knexClient('engine_settings')
       .select('category', 'key', 'value')
       .where('enabled', true);
-    
+
     // Update configuration with database values
     for (const setting of settings) {
       updateNestedConfig(
@@ -189,7 +191,7 @@ export const updateAppConfig = async (): Promise<void> => {
         setting.value
       );
     }
-    
+
     console.log('Configuration updated from database settings');
   } catch (error) {
     console.error('Failed to update configuration from database:', error);
@@ -212,7 +214,7 @@ function updateNestedConfig(
   if (!config[category]) {
     config[category] = {};
   }
-  
+
   // Update the value, converting to appropriate type
   if (value === 'true' || value === 'false') {
     config[category][key] = value === 'true';
@@ -242,18 +244,18 @@ sequenceDiagram
     participant UpdateConfig as src/updateAppConfig.ts
     participant Database as Settings Database
     participant AppComponents as Application Components
-    
+
     EnvFile->>AppConfig: Load environment variables
     AppConfig->>Config: Create initial configuration
-    
+
     alt Dynamic updates enabled
         UpdateConfig->>Database: Fetch settings
         Database-->>UpdateConfig: Return settings
         UpdateConfig->>Config: Update configuration
     end
-    
+
     Config-->>AppComponents: Provide configuration values
-    
+
     Note over AppComponents: Application uses configuration
 ```
 
@@ -420,19 +422,19 @@ import { LocalStrategy } from '@feathersjs/authentication-local';
 // Configure authentication service
 export default function(app) {
   const authentication = new AuthenticationService(app);
-  
+
   // Set up JWT strategy
   authentication.register('jwt', new JWTStrategy({
     secret: config.authentication.secret,
     jwtOptions: config.authentication.jwtOptions
   }));
-  
+
   // Set up local strategy
   authentication.register('local', new LocalStrategy({
     usernameField: config.authentication.local.usernameField,
     passwordField: config.authentication.local.passwordField
   }));
-  
+
   // Add authentication service
   app.use('/authentication', authentication);
 }

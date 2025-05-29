@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Scene Graph & Rendering Abstraction system is responsible for organizing and visualizing 3D objects in the iR Engine. It provides a structured approach to defining spatial relationships between objects, their visual appearance, and how they are rendered on screen. By separating the logical structure of a scene from the rendering process, the system enables flexible, efficient, and visually compelling 3D environments. This chapter explores the concepts, structure, and implementation of the Scene Graph & Rendering Abstraction within the iR Engine.
+The Scene Graph & Rendering Abstraction system is responsible for organizing and visualizing 3D objects in the iR Engine. It provides a structured approach to defining spatial relationships between objects, their visual appearance, and how they are rendered on screen.
+
+By separating the logical structure of a scene from the rendering process, the system enables flexible, efficient, and visually compelling 3D environments. This chapter explores the concepts, structure, and implementation of the Scene Graph & Rendering Abstraction within the iR Engine.
 
 ## Scene graph
 
@@ -241,14 +243,14 @@ const SceneObjectSystem = defineSystem({
   execute: () => {
     // Find all entities with MeshComponent or GLTFComponent
     const renderableEntities = renderableQuery();
-    
+
     for (const entity of renderableEntities) {
       // Get or create an ObjectComponent for this entity
       const objectComp = getOrCreateObjectComponent(entity);
-      
+
       // Update the object's transform
       updateObjectTransform(entity, objectComp);
-      
+
       // Update visibility, shadows, etc.
       updateObjectProperties(entity, objectComp);
     }
@@ -275,13 +277,13 @@ const EnvironmentSystem = defineSystem({
     // Find entities with environment components
     const skyboxEntities = skyboxQuery();
     const envMapEntities = envMapQuery();
-    
+
     // Apply skybox settings
     for (const entity of skyboxEntities) {
       const skybox = getComponent(entity, SkyboxComponent);
       applySkyboxToRenderer(skybox);
     }
-    
+
     // Apply environment map settings
     for (const entity of envMapEntities) {
       const envMap = getComponent(entity, EnvMapComponent);
@@ -306,7 +308,7 @@ Let's create a simple space scene with a spaceship, a planet, and a starry backg
 const sceneEntity = createEntity();
 
 // Set up the starry background
-setComponent(sceneEntity, SkyboxComponent, { 
+setComponent(sceneEntity, SkyboxComponent, {
   backgroundType: SkyTypeEnum.EQUIRECTANGULAR,
   equirectangularPath: "textures/starry_sky.ktx2"
 });
@@ -340,7 +342,7 @@ setComponent(planetEntity, TransformComponent, {
 // Give the planet a visual appearance
 setComponent(planetEntity, MeshComponent, {
   geometryType: 'sphere',
-  materialProps: { 
+  materialProps: {
     color: 'blue',
     roughness: 0.7,
     metalness: 0.2
@@ -348,9 +350,9 @@ setComponent(planetEntity, MeshComponent, {
 });
 
 // Make the planet cast and receive shadows
-setComponent(planetEntity, ShadowComponent, { 
-  cast: true, 
-  receive: true 
+setComponent(planetEntity, ShadowComponent, {
+  cast: true,
+  receive: true
 });
 
 // Add a light source
@@ -392,16 +394,16 @@ sequenceDiagram
     participant Screen
 
     Developer->>ECS: Define entities with Transform, Mesh, GLTF components
-    
+
     loop Each Frame
         SceneSys->>ECS: Query for renderable entities
         SceneSys->>SceneSys: Process scene graph hierarchy
         SceneSys->>SceneSys: Calculate world transforms
         SceneSys->>SceneSys: Determine visibility
-        
+
         SceneSys->>ECS: Query for environment settings
         SceneSys->>SceneSys: Process skybox, lighting, shadows
-        
+
         SceneSys->>Renderer: Update scene objects and settings
         Renderer->>Renderer: Sort objects by material/depth
         Renderer->>Renderer: Apply culling and optimizations

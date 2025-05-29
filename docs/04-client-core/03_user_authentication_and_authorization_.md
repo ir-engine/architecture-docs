@@ -2,7 +2,9 @@
 
 ## Overview
 
-The User Authentication and Authorization system manages user identity and access control within the iR Engine client. It verifies user identities through login processes, maintains secure sessions using tokens, and controls access to protected resources based on user permissions. By implementing robust authentication and authorization mechanisms, the system ensures that users can only access the features and data they are permitted to use, providing security for sensitive operations like administrative functions. This chapter explores the implementation, workflow, and integration of authentication and authorization within the iR Engine client.
+The User Authentication and Authorization system manages user identity and access control within the iR Engine client. It verifies user identities through login processes, maintains secure sessions using tokens, and controls access to protected resources based on user permissions.
+
+By implementing robust authentication and authorization mechanisms, the system ensures that users can only access the features and data they are permitted to use, providing security for sensitive operations like administrative functions. This chapter explores the implementation, workflow, and integration of authentication and authorization within the iR Engine client.
 
 ## Core concepts
 
@@ -99,10 +101,10 @@ import { AuthState } from './AuthState';
 
 async function handleLogin(email, password) {
   const authState = getMutableState(AuthState);
-  
+
   // Indicate authentication is in progress
   authState.isProcessing.set(true);
-  
+
   try {
     // Send credentials to the server via FeathersJS
     const authResult = await API.instance.authenticate({
@@ -110,19 +112,19 @@ async function handleLogin(email, password) {
       email: email,
       password: password
     });
-    
+
     // Update AuthState with the authentication result
     authState.merge({
       isAuthenticated: true,
       isProcessing: false,
       error: '',
-      authUser: { 
+      authUser: {
         accessToken: authResult.accessToken,
         // Other auth properties
       },
       user: authResult.user
     });
-    
+
     console.log('Login successful');
     return authResult;
   } catch (error) {
@@ -132,7 +134,7 @@ async function handleLogin(email, password) {
       isProcessing: false,
       error: error.message || 'Authentication failed'
     });
-    
+
     console.error('Login failed:', error);
     throw error;
   }
@@ -159,15 +161,15 @@ import { AuthState, UserSeed, AuthUserSeed } from './AuthState';
 async function tryAutoLogin() {
   const authState = getMutableState(AuthState);
   const existingToken = getState(AuthState).authUser.accessToken;
-  
+
   if (existingToken) {
     try {
       // Configure FeathersJS to use the existing token
       await API.instance.authentication.setAccessToken(existingToken);
-      
+
       // Attempt to re-authenticate with the server
       const result = await API.instance.reAuthenticate();
-      
+
       // Update AuthState with the fresh authentication data
       authState.merge({
         isAuthenticated: true,
@@ -175,13 +177,13 @@ async function tryAutoLogin() {
         authUser: result,
         user: result.user
       });
-      
+
       console.log('Re-authenticated successfully');
       return result;
     } catch (error) {
       // Token is invalid or expired
       console.log('Token invalid or expired. Need to log in again.');
-      
+
       // Reset to unauthenticated state
       authState.merge({
         isAuthenticated: false,
@@ -189,20 +191,20 @@ async function tryAutoLogin() {
         user: UserSeed,
         authUser: AuthUserSeed
       });
-      
+
       throw error;
     }
   } else {
     // No token available
     console.log('No existing token. User is a guest.');
-    
+
     // Ensure guest state
     authState.merge({
       isAuthenticated: false,
       user: UserSeed,
       authUser: AuthUserSeed
     });
-    
+
     throw new Error('No authentication token');
   }
 }
@@ -226,7 +228,7 @@ import { AuthState, UserSeed, AuthUserSeed } from './AuthState';
 
 async function handleLogout() {
   const authState = getMutableState(AuthState);
-  
+
   try {
     // Notify the server to invalidate the session
     await API.instance.logout();
@@ -241,7 +243,7 @@ async function handleLogout() {
       user: UserSeed,
       authUser: AuthUserSeed
     });
-    
+
     console.log('User logged out');
   }
 }
@@ -268,33 +270,33 @@ import { RouterState } from '../common/services/RouterService';
 
 function AdminAccessCheck() {
   const currentUserID = Engine.instance.userID;
-  
+
   // Fetch user scopes from the server
   const scopeQuery = useFind(scopePath, {
     query: { userId: currentUserID, paginate: false }
   });
-  
+
   const allowedRoutes = useMutableState(AllowedAdminRoutesState);
-  
+
   useEffect(() => {
     if (scopeQuery.data) {
       // Check if the user has the admin scope
       const isAdmin = scopeQuery.data.find(scope => scope.type === 'admin:admin');
-      
+
       if (isAdmin) {
         console.log('User is an admin. Access granted.');
-        
+
         // Update allowed routes state to enable admin features
         // Example: allowedRoutes.users.access.set(true);
       } else {
         console.log('User is not an admin. Redirecting...');
-        
+
         // Redirect to homepage or show an error
         RouterState.navigate('/', { redirectUrl: '/admin' });
       }
     }
   }, [scopeQuery.data, allowedRoutes]);
-  
+
   // Render loading state or admin UI based on access
   return <div>Checking admin access...</div>;
 }
@@ -326,7 +328,7 @@ sequenceDiagram
     API->>Server: POST /authentication
     Server->>UserDB: Verify credentials
     UserDB-->>Server: Credentials valid/invalid
-    
+
     alt Credentials Valid
         Server->>Server: Generate JWT token
         Server-->>API: Return { accessToken, user }
@@ -373,7 +375,7 @@ sequenceDiagram
     ScopeDB-->>Server: Return user scopes
     Server-->>API: Return scope data
     API-->>AdminUI: Return scopeQuery.data
-    
+
     alt Has admin:admin Scope
         AdminUI->>AdminUI: Update AllowedAdminRoutesState
         AdminUI-->>User: Show admin interface
@@ -408,7 +410,7 @@ function UserProfileButton() {
   const authState = useMutableState(AuthState);
   const isAuthenticated = authState.isAuthenticated.value;
   const userName = authState.user.name.value;
-  
+
   if (isAuthenticated) {
     return <button>Profile: {userName}</button>;
   } else {
@@ -459,16 +461,16 @@ import { RouterState } from './common/services/RouterService';
 function ProtectedRoute({ children }) {
   const authState = useMutableState(AuthState);
   const isAuthenticated = authState.isAuthenticated.value;
-  
+
   useEffect(() => {
     if (!isAuthenticated) {
       // Redirect to login if not authenticated
-      RouterState.navigate('/login', { 
-        redirectUrl: window.location.pathname 
+      RouterState.navigate('/login', {
+        redirectUrl: window.location.pathname
       });
     }
   }, [isAuthenticated]);
-  
+
   // Only render children if authenticated
   return isAuthenticated ? children : null;
 }

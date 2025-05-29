@@ -2,7 +2,9 @@
 
 ## Overview
 
-The FeathersJS API & Real-time Services system provides the communication layer between the iR Engine client and backend server. It enables the client to request data, send updates, and receive real-time notifications about changes occurring on the server. By leveraging FeathersJS, a JavaScript framework designed for real-time applications, the iR Engine client maintains a persistent connection to the server that supports both traditional request-response patterns and live event-based updates. This chapter explores how the client uses FeathersJS to interact with server-side resources and maintain synchronized state across the application.
+The FeathersJS API & Real-time Services system provides the communication layer between the iR Engine client and backend server. It enables the client to request data, send updates, and receive real-time notifications about changes occurring on the server.
+
+By leveraging FeathersJS, a JavaScript framework designed for real-time applications, the iR Engine client maintains a persistent connection to the server that supports both traditional request-response patterns and live event-based updates. This chapter explores how the client uses FeathersJS to interact with server-side resources and maintain synchronized state across the application.
 
 ## Core concepts
 
@@ -81,20 +83,20 @@ async function fetchProjectsFromServer() {
 
     // Request a list of projects with query parameters
     const projectData = await projectService.find({
-      query: { 
-        action: 'admin', 
+      query: {
+        action: 'admin',
         allowed: true,
         $sort: { createdAt: -1 }
       }
     });
 
     // Store the received data in Hyperflux state
-    getMutableState(ProjectState).merge({ 
+    getMutableState(ProjectState).merge({
       projects: projectData.data,
       loaded: true,
       loading: false
     });
-    
+
     return projectData.data;
   } catch (error) {
     console.error("Could not fetch projects:", error);
@@ -190,7 +192,7 @@ function setupProjectListeners() {
   // When a project is created on the server
   projectService.on('created', (newProject) => {
     console.log('New project created:', newProject);
-    
+
     // Update our local state to include the new project
     const currentProjects = getMutableState(ProjectState).projects.value || [];
     getMutableState(ProjectState).projects.set([newProject, ...currentProjects]);
@@ -199,10 +201,10 @@ function setupProjectListeners() {
   // When a project is updated on the server
   projectService.on('patched', (updatedProject) => {
     console.log('Project updated:', updatedProject);
-    
+
     // Update the project in our local state
     const currentProjects = getMutableState(ProjectState).projects.value || [];
-    const updatedProjects = currentProjects.map(project => 
+    const updatedProjects = currentProjects.map(project =>
       project.id === updatedProject.id ? updatedProject : project
     );
     getMutableState(ProjectState).projects.set(updatedProjects);
@@ -211,10 +213,10 @@ function setupProjectListeners() {
   // When a project is removed on the server
   projectService.on('removed', (removedProject) => {
     console.log('Project removed:', removedProject);
-    
+
     // Remove the project from our local state
     const currentProjects = getMutableState(ProjectState).projects.value || [];
-    const filteredProjects = currentProjects.filter(project => 
+    const filteredProjects = currentProjects.filter(project =>
       project.id !== removedProject.id
     );
     getMutableState(ProjectState).projects.set(filteredProjects);
@@ -311,12 +313,12 @@ function ProjectManager() {
   async function loadProjects() {
     // Update loading state
     getMutableState(ProjectState).loading.set(true);
-    
+
     try {
       // Fetch projects from the server
       const projectService = API.instance.service('projects');
       const result = await projectService.find({ query: { status: 'active' } });
-      
+
       // Update Hyperflux state with the results
       getMutableState(ProjectState).merge({
         projects: result.data,
@@ -332,15 +334,15 @@ function ProjectManager() {
   // Set up real-time listeners when the component mounts
   useEffect(() => {
     const projectService = API.instance.service('projects');
-    
+
     // Listen for real-time updates
     const createdListener = (newProject) => {
       const currentProjects = getMutableState(ProjectState).projects.value || [];
       getMutableState(ProjectState).projects.set([newProject, ...currentProjects]);
     };
-    
+
     projectService.on('created', createdListener);
-    
+
     // Clean up listeners when the component unmounts
     return () => {
       projectService.removeListener('created', createdListener);

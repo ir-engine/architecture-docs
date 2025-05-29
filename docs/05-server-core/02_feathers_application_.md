@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Feathers Application component is the central element of the iR Engine's server core that serves as the main application instance and orchestrates all server functionality. It initializes the web server, configures middleware, sets up services, and establishes communication channels. By leveraging the FeathersJS framework built on top of KoaJS, this component provides a structured foundation for building a robust, real-time backend system. This chapter explores the implementation, initialization process, and structure of the Feathers application within the iR Engine.
+The Feathers Application component is the central element of the iR Engine's server core that serves as the main application instance and orchestrates all server functionality. It initializes the web server, configures middleware, sets up services, and establishes communication channels.
+
+By leveraging the FeathersJS framework built on top of KoaJS, this component provides a structured foundation for building a robust, real-time backend system. This chapter explores the implementation, initialization process, and structure of the Feathers application within the iR Engine.
 
 ## Core concepts
 
@@ -68,27 +70,27 @@ export const createFeathersKoaApp = async (
 ) => {
   // Create the base Feathers application with Koa
   const app = koa(feathers());
-  
+
   // Store the server mode
   app.set('mode', mode);
-  
+
   // Set up logging
   app.set('logger', logger);
   logger.info(`Creating Feathers application in ${mode} mode`);
-  
+
   // Apply configuration settings
   app.set('port', appConfig.server.port);
   app.set('host', appConfig.server.hostname);
   app.set('paginate', appConfig.server.paginate);
   app.set('authentication', appConfig.authentication);
-  
+
   // Store additional options
   if (options) {
     Object.keys(options).forEach(key => {
       app.set(key, options[key]);
     });
   }
-  
+
   // Return the configured application
   return app;
 };
@@ -120,38 +122,38 @@ import { logger as loggerMiddleware } from './middleware/logger';
 const configureMiddleware = (app: Application) => {
   const logger = app.get('logger');
   logger.info('Configuring middleware');
-  
+
   // Add security headers
   app.use(helmet({
     contentSecurityPolicy: false
   }));
-  
+
   // Enable CORS
   app.use(cors({
     origin: '*',
     credentials: true
   }));
-  
+
   // Compress responses
   app.use(compress());
-  
+
   // Parse request bodies
   app.use(bodyParser());
-  
+
   // Log requests
   app.use(loggerMiddleware(app));
-  
+
   // Handle errors
   app.use(errorHandler());
-  
+
   // Enable REST API
   app.configure(rest());
-  
+
   // Serve static files if in API mode
   if (app.get('mode') === ServerMode.API) {
     app.use(serveStatic(appConfig.server.publicDir));
   }
-  
+
   logger.info('Middleware configured');
 };
 ```
@@ -182,7 +184,7 @@ import appConfig from './appconfig';
 export default function(app: Application) {
   const logger = app.get('logger');
   logger.info('Configuring database connection');
-  
+
   // Create Knex client
   const db = knex({
     client: 'mysql2',
@@ -199,10 +201,10 @@ export default function(app: Application) {
     },
     debug: appConfig.server.nodeEnv === 'development'
   });
-  
+
   // Store the database client in the app
   app.set('knexClient', db);
-  
+
   // Add a hook to close the database connection when the app is stopped
   app.hooks({
     teardown: async () => {
@@ -210,7 +212,7 @@ export default function(app: Application) {
       await db.destroy();
     }
   });
-  
+
   logger.info('Database connection configured');
 }
 ```
@@ -239,22 +241,22 @@ export default function(options: PrimusOptions = {}) {
   return function(app: Application) {
     const logger = app.get('logger');
     logger.info('Configuring Primus for real-time communication');
-    
+
     // Default options
     const primusOptions: PrimusOptions = {
       transformer: 'websockets',
       ...options
     };
-    
+
     // Create Primus server
     const primus = new Primus(app, primusOptions);
-    
+
     // Store the Primus instance
     app.set('primus', primus);
-    
+
     // Configure channels for event distribution
     app.configure(channels);
-    
+
     logger.info('Primus configured');
   };
 }
@@ -266,44 +268,44 @@ export default function(options: PrimusOptions = {}) {
 function channels(app: Application) {
   const logger = app.get('logger');
   logger.info('Configuring channels');
-  
+
   app.on('connection', connection => {
     // On a new real-time connection, add it to the anonymous channel
     app.channel('anonymous').join(connection);
-    
+
     connection.on('authenticate', (auth: any) => {
       // If the connection is authenticated, remove it from anonymous
       app.channel('anonymous').leave(connection);
-      
+
       // Add it to the authenticated channel
       app.channel('authenticated').join(connection);
-      
+
       // Add it to user-specific channel
       app.channel(`user/${auth.user.id}`).join(connection);
     });
   });
-  
+
   // Publish service events to appropriate channels
   app.publish((data, context) => {
     // Get the service that sent the event
     const { service, path } = context;
-    
+
     // Determine which channels should receive the event
     // This is a simplified example - actual logic would be more complex
     if (path === 'messages') {
       // For messages, publish to the specific room
       return app.channel(`room/${data.roomId}`);
     }
-    
+
     // For user-specific data, publish to that user's channel
     if (data.userId) {
       return app.channel(`user/${data.userId}`);
     }
-    
+
     // Default: publish to the authenticated channel
     return app.channel('authenticated');
   });
-  
+
   logger.info('Channels configured');
 }
 ```
@@ -334,21 +336,21 @@ import assetService from './asset/asset.service';
 export default async function(app: Application) {
   const logger = app.get('logger');
   logger.info('Configuring services');
-  
+
   // Configure authentication first
   app.configure(authService);
-  
+
   // Configure user-related services
   app.configure(userService);
-  
+
   // Configure project-related services
   app.configure(projectService);
-  
+
   // Configure asset-related services
   app.configure(assetService);
-  
+
   // ... configure other services
-  
+
   logger.info('Services configured');
 }
 ```
@@ -377,7 +379,7 @@ export type Application = KoaFeathers<ServiceTypes> & {
   primus: any;
   sync: any;
   isSetup: Promise<boolean>;
-  
+
   // Typed getters for common properties
   get(key: 'knexClient'): Knex;
   get(key: 'logger'): Logger;
@@ -405,23 +407,23 @@ sequenceDiagram
     participant Database as Database Connection
     participant Primus as Real-time Communication
     participant Services as Service Registration
-    
+
     Main->>Creator: Call with mode and options
     Creator->>App: Create base application
     Creator->>App: Apply configuration settings
-    
+
     App->>Middleware: Configure middleware
     Middleware->>App: Add request processing
-    
+
     App->>Database: Configure database connection
     Database->>App: Store database client
-    
+
     App->>Primus: Configure real-time communication
     Primus->>App: Set up channels
-    
+
     App->>Services: Load and register services
     Services->>App: Register service endpoints
-    
+
     App->>Main: Return fully configured application
     Main->>App: Start listening (app.listen())
 ```
@@ -522,7 +524,7 @@ The channel system manages real-time communication:
 // Channel configuration
 app.on('connection', connection => {
   app.channel('anonymous').join(connection);
-  
+
   connection.on('authenticate', auth => {
     app.channel('anonymous').leave(connection);
     app.channel('authenticated').join(connection);
@@ -591,7 +593,7 @@ export default function(app) {
       database: appConfig.db.database
     }
   });
-  
+
   app.set('knexClient', db);
 }
 ```
@@ -616,10 +618,10 @@ app.configure(authentication);
 // Inside authentication.ts
 export default function(app) {
   const authService = new AuthenticationService(app);
-  
+
   authService.register('jwt', new JWTStrategy());
   authService.register('local', new LocalStrategy());
-  
+
   app.use('/authentication', authService);
 }
 ```

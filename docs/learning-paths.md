@@ -1,4 +1,4 @@
-# iR Engine learning paths
+# Learning paths
 
 This guide provides recommended learning paths for developers at different experience levels. Choose the path that best matches your current knowledge and goals.
 
@@ -153,4 +153,4 @@ Depending on your role and goals, you might want to create a custom learning pat
 
 ---
 
-[Back to home](./index.md)
+[Back to home](./home.md)

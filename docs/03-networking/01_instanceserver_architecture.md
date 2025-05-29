@@ -1,6 +1,6 @@
 # Instanceserver architecture
 
-Welcome to the first chapter of our exploration into iR Engine's multiplayer infrastructure! In this chapter, we'll dive into the architecture of the instanceserver, which is the backbone of iR Engine's multiplayer capabilities.
+In this chapter, we'll dive into the architecture of the instanceserver, which is the backbone of iR Engine's multiplayer capabilities.
 
 ## What is an Instanceserver?
 
@@ -15,7 +15,7 @@ In iR Engine, the instanceserver is a specialized application that:
 5. Processes voice and video communication
 6. Authenticates users and manages sessions
 
-## Instanceserver Package Structure
+## Instanceserver package structure
 
 The instanceserver is implemented in the `@ir-engine/instanceserver` package. Let's look at its main components:
 
@@ -33,7 +33,7 @@ packages/instanceserver/
 └── package.json
 ```
 
-## How the Instanceserver Works
+## How the Instanceserver works
 
 When a user wants to join a virtual world in iR Engine, the following sequence occurs:
 

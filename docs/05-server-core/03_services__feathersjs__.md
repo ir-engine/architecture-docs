@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Services component is a fundamental element of the iR Engine's server core that organizes business logic and data operations into modular, resource-specific units. Each service manages a particular type of data or functionality, providing standardized methods for creating, reading, updating, and deleting resources. By implementing the service-oriented architecture pattern of FeathersJS, this component creates a clean separation of concerns and enables consistent API access across different resources. This chapter explores the implementation, structure, and usage of services within the iR Engine.
+The Services component is a fundamental element of the iR Engine's server core that organizes business logic and data operations into modular, resource-specific units. Each service manages a particular type of data or functionality, providing standardized methods for creating, reading, updating, and deleting resources.
+
+By implementing the service-oriented architecture pattern of FeathersJS, this component creates a clean separation of concerns and enables consistent API access across different resources. This chapter explores the implementation, structure, and usage of services within the iR Engine.
 
 ## Core concepts
 
@@ -72,11 +74,11 @@ export class UserService extends KnexService<
   constructor(options: any, app: Application) {
     // Call the parent constructor with options
     super(options);
-    
+
     // Store the application instance
     this.app = app;
   }
-  
+
   /**
    * Find users with optional filtering
    * @param params Query parameters
@@ -86,7 +88,7 @@ export class UserService extends KnexService<
     // Use the parent implementation for basic functionality
     return super.find(params);
   }
-  
+
   /**
    * Get a user by ID
    * @param id User ID
@@ -97,7 +99,7 @@ export class UserService extends KnexService<
     // Use the parent implementation for basic functionality
     return super.get(id, params);
   }
-  
+
   /**
    * Create a new user
    * @param data User data
@@ -108,7 +110,7 @@ export class UserService extends KnexService<
     // Use the parent implementation for basic functionality
     return super.create(data, params);
   }
-  
+
   /**
    * Update a user (replace completely)
    * @param id User ID
@@ -120,7 +122,7 @@ export class UserService extends KnexService<
     // Use the parent implementation for basic functionality
     return super.update(id, data, params);
   }
-  
+
   /**
    * Patch a user (partial update)
    * @param id User ID
@@ -132,7 +134,7 @@ export class UserService extends KnexService<
     // Use the parent implementation for basic functionality
     return super.patch(id, data, params);
   }
-  
+
   /**
    * Remove a user
    * @param id User ID
@@ -175,13 +177,13 @@ export default function(app: Application): void {
     name: 'user',
     paginate: app.get('paginate')
   };
-  
+
   // Register the service
   app.use(userPath, new UserService(options, app));
-  
+
   // Get the registered service
   const service = app.service(userPath);
-  
+
   // Set up hooks
   service.hooks(hooks);
 }
@@ -215,21 +217,21 @@ import assetService from './asset/asset/asset.service';
 export default async function(app: Application): Promise<void> {
   const logger = app.get('logger');
   logger.info('Configuring services');
-  
+
   // Configure authentication first
   app.configure(authService);
-  
+
   // Configure user-related services
   app.configure(userService);
-  
+
   // Configure project-related services
   app.configure(projectService);
-  
+
   // Configure asset-related services
   app.configure(assetService);
-  
+
   // ... configure other services
-  
+
   logger.info('Services configured');
 }
 ```
@@ -257,10 +259,10 @@ import { Application } from './declarations';
 async function createUser(app: Application, userData: any): Promise<any> {
   // Get the user service
   const userService = app.service('user');
-  
+
   // Create a new user
   const user = await userService.create(userData);
-  
+
   return user;
 }
 
@@ -273,12 +275,12 @@ async function createUser(app: Application, userData: any): Promise<any> {
 async function findUsers(app: Application, query: any): Promise<any> {
   // Get the user service
   const userService = app.service('user');
-  
+
   // Find users matching the query
   const users = await userService.find({
     query
   });
-  
+
   return users;
 }
 
@@ -292,10 +294,10 @@ async function findUsers(app: Application, query: any): Promise<any> {
 async function updateUser(app: Application, userId: string, userData: any): Promise<any> {
   // Get the user service
   const userService = app.service('user');
-  
+
   // Update the user
   const user = await userService.patch(userId, userData);
-  
+
   return user;
 }
 ```
@@ -317,7 +319,7 @@ sequenceDiagram
     participant Service as Service Object
     participant Hooks as Service Hooks
     participant Database as Database (via Knex)
-    
+
     Client->>App: app.service('user').create(userData)
     App->>Service: Lookup 'user' service
     App->>Hooks: Run 'before' hooks
@@ -372,19 +374,19 @@ import { ServiceMethods } from '@feathersjs/feathers';
 
 export class AnalyticsService implements ServiceMethods<any, any> {
   app: Application;
-  
+
   constructor(options: any, app: Application) {
     this.app = app;
   }
-  
+
   // Implement only the methods needed
   async find(params?: any): Promise<any> {
     // Custom implementation for analytics queries
     const knex = this.app.get('knexClient');
-    
+
     // Complex query logic
     const results = await knex.raw(`
-      SELECT 
+      SELECT
         date_trunc('day', created_at) as day,
         COUNT(*) as count
       FROM events
@@ -392,10 +394,10 @@ export class AnalyticsService implements ServiceMethods<any, any> {
       GROUP BY day
       ORDER BY day
     `, [params.query.eventType]);
-    
+
     return results;
   }
-  
+
   // Other methods can throw "Method not implemented" errors
   // or be implemented as needed
 }
@@ -419,11 +421,11 @@ import { ServiceMethods } from '@feathersjs/feathers';
 
 export class WeatherService implements ServiceMethods<any, any> {
   apiKey: string;
-  
+
   constructor(options: any) {
     this.apiKey = options.apiKey;
   }
-  
+
   async find(params?: any): Promise<any> {
     // Call external weather API
     const response = await axios.get('https://api.weather.com/forecast', {
@@ -432,11 +434,11 @@ export class WeatherService implements ServiceMethods<any, any> {
         location: params.query.location
       }
     });
-    
+
     // Transform and return the data
     return response.data;
   }
-  
+
   // Implement other methods as needed
 }
 ```
@@ -472,7 +474,7 @@ export default function(app: Application): void {
     Model: app.get('knexClient'), // Get the database client
     name: 'user' // Table name
   };
-  
+
   app.use('/users', new UserService(options, app));
 }
 ```
@@ -497,10 +499,10 @@ import { authenticate } from '@feathersjs/authentication/hooks';
 export default function(app: Application): void {
   // Register the service
   app.use('/users', new UserService(options, app));
-  
+
   // Get the registered service
   const service = app.service('/users');
-  
+
   // Set up hooks
   service.hooks({
     before: {

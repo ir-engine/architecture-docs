@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Media Stream Recording component is a specialized feature of the iR Engine's multiplayer infrastructure that enables the capture and storage of audio and video streams from players during gameplay sessions. It leverages the WebRTC communication backbone to access media streams and processes them into standard video formats for later viewing or analysis. By providing robust recording capabilities, this system enhances the multiplayer experience with features like session replay, content creation, and performance analysis. This chapter explores the implementation, workflow, and applications of media stream recording within the iR Engine.
+The Media Stream Recording component is a specialized feature of the iR Engine's multiplayer infrastructure that enables the capture and storage of audio and video streams from players during gameplay sessions. It leverages the WebRTC communication backbone to access media streams and processes them into standard video formats for later viewing or analysis. 
+
+By providing robust recording capabilities, this system enhances the multiplayer experience with features like session replay, content creation, and performance analysis. This chapter explores the implementation, workflow, and applications of media stream recording within the iR Engine.
 
 ## Core concepts
 

@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Hyperflux State & Action System is a core component of the iR Engine's multiplayer infrastructure that provides a reactive state management solution for tracking and synchronizing application state. It enables different parts of the system to maintain awareness of current conditions and coordinate responses to events in a structured manner. By implementing a centralized approach to state management with a clear action dispatch mechanism, Hyperflux creates a predictable data flow that enhances maintainability and scalability. This chapter explores the implementation, patterns, and benefits of the Hyperflux system within the iR Engine.
+The Hyperflux State & Action System is a core component of the iR Engine's multiplayer infrastructure that provides a reactive state management solution for tracking and synchronizing application state. It enables different parts of the system to maintain awareness of current conditions and coordinate responses to events in a structured manner. 
+
+By implementing a centralized approach to state management with a clear action dispatch mechanism, Hyperflux creates a predictable data flow that enhances maintainability and scalability. This chapter explores the implementation, patterns, and benefits of the Hyperflux system within the iR Engine.
 
 ## Core concepts
 

@@ -40,9 +40,9 @@ Explore the [Client core](./04-client-core/index.md) and [Server core](./05-serv
 - How client and server communicate
 - Authentication and authorization
 
-### 4. Networking
+### 4. Networking & multiplayer
 
-Finally, dive into [Networking](./03-networking/index.md) to see how everything communicates:
+Finally, dive into [Networking & multiplayer](./03-networking/index.md) to see how everything communicates:
 
 - Network architecture
 - Data synchronization
@@ -84,13 +84,13 @@ The [UI framework](./08-ui-framework/index.md) documentation explains:
 
 For those interested in extending the engine or understanding its deeper systems:
 
-### 1. Multiplayer infrastructure
+### 1. Networking & multiplayer infrastructure
 
-The [Multiplayer infrastructure](./11-multiplayer-infrastructure/index.md) documentation covers:
+The [Networking & multiplayer](./03-networking/index.md) documentation covers:
 
 - Instanceserver architecture
 - WebRTC networking
-- Agones integration
+- Real-time communication
 - Voice and video communication
 
 ### 2. Matchmaking system
@@ -144,8 +144,8 @@ Depending on your role and goals, you might want to create a custom learning pat
 ### For backend developers
 
 1. Begin with Server core
-2. Dive into Networking
-3. Explore Multiplayer infrastructure
+2. Dive into Networking & multiplayer
+3. Explore Matchmaking system
 4. Learn about Background processing
 
 ### For frontend developers

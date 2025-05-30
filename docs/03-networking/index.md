@@ -1,4 +1,4 @@
-# Multiplayer infrastructure
+# Networking & multiplayer infrastructure
 
 The multiplayer infrastructure of the iR Engine provides the foundation for building real-time multiplayer game servers. It manages the lifecycle of server instances, handles player connections and authorization, and enables real-time communication (audio, video, game data) using Mediasoup WebRTC. Player and server states are managed reactively by Hyperflux, and media streams can be recorded. The entire system is built upon the FeathersJS framework.
 

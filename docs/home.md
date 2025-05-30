@@ -65,11 +65,11 @@ The foundational architecture. Learn about the ECS architecture that structures 
 
 :::link-array-item{headerType="COLOR" headerColor="#F5A623"}
 
-🌐 **Networking**
+🌐 **Networking & multiplayer**
 
-Systems for multiplayer functionality. Core networking systems that enable multiplayer experiences.
+Core networking and multiplayer systems. Real-time communication, WebRTC, and multiplayer infrastructure.
 
-[Explore Networking](./03-networking/index.md)
+[Explore Networking & Multiplayer](./03-networking/index.md)
 :::
 
 :::link-array-item{headerType="COLOR" headerColor="#D0021B"}
@@ -141,14 +141,7 @@ Node-based visual programming. Node-based visual programming system for non-prog
 [Explore World Editor](./10-world-editor/index.md)
 :::
 
-:::link-array-item{headerType="COLOR" headerColor="#4A90E2"}
 
-🔗 **Multiplayer infrastructure**
-
-Instanceserver, WebRTC, and Agones. Advanced multiplayer systems including WebRTC and Agones.
-
-[Explore Multiplayer Infrastructure](./11-multiplayer-infrastructure/index.md)
-:::
 
 :::link-array-item{headerType="COLOR" headerColor="#50E3C2"}
 

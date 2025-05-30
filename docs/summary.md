@@ -22,7 +22,7 @@
   * [Engine (world)](02-entity-component-system/04_engine__world__.md)
   * [Component schema](02-entity-component-system/05_component_schema_.md)
 
-* [Networking](03-networking/index.md)
+* [Networking & multiplayer](03-networking/index.md)
   * [Instanceserver architecture](03-networking/01_instanceserver_architecture.md)
   * [Mediasoup WebRTC communication backbone](03-networking/01_mediasoup_webrtc_communication_backbone_.md)
   * [Instance lifecycle management](03-networking/02_instance_lifecycle_management_.md)
@@ -99,15 +99,6 @@
   * [Editor control functions](10-world-editor/07_editor_control_functions_.md)
   * [Modal dialog management](10-world-editor/08_modal_dialog_management_.md)
   * [Editor state management (Hyperflux)](10-world-editor/09_editor_state_management__hyperflux__.md)
-
-* [Multiplayer infrastructure](11-multiplayer-infrastructure/index.md)
-  * [Instanceserver architecture](11-multiplayer-infrastructure/01_instanceserver_architecture.md)
-  * [Mediasoup WebRTC communication backbone](11-multiplayer-infrastructure/01_mediasoup_webrtc_communication_backbone_.md)
-  * [Instance lifecycle management](11-multiplayer-infrastructure/02_instance_lifecycle_management_.md)
-  * [User connection and authorization](11-multiplayer-infrastructure/03_user_connection_and_authorization_.md)
-  * [FeathersJS application & services](11-multiplayer-infrastructure/04_feathersjs_application___services_.md)
-  * [Hyperflux state & action system](11-multiplayer-infrastructure/05_hyperflux_state___action_system_.md)
-  * [Media stream recording](11-multiplayer-infrastructure/06_media_stream_recording_.md)
 
 * [Matchmaking system](12-matchmaking-system/index.md)
   * [Frontend service interaction](12-matchmaking-system/01_frontend_service_interaction_.md)

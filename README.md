@@ -53,11 +53,11 @@ You can also browse the documentation directly by opening the Markdown files in 
 
 ## Documentation generator tool
 
-This documentation was created using PocketFlow, a documentation generator tool that:
+This documentation was created using PocketFlow, a codebase analysis tool that:
 
-1. Analyzes codebases to identify key abstra238798238798ctions
+1. Analyzes codebases to identify key architectural concepts
 2. Determines relationships between components
-3. Creates beginner-friendly tutorials explaining how the code works
+3. Creates comprehensive tutorials explaining how the code works
 
 ## Getting started with the documentation generator
 
@@ -80,10 +80,10 @@ If you want to generate documentation for additional iR Engine components or upd
    cp .env.sample .env
 
    # Edit the .env file and add your API key
-   # Replace "<GEMINI_API_KEY>" with your actual Gemini API key
+   # Replace "<GEMINI_API_KEY>" with your actual API key
    ```
 
-   You can get a Gemini API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
+   You can get an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
 
    The `.env` file is included in `.gitignore` so your API key won't be uploaded to GitHub.
 
@@ -142,7 +142,7 @@ To run the documentation generator in a Docker container:
 
 ## Acknowledgments
 
-This documentation and generation tooling is based on [PocketFlow Tutorial Codebase Knowledge](https://github.com/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge), an AI-powered tool for analyzing codebases and generating comprehensive documentation.
+This documentation and generation tooling is based on [PocketFlow Tutorial Codebase Knowledge](https://github.com/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge), a tool for analyzing codebases and generating comprehensive documentation.
 
 ## Contributing
 

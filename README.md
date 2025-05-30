@@ -53,11 +53,14 @@ You can also browse the documentation directly by opening the Markdown files in 
 
 ## Documentation generator tool
 
-This documentation was created using PocketFlow, a codebase analysis tool that:
+The foundation for this documentation was generated using PocketFlow, a codebase analysis tool that:
 
 1. Analyzes codebases to identify key architectural concepts
-2. Determines relationships between components
-3. Creates comprehensive tutorials explaining how the code works
+2. Determines relationships and interconnectivity between components
+3. Maps dependencies across the codebase
+4. Creates initial tutorial content explaining how the code works
+
+The final documentation output requires expert curation, review, and modifications to ensure accuracy, clarity, and educational effectiveness.
 
 ## Getting started with the documentation generator
 

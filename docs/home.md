@@ -18,7 +18,7 @@ New to iR Engine? Choose your learning path:
 
 Start here if you're new to the iR Engine. Perfect starting point for developers new to the iR Engine. Learn the fundamentals and core concepts.
 
-[Beginner's Guide](./learning-paths.md#beginners)
+[Beginner's Guide](./learning-paths.md#for-beginners)
 :::
 
 :::link-array-item{headerType="COLOR" headerColor="#50E3C2"}
@@ -27,7 +27,7 @@ Start here if you're new to the iR Engine. Perfect starting point for developers
 
 Already familiar with the basics? Build upon your existing knowledge and dive deeper into advanced iR Engine features.
 
-[Intermediate Guide](./learning-paths.md#intermediate)
+[Intermediate Guide](./learning-paths.md#for-intermediate-developers)
 :::
 
 :::link-array-item{headerType="COLOR" headerColor="#F5A623"}
@@ -36,7 +36,7 @@ Already familiar with the basics? Build upon your existing knowledge and dive de
 
 Looking to extend the engine? Explore advanced topics, customization, and extending the iR Engine for your specific needs.
 
-[Advanced Guide](./learning-paths.md#advanced)
+[Advanced Guide](./learning-paths.md#for-advanced-developers)
 :::
 
 ::::

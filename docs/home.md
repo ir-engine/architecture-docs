@@ -132,7 +132,7 @@ Node-based visual programming. Node-based visual programming system for non-prog
 [Explore Visual Scripting](./09-visual-scripting/index.md)
 :::
 
-:::link-array-item{headerType="COLOR" headerColor="#9013FE"}
+:::link-array-item{headerType="COLOR" headerColor="#FF6B35"}
 
 🌍 **World editor**
 
@@ -143,7 +143,7 @@ Node-based visual programming. Node-based visual programming system for non-prog
 
 
 
-:::link-array-item{headerType="COLOR" headerColor="#50E3C2"}
+:::link-array-item{headerType="COLOR" headerColor="#FF9500"}
 
 🎲 **Matchmaking system**
 
@@ -152,7 +152,7 @@ Open match-based matchmaking. Player matchmaking using Open Match framework.
 [Explore Matchmaking System](./12-matchmaking-system/index.md)
 :::
 
-:::link-array-item{headerType="COLOR" headerColor="#7ED321"}
+:::link-array-item{headerType="COLOR" headerColor="#34C759"}
 
 ⚡ **Background processing**
 
